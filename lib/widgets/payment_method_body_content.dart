@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 
 import 'custom_button.dart';
 
@@ -102,9 +103,12 @@ class paymentMethodBodyContent extends StatelessWidget {
             )),
           ),
           const Spacer(),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 100.0),
-            child: CustomButton(title: 'Next'),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, kUplaodScrean),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 100.0),
+              child: CustomButton(title: 'Next'),
+            ),
           ),
           const SizedBox(
             height: 50,
