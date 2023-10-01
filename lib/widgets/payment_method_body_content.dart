@@ -38,37 +38,46 @@ class paymentMethodBodyContent extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
+              color: Color(0xffffffff),
+              border: Border.all(
+                color: Color(0xffffffff),
+              ),
+              borderRadius: BorderRadius.circular(22),
               boxShadow: [
                 BoxShadow(
+                    offset: Offset(0, 0),
                     color: Color(0x115a6cea),
-                    offset: Offset(50, 50),
-                    blurRadius: 50),
+                    spreadRadius: 25,
+                    blurRadius: 25)
               ],
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(15),
             ),
             child: Center(
-                child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: SvgPicture.asset(
-                'assets/images/paypal-2 (1) 1.svg',
-                height: 30,
+              child: Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: SvgPicture.asset(
+                  'assets/images/paypal-2 (1) 1.svg',
+                  height: 30,
+                ),
               ),
-            )),
+            ),
           ),
           const SizedBox(
             height: 12,
           ),
           Container(
             decoration: BoxDecoration(
+              color: Color(0xffffffff),
               boxShadow: [
                 BoxShadow(
+                    offset: Offset(0, 0),
                     color: Color(0x115a6cea),
-                    offset: Offset(50, 50),
-                    blurRadius: 50),
+                    spreadRadius: 25,
+                    blurRadius: 25)
               ],
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                color: Color(0xffffffff),
+              ),
+              borderRadius: BorderRadius.circular(22),
             ),
             child: Center(
                 child: Padding(
@@ -84,14 +93,18 @@ class paymentMethodBodyContent extends StatelessWidget {
           ),
           Container(
             decoration: BoxDecoration(
+              color: Color(0xffffffff),
               boxShadow: [
                 BoxShadow(
+                    offset: Offset(0, 0),
                     color: Color(0x115a6cea),
-                    offset: Offset(50, 50),
-                    blurRadius: 50),
+                    spreadRadius: 25,
+                    blurRadius: 25)
               ],
-              border: Border.all(color: Colors.grey),
-              borderRadius: BorderRadius.circular(15),
+              border: Border.all(
+                color: Color(0xffffffff),
+              ),
+              borderRadius: BorderRadius.circular(22),
             ),
             child: Center(
                 child: Padding(

@@ -21,46 +21,70 @@ class SignUpBodyContent extends StatelessWidget {
             style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold, fontSize: 26),
           ),
-          SizedBox(
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(0, 0),
+                    color: Color(0x115a6cea),
+                    spreadRadius: 25,
+                    blurRadius: 25)
+              ],
+            ),
             width: MediaQuery.of(context).size.width - 40,
             child: TextFormField(
               decoration: InputDecoration(
                   border: OutlineInputBorder(
                       borderRadius: BorderRadius.circular(15),
-                      borderSide:
-                          const BorderSide(width: 2, color: Colors.grey)),
+                      borderSide: BorderSide(width: 2, color: Colors.grey)),
                   hintText: 'Your Name',
-                  hintStyle: const TextStyle(color: Colors.grey)),
+                  hintStyle: TextStyle(color: Colors.grey)),
             ),
           ),
-          SizedBox(
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(0, 0),
+                    color: Color(0x115a6cea),
+                    spreadRadius: 25,
+                    blurRadius: 25)
+              ],
+            ),
             width: MediaQuery.of(context).size.width - 40,
             child: TextFormField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: const BorderSide(
-                      width: 2, color: Colors.grey), // Border color
-                ),
-                hintText: 'Email',
-                hintStyle: const TextStyle(
-                    color: Colors.grey), // Color of the hint text
-              ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(width: 2, color: Colors.grey)),
+                  hintText: 'Email',
+                  hintStyle: TextStyle(color: Colors.grey)),
             ),
           ),
-          SizedBox(
+          Container(
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(15),
+              color: Colors.white,
+              boxShadow: [
+                BoxShadow(
+                    offset: Offset(0, 0),
+                    color: Color(0x115a6cea),
+                    spreadRadius: 25,
+                    blurRadius: 25)
+              ],
+            ),
             width: MediaQuery.of(context).size.width - 40,
             child: TextFormField(
               decoration: InputDecoration(
-                border: OutlineInputBorder(
-                  borderRadius: BorderRadius.circular(15),
-                  borderSide: const BorderSide(
-                      width: 2, color: Colors.grey), // Border color
-                ),
-                hintText: 'Password',
-                hintStyle: const TextStyle(
-                    color: Colors.grey), // Color of the hint text
-              ),
+                  border: OutlineInputBorder(
+                      borderRadius: BorderRadius.circular(15),
+                      borderSide: BorderSide(width: 2, color: Colors.grey)),
+                  hintText: 'Password',
+                  hintStyle: TextStyle(color: Colors.grey)),
             ),
           ),
           Row(
