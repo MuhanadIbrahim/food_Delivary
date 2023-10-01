@@ -39,12 +39,12 @@ class SignUpBodyContent extends StatelessWidget {
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
-                  borderSide:
-                      BorderSide(width: 2, color: Colors.grey), // Border color
+                  borderSide: const BorderSide(
+                      width: 2, color: Colors.grey), // Border color
                 ),
                 hintText: 'Email',
-                hintStyle:
-                    TextStyle(color: Colors.grey), // Color of the hint text
+                hintStyle: const TextStyle(
+                    color: Colors.grey), // Color of the hint text
               ),
             ),
           ),
@@ -54,12 +54,12 @@ class SignUpBodyContent extends StatelessWidget {
               decoration: InputDecoration(
                 border: OutlineInputBorder(
                   borderRadius: BorderRadius.circular(15),
-                  borderSide:
-                      BorderSide(width: 2, color: Colors.grey), // Border color
+                  borderSide: const BorderSide(
+                      width: 2, color: Colors.grey), // Border color
                 ),
                 hintText: 'Password',
-                hintStyle:
-                    TextStyle(color: Colors.grey), // Color of the hint text
+                hintStyle: const TextStyle(
+                    color: Colors.grey), // Color of the hint text
               ),
             ),
           ),
@@ -68,7 +68,10 @@ class SignUpBodyContent extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              SvgPicture.asset('assets/images/checksvg.svg'),
+              CircleAvatar(
+                  radius: 8,
+                  backgroundColor: const Color(0xff14be77),
+                  child: SvgPicture.asset('assets/images/checksvg.svg')),
               const SizedBox(
                 width: 10,
               ),
@@ -83,7 +86,10 @@ class SignUpBodyContent extends StatelessWidget {
               const SizedBox(
                 width: 10,
               ),
-              SvgPicture.asset('assets/images/checksvg.svg'),
+              CircleAvatar(
+                  backgroundColor: const Color(0xff14be77),
+                  radius: 8,
+                  child: SvgPicture.asset('assets/images/checksvg.svg')),
               const SizedBox(
                 width: 10,
               ),
