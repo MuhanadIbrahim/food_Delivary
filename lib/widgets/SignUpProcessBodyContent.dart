@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery_app/widgets/borderless_box_decoration.dart';
 
 import '../constans/constans.dart';
 import 'custom_button.dart';
@@ -39,17 +40,7 @@ class SignUpProcessBodyContent extends StatelessWidget {
             height: 25,
           ),
           Container(
-            decoration: BoxDecoration(
-              color: Color(0xffffffff),
-              borderRadius: BorderRadius.circular(22),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(0, 0),
-                    color: Color(0x115a6cea),
-                    spreadRadius: 25,
-                    blurRadius: 25)
-              ],
-            ),
+            decoration: borderLessBoxDecoration(),
             child: TextFormField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -72,17 +63,7 @@ class SignUpProcessBodyContent extends StatelessWidget {
             height: 12,
           ),
           Container(
-            decoration: BoxDecoration(
-              color: Color(0xffffffff),
-              borderRadius: BorderRadius.circular(22),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(0, 0),
-                    color: Color(0x115a6cea),
-                    spreadRadius: 25,
-                    blurRadius: 25)
-              ],
-            ),
+            decoration: borderLessBoxDecoration(),
             child: TextFormField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
@@ -105,17 +86,7 @@ class SignUpProcessBodyContent extends StatelessWidget {
             height: 12,
           ),
           Container(
-            decoration: BoxDecoration(
-              color: Color(0xffffffff),
-              borderRadius: BorderRadius.circular(22),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(0, 0),
-                    color: Color(0x115a6cea),
-                    spreadRadius: 25,
-                    blurRadius: 25)
-              ],
-            ),
+            decoration: borderLessBoxDecoration(),
             child: TextFormField(
               decoration: InputDecoration(
                 enabledBorder: OutlineInputBorder(
