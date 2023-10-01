@@ -16,7 +16,7 @@ class CustomTextFormFieldForPassword extends StatelessWidget {
               offset: Offset(0, 0),
               color: Color(0x115a6cea),
               spreadRadius: 25,
-              blurRadius: 25)
+              blurRadius: 50)
         ],
       ),
       width: MediaQuery.of(context).size.width - 40,
@@ -50,8 +50,8 @@ class CustomTextFormFieldForEmail extends StatelessWidget {
           BoxShadow(
               offset: Offset(0, 0),
               color: Color(0x115a6cea),
-              spreadRadius: 25,
-              blurRadius: 25)
+              spreadRadius: 20,
+              blurRadius: 50)
         ],
       ),
       width: MediaQuery.of(context).size.width - 40,

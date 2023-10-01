@@ -30,7 +30,7 @@ class SignUpBodyContent extends StatelessWidget {
                     offset: Offset(0, 0),
                     color: Color(0x115a6cea),
                     spreadRadius: 25,
-                    blurRadius: 25)
+                    blurRadius: 50)
               ],
             ),
             width: MediaQuery.of(context).size.width - 40,
@@ -52,7 +52,7 @@ class SignUpBodyContent extends StatelessWidget {
                     offset: Offset(0, 0),
                     color: Color(0x115a6cea),
                     spreadRadius: 25,
-                    blurRadius: 25)
+                    blurRadius: 50)
               ],
             ),
             width: MediaQuery.of(context).size.width - 40,
@@ -74,7 +74,7 @@ class SignUpBodyContent extends StatelessWidget {
                     offset: Offset(0, 0),
                     color: Color(0x115a6cea),
                     spreadRadius: 25,
-                    blurRadius: 25)
+                    blurRadius: 50)
               ],
             ),
             width: MediaQuery.of(context).size.width - 40,
