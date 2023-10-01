@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 
 import 'borderless_box_decoration.dart';
 import 'custom_button.dart';
@@ -15,23 +16,23 @@ class UploadBodyContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-      const     Spacer(
+          const Spacer(
             flex: 2,
           ),
           SvgPicture.asset('assets/images/Icon Back.svg'),
-        const   Spacer(
+          const Spacer(
             flex: 1,
           ),
           const Text(
             'Upload Your Photo\nProfile',
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
-        const   Spacer(
+          const Spacer(
             flex: 1,
           ),
           const Text(
               'This data will be displayed in your account \nprofile for security'),
-         const  Spacer(
+          const Spacer(
             flex: 1,
           ),
           Container(
@@ -48,7 +49,7 @@ class UploadBodyContent extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                  const  Text(
+                    const Text(
                       'From Gallery',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
@@ -58,11 +59,11 @@ class UploadBodyContent extends StatelessWidget {
               ),
             ),
           ),
-         const  Spacer(
+          const Spacer(
             flex: 1,
           ),
           Container(
-            decoration:borderLessBoxDecoration(),
+            decoration: borderLessBoxDecoration(),
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -75,7 +76,7 @@ class UploadBodyContent extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                   const  Text(
+                    const Text(
                       ' Take Photo',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
@@ -85,20 +86,21 @@ class UploadBodyContent extends StatelessWidget {
               ),
             ),
           ),
-         const  Spacer(
+          const Spacer(
             flex: 8,
           ),
-          const Padding(
-            padding: EdgeInsets.symmetric(horizontal: 100.0),
-            child: CustomButton(title: 'Next'),
+          GestureDetector(
+            onTap: () => Navigator.pushNamed(context, kUploadPreview),
+            child: const Padding(
+              padding: EdgeInsets.symmetric(horizontal: 100.0),
+              child: CustomButton(title: 'Next'),
+            ),
           ),
-         const Spacer(
+          const Spacer(
             flex: 2,
           )
         ],
       ),
     );
   }
-
- 
 }
