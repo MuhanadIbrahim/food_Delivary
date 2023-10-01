@@ -10,3 +10,4 @@ const String kSignUpProcess = '/SignUp_process';
 const String kPaymentMethod = '/payment_method';
 const String kUplaodScrean = '/Upload_screan';
 const String kUploadPreview = '/upload_preview';
+const String kSetLocationScrean = '/set_location_screan';

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 
 import 'custom_button.dart';
 
@@ -34,7 +35,7 @@ class UploadPreviewBodyContent extends StatelessWidget {
             flex: 1,
           ),
           Padding(
-            padding:const  EdgeInsets.symmetric(horizontal: 45.0),
+            padding: const EdgeInsets.symmetric(horizontal: 45.0),
             child: Container(
               height: 300,
               width: 300,
@@ -58,6 +59,7 @@ class UploadPreviewBodyContent extends StatelessWidget {
             flex: 8,
           ),
           GestureDetector(
+            onTap: () => Navigator.pushNamed(context, kSetLocationScrean),
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 100.0),
               child: CustomButton(title: 'Next'),

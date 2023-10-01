@@ -6,6 +6,7 @@ import 'package:food_delivery_app/views/payment_method.dart';
 import 'package:food_delivery_app/views/screan1.dart';
 import 'package:food_delivery_app/views/screan2.dart';
 import 'package:food_delivery_app/views/screan3.dart';
+import 'package:food_delivery_app/views/set_location_screan.dart';
 import 'package:food_delivery_app/views/sign_up_process.dart';
 import 'package:food_delivery_app/views/sign_up_screan.dart';
 import 'package:food_delivery_app/views/upload_preview_screan.dart';
@@ -34,6 +35,7 @@ class MyApp extends StatelessWidget {
         kPaymentMethod: (context) => const PaymentMethodScrean(),
         kUplaodScrean: (context) => const UploadScrean(),
         kUploadPreview: (context) => const UploadPreviewScrean(),
+        kSetLocationScrean: (context) => const SetLocationScrean(),
       },
       home: const CustomSplashScreanWidget(), // Set the initial page
       theme: ThemeData(fontFamily: 'Roboto'),
