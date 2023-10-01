@@ -9,6 +9,7 @@ import 'package:food_delivery_app/views/screan3.dart';
 import 'package:food_delivery_app/views/set_location_screan.dart';
 import 'package:food_delivery_app/views/sign_up_process.dart';
 import 'package:food_delivery_app/views/sign_up_screan.dart';
+import 'package:food_delivery_app/views/signup_success_notication_screan.dart';
 import 'package:food_delivery_app/views/upload_preview_screan.dart';
 import 'package:food_delivery_app/views/upload_screan.dart';
 
@@ -36,6 +37,7 @@ class MyApp extends StatelessWidget {
         kUplaodScrean: (context) => const UploadScrean(),
         kUploadPreview: (context) => const UploadPreviewScrean(),
         kSetLocationScrean: (context) => const SetLocationScrean(),
+        kSignUpSuccessNotification:(context) => const SignupSuccessNotifaction(),
       },
       home: const CustomSplashScreanWidget(), // Set the initial page
       theme: ThemeData(fontFamily: 'Roboto'),

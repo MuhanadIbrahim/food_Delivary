@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 import 'package:food_delivery_app/widgets/borderless_box_decoration.dart';
 
 import 'custom_button.dart';
@@ -80,6 +81,8 @@ class SetlocationBodyContent extends StatelessWidget {
             flex: 8,
           ),
           GestureDetector(
+            onTap: () =>
+                Navigator.pushNamed(context, kSignUpSuccessNotification),
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 100.0),
               child: CustomButton(title: 'Next'),
