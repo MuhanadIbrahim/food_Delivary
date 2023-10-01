@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 
+import 'borderless_box_decoration.dart';
 import 'custom_button.dart';
 
 class UploadBodyContent extends StatelessWidget {
@@ -14,40 +15,27 @@ class UploadBodyContent extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceAround,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Spacer(
+      const     Spacer(
             flex: 2,
           ),
           SvgPicture.asset('assets/images/Icon Back.svg'),
-          Spacer(
+        const   Spacer(
             flex: 1,
           ),
           const Text(
             'Upload Your Photo\nProfile',
             style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
           ),
-          Spacer(
+        const   Spacer(
             flex: 1,
           ),
           const Text(
               'This data will be displayed in your account \nprofile for security'),
-          Spacer(
+         const  Spacer(
             flex: 1,
           ),
           Container(
-            decoration: BoxDecoration(
-              color: Color(0xffffffff),
-              border: Border.all(
-                color: Color(0xffffffff),
-              ),
-              borderRadius: BorderRadius.circular(22),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(0, 0),
-                    color: Color(0x115a6cea),
-                    spreadRadius: 25,
-                    blurRadius: 25)
-              ],
-            ),
+            decoration: borderLessBoxDecoration(),
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -60,7 +48,7 @@ class UploadBodyContent extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    Text(
+                  const  Text(
                       'From Gallery',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
@@ -70,24 +58,11 @@ class UploadBodyContent extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(
+         const  Spacer(
             flex: 1,
           ),
           Container(
-            decoration: BoxDecoration(
-              color: Color(0xffffffff),
-              border: Border.all(
-                color: Color(0xffffffff),
-              ),
-              borderRadius: BorderRadius.circular(22),
-              boxShadow: [
-                BoxShadow(
-                    offset: Offset(0, 0),
-                    color: Color(0x115a6cea),
-                    spreadRadius: 25,
-                    blurRadius: 25)
-              ],
-            ),
+            decoration:borderLessBoxDecoration(),
             child: Center(
               child: Padding(
                 padding: const EdgeInsets.all(20.0),
@@ -100,7 +75,7 @@ class UploadBodyContent extends StatelessWidget {
                     const SizedBox(
                       height: 8,
                     ),
-                    Text(
+                   const  Text(
                       ' Take Photo',
                       style:
                           TextStyle(fontWeight: FontWeight.bold, fontSize: 17),
@@ -110,18 +85,20 @@ class UploadBodyContent extends StatelessWidget {
               ),
             ),
           ),
-          Spacer(
+         const  Spacer(
             flex: 8,
           ),
-          Padding(
+          const Padding(
             padding: EdgeInsets.symmetric(horizontal: 100.0),
             child: CustomButton(title: 'Next'),
           ),
-          Spacer(
+         const Spacer(
             flex: 2,
           )
         ],
       ),
     );
   }
+
+ 
 }
