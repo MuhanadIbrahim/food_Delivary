@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery_app/constans/constans.dart';
+import 'package:food_delivery_app/widgets/verfication_code_box.dart';
 
-import 'borderless_box_decoration.dart';
 import 'custom_button.dart';
 
 class VertificationCodeBodyContent extends StatelessWidget {
@@ -39,87 +40,12 @@ class VertificationCodeBodyContent extends StatelessWidget {
           const Spacer(
             flex: 1,
           ),
-          Container(
-            height: 130,
-            decoration: borderLessBoxDecoration(),
-            child: const Padding(
-              padding: EdgeInsets.only(top: 35.0),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  SizedBox(
-                    width: 10,
-                  ),
-                  Text(
-                    '1',
-                    style: TextStyle(
-                      color: Color(0xFF09051C),
-                      fontSize: 60,
-                      fontFamily: 'BentonSans Medium',
-                      fontWeight: FontWeight.bold,
-                      height: 0.05,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    '9',
-                    style: TextStyle(
-                      color: Color(0xFF09051C),
-                      fontSize: 60,
-                      fontFamily: 'BentonSans Medium',
-                      fontWeight: FontWeight.bold,
-                      height: 0.05,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    '2',
-                    style: TextStyle(
-                      color: Color(0xFF09051C),
-                      fontSize: 60,
-                      fontFamily: 'BentonSans Medium',
-                      fontWeight: FontWeight.bold,
-                      height: 0.05,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  SizedBox(
-                    width: 20,
-                  ),
-                  Text(
-                    '3',
-                    style: TextStyle(
-                      color: Color(0xFF09051C),
-                      fontSize: 60,
-                      fontFamily: 'BentonSans Medium',
-                      fontWeight: FontWeight.bold,
-                      height: 0.05,
-                    ),
-                  ),
-                  SizedBox(
-                    width: 10,
-                  ),
-                ],
-              ),
-            ),
-          ),
+          VerficationCodeBox(),
           const Spacer(
             flex: 8,
           ),
           GestureDetector(
+            onTap: () => Navigator.pushNamed(context, kForgetPasswordScrean),
             child: const Padding(
               padding: EdgeInsets.symmetric(horizontal: 100.0),
               child: CustomButton(title: 'Next'),

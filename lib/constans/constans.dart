@@ -13,3 +13,4 @@ const String kUploadPreview = '/upload_preview';
 const String kSetLocationScrean = '/set_location_screan';
 const String kSignUpSuccessNotification = '/signUp_Notification_success';
 const String kVertificationCodeScrean = '/Vertification_code_screan';
+const String kForgetPasswordScrean = '/forget_password_screan';
