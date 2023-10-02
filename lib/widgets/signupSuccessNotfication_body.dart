@@ -1,9 +1,7 @@
-
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 import 'package:food_delivery_app/widgets/signupsuccessNoticationbody_content.dart';
-
-import '../views/signup_success_notication_screan.dart';
 
 class SignUpSuccessNotifcationBody extends StatelessWidget {
   const SignUpSuccessNotifcationBody({super.key});
@@ -11,6 +9,7 @@ class SignUpSuccessNotifcationBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: kprimaryBackGroundColor,
       body: Stack(
         children: [
           SvgPicture.asset('assets/images/backGroundApp.svg'),
