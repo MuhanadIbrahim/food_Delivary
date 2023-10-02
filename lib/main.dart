@@ -4,6 +4,7 @@ import 'package:food_delivery_app/views/forget_password.dart';
 import 'package:food_delivery_app/views/login_screan.dart';
 import 'package:food_delivery_app/views/payment_method.dart';
 import 'package:food_delivery_app/views/rest_password_screan.dart';
+import 'package:food_delivery_app/views/restpassword_successnotication_screan.dart';
 import 'package:food_delivery_app/views/screan1.dart';
 import 'package:food_delivery_app/views/screan2.dart';
 import 'package:food_delivery_app/views/screan3.dart';
@@ -44,6 +45,7 @@ class MyApp extends StatelessWidget {
         kVertificationCodeScrean: (context) => const VertificationCodeScrean(),
         kForgetPasswordScrean: (context) => const ForgetPasswordScrean(),
         kRestpasswordScrean:(context) => const RestPasswordScrean(),
+        kRestpasswordNoticationSuccess:(context) => const RestPasswordSuccesNoticationScrean(),
       },
       home: const CustomSplashScreanWidget(), // Set the initial page
       theme: ThemeData(fontFamily: 'Roboto'),

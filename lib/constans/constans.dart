@@ -15,3 +15,4 @@ const String kSignUpSuccessNotification = '/signUp_Notification_success';
 const String kVertificationCodeScrean = '/Vertification_code_screan';
 const String kForgetPasswordScrean = '/forget_password_screan';
 const String kRestpasswordScrean = '/rest_password_screan';
+const String kRestpasswordNoticationSuccess = '/restpassword_noticationsuccess';
