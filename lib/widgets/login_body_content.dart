@@ -43,12 +43,15 @@ class LoginScreanBodyContent extends StatelessWidget {
               Positioned(
                   left: MediaQuery.of(context).size.width / 3,
                   bottom: MediaQuery.of(context).size.height / 25,
-                  child: SvgPicture.asset(
-                      'assets/images/Forgot Password Link.svg')),
+                  child: GestureDetector(
+                    onTap: () =>Navigator.pushNamed(context,kForgetPasswordScrean ) ,
+                    child: SvgPicture.asset(
+                        'assets/images/Forgot Password Link.svg'),
+                  )),
             ],
           ),
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, kSignUpScrean),
+            onTap: () => Navigator.pushNamed(context, kHomeScrean),
             child: const CustomButton(title: 'Login'),
           ),
         ],

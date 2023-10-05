@@ -32,7 +32,7 @@ class SignupSuccessNotificationBodyContent extends StatelessWidget {
             flex: 3,
           ),
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, kVertificationCodeScrean),
+            onTap: () => Navigator.pushNamed(context, kHomeScrean),
             child: const CustomButton(
               title: 'Try Order',
             ),

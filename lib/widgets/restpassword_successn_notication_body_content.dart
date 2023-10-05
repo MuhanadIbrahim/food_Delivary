@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 
 import 'custom_button.dart';
 
@@ -31,6 +32,7 @@ class RestpasswordSuccesNoticationBodyContent extends StatelessWidget {
             flex: 3,
           ),
           GestureDetector(
+            onTap: () => Navigator.pushNamed(context, kLoginScrean),
             child: const CustomButton(
               title: 'Back',
             ),

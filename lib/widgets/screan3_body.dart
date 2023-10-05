@@ -33,7 +33,7 @@ class Screan3Body extends StatelessWidget {
               ],
             ),
             GestureDetector(
-                onTap: () => Navigator.pushNamed(context, kLoginScrean),
+                onTap: () => Navigator.pushNamed(context, kSignUpScrean),
                 child: const CustomButton(title: 'Next')),
             const SizedBox(
               height: 25,

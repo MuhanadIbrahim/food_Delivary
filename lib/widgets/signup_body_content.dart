@@ -127,7 +127,9 @@ class SignUpBodyContent extends StatelessWidget {
             onTap: () => Navigator.pushNamed(context, kSignUpProcess),
             child: const CustomButton(title: 'Create Account'),
           ),
-          SvgPicture.asset('assets/images/Create Accalready have account.svg'),
+          GestureDetector(
+            onTap:() => Navigator.pushNamed(context, kLoginScrean),
+            child: SvgPicture.asset('assets/images/Create Accalready have account.svg')),
         ],
       ),
     );
