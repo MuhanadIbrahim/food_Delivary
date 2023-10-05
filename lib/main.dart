@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constans/constans.dart';
 import 'package:food_delivery_app/views/forget_password.dart';
+import 'package:food_delivery_app/views/home_screan.dart';
 import 'package:food_delivery_app/views/login_screan.dart';
 import 'package:food_delivery_app/views/payment_method.dart';
 import 'package:food_delivery_app/views/rest_password_screan.dart';
@@ -47,6 +48,7 @@ class MyApp extends StatelessWidget {
         kRestpasswordScrean: (context) => const RestPasswordScrean(),
         kRestpasswordNoticationSuccess: (context) =>
             const RestPasswordSuccesNoticationScrean(),
+        kHomeScrean: (context) => const HomeScrean(),
       },
       home: const CustomSplashScreanWidget(),
       // Set the initial page
