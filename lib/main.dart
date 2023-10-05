@@ -44,11 +44,14 @@ class MyApp extends StatelessWidget {
             const SignupSuccessNotifaction(),
         kVertificationCodeScrean: (context) => const VertificationCodeScrean(),
         kForgetPasswordScrean: (context) => const ForgetPasswordScrean(),
-        kRestpasswordScrean:(context) => const RestPasswordScrean(),
-        kRestpasswordNoticationSuccess:(context) => const RestPasswordSuccesNoticationScrean(),
+        kRestpasswordScrean: (context) => const RestPasswordScrean(),
+        kRestpasswordNoticationSuccess: (context) =>
+            const RestPasswordSuccesNoticationScrean(),
       },
-      home: const CustomSplashScreanWidget(), // Set the initial page
+      home: const CustomSplashScreanWidget(),
+      // Set the initial page
       theme: ThemeData(fontFamily: 'Roboto'),
+
       debugShowCheckedModeBanner: false,
     );
   }
