@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:food_delivery_app/widgets/content_card.dart';
 import 'package:food_delivery_app/widgets/popular_resturant_scrolling.dart';
 import 'package:food_delivery_app/widgets/special_deal_promo.dart';
 import 'package:food_delivery_app/widgets/textof_nears_restrunt_viewmore.dart';
@@ -80,5 +79,3 @@ class HomeScreanBodyContent extends StatelessWidget {
     );
   }
 }
-
-

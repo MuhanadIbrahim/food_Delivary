@@ -6,6 +6,7 @@ import 'package:food_delivery_app/views/login_screan.dart';
 import 'package:food_delivery_app/views/payment_method.dart';
 import 'package:food_delivery_app/views/rest_password_screan.dart';
 import 'package:food_delivery_app/views/restpassword_successnotication_screan.dart';
+import 'package:food_delivery_app/views/resturant_home_screan.dart';
 import 'package:food_delivery_app/views/screan1.dart';
 import 'package:food_delivery_app/views/screan2.dart';
 import 'package:food_delivery_app/views/screan3.dart';
@@ -49,6 +50,7 @@ class MyApp extends StatelessWidget {
         kRestpasswordNoticationSuccess: (context) =>
             const RestPasswordSuccesNoticationScrean(),
         kHomeScrean: (context) => const HomeScrean(),
+        kResutrantScrean:(context) => const ResturantHomeScrean(),
       },
       home: const CustomSplashScreanWidget(),
       // Set the initial page

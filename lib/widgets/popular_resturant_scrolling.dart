@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 
 import 'content_card.dart';
 
@@ -19,10 +20,13 @@ class PopularResutrantScrolling extends StatelessWidget {
       ),
       itemCount: 6,
       itemBuilder: (BuildContext context, int index) {
-        return const ContentResturantCard(
-            jpg: 'assets/images/logoHealthyOrganicProducrResturantjpg.jpg',
-            title: 'Healthy Food',
-            subtitle: '8 Mins');
+        return GestureDetector(
+          onTap: () => Navigator.pushNamed(context,kResutrantScrean),
+          child: const ContentResturantCard(
+              jpg: 'assets/images/logoHealthyOrganicProducrResturantjpg.jpg',
+              title: 'Healthy Food',
+              subtitle: '8 Mins'),
+        );
       },
     );
   }
