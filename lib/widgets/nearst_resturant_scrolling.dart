@@ -10,6 +10,7 @@ class NearstResturantCardsScrolling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const SingleChildScrollView(
+      physics: ScrollPhysics(),
       clipBehavior: Clip.none,
       scrollDirection: Axis.horizontal,
       padding: EdgeInsets.only(top: 35, left: 5, bottom: 10),
