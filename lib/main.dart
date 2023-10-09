@@ -1,3 +1,4 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constans/constans.dart';
 import 'package:food_delivery_app/views/forget_password.dart';
@@ -18,9 +19,14 @@ import 'package:food_delivery_app/views/upload_preview_screan.dart';
 import 'package:food_delivery_app/views/upload_screan.dart';
 import 'package:food_delivery_app/views/vertification_code_screan.dart';
 
+import 'firebase_options.dart';
 import 'widgets/custom_splash_screan.dart';
 
-void main() {
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
   runApp(const MyApp());
 }
 
@@ -50,7 +56,7 @@ class MyApp extends StatelessWidget {
         kRestpasswordNoticationSuccess: (context) =>
             const RestPasswordSuccesNoticationScrean(),
         kHomeScrean: (context) => const HomeScrean(),
-        kResutrantScrean:(context) => const ResturantHomeScrean(),
+        kResutrantScrean: (context) => const ResturantHomeScrean(),
       },
       home: const CustomSplashScreanWidget(),
       // Set the initial page
