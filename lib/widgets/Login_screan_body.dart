@@ -17,7 +17,7 @@ class LoginScreanBody extends StatelessWidget {
             left: 18,
             child: SvgPicture.asset('assets/images/backGroundApp.svg'),
           ),
-          const Positioned(child: LoginScreanBodyContent())
+           Positioned(child: LoginScreanBodyContent())
         ],
       ),
     );

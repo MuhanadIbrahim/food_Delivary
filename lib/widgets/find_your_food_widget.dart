@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery_app/widgets/search_textfiled.dart';
@@ -22,27 +23,30 @@ Widget findYourFood(BuildContext context) {
           const SizedBox(
             width: 100,
           ),
-          Container(
-            width: 50,
-            height: 50,
-            decoration: ShapeDecoration(
-              color: const Color(0xFFFAFDFF),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+          GestureDetector(
+            onTap: () async => await FirebaseAuth.instance.signOut(),
+            child: Container(
+              width: 50,
+              height: 50,
+              decoration: ShapeDecoration(
+                color: const Color(0xFFFAFDFF),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                shadows: const [
+                  BoxShadow(
+                    color: Color(0x33134D5A),
+                    blurRadius: 50,
+                    offset: Offset(11, 28),
+                    spreadRadius: 0,
+                  )
+                ],
               ),
-              shadows: const [
-                BoxShadow(
-                  color: Color(0x33134D5A),
-                  blurRadius: 50,
-                  offset: Offset(11, 28),
-                  spreadRadius: 0,
-                )
-              ],
-            ),
-            child: const Icon(
-              Icons.notifications_none,
-              size: 40,
-              color: Color(0xff14be77),
+              child: const Icon(
+                Icons.notifications_none,
+                size: 40,
+                color: Color(0xff14be77),
+              ),
             ),
           ),
         ],

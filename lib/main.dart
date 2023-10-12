@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:food_delivery_app/constans/constans.dart';
@@ -24,9 +26,18 @@ import 'widgets/custom_splash_screan.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp(
-    options: DefaultFirebaseOptions.currentPlatform,
-  );
+  Platform.isAndroid
+      ? await Firebase.initializeApp(
+          options: const FirebaseOptions(
+            apiKey: "AIzaSyC2_xkFRfmghiMhtUrg4UvREGjohZGb9yY",
+            appId: "1:1049602785511:android:7d549fd2e03fb73a2ca242",
+            messagingSenderId: "1049602785511",
+            projectId: "food-delivery-5e75d",
+          ),
+        )
+     : await Firebase.initializeApp(
+  options: DefaultFirebaseOptions.currentPlatform,
+);
   runApp(const MyApp());
 }
 

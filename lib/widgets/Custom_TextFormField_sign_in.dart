@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 class CustomTextFormFieldForPassword extends StatelessWidget {
   const CustomTextFormFieldForPassword({
     super.key,
+    required this.onchanged,
   });
-
+  final void Function(String) onchanged;
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -21,6 +22,12 @@ class CustomTextFormFieldForPassword extends StatelessWidget {
       ),
       width: MediaQuery.of(context).size.width - 40,
       child: TextFormField(
+        onChanged: onchanged,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please Enter Your Password';
+          }
+        },
         decoration: InputDecoration(
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(15),
@@ -37,8 +44,9 @@ class CustomTextFormFieldForPassword extends StatelessWidget {
 
 class CustomTextFormFieldForEmail extends StatelessWidget {
   const CustomTextFormFieldForEmail({
-    super.key,
+    super.key, required this.onchanged,
   });
+  final void Function(String) onchanged;
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +64,12 @@ class CustomTextFormFieldForEmail extends StatelessWidget {
       ),
       width: MediaQuery.of(context).size.width - 40,
       child: TextFormField(
+        onChanged: onchanged,
+        validator: (value) {
+          if (value!.isEmpty) {
+            return 'Please Enter Your Email';
+          }
+        },
         decoration: InputDecoration(
             border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(15),
