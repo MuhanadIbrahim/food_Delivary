@@ -9,7 +9,7 @@ class SearchTextFiled extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SizedBox(
       height: 50,
-      width: 320,
+      width: 300,
       child: TextField(
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(

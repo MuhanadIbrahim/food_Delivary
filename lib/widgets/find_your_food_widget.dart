@@ -55,12 +55,14 @@ Widget findYourFood(BuildContext context) {
         height: 15,
       ),
       Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           const SearchTextFiled(),
+          SizedBox(
+            width: 20,
+          ),
           Container(
-            width: 49,
-            height: 50,
+            width: 40,
+            height: 40,
             decoration: ShapeDecoration(
               color: const Color(0xFFfef5ec),
               shape: RoundedRectangleBorder(
