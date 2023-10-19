@@ -8,6 +8,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import '../constans/constans.dart';
 import 'Custom_TextFormField_sign_in.dart';
 import 'custom_button.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
 class LoginScreanBodyContent extends StatefulWidget {
   LoginScreanBodyContent({super.key});
@@ -22,6 +23,20 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
   String? password;
 
   GlobalKey<FormState> formkey = GlobalKey();
+
+  Future signInWithFacebook() async {
+    // Trigger the sign-in flow
+    final LoginResult loginResult = await FacebookAuth.instance.login();
+
+    // Create a credential from the access token
+    final OAuthCredential facebookAuthCredential =
+        FacebookAuthProvider.credential(loginResult.accessToken!.token);
+
+    // Once signed in, return the UserCredential
+
+    await FirebaseAuth.instance.signInWithCredential(facebookAuthCredential);
+    Navigator.pushReplacementNamed(context as BuildContext, kHomeScrean);
+  }
 
   Future signInWithGoogle() async {
     // Trigger the authentication flow
@@ -77,11 +92,18 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
                     Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        SvgPicture.asset(
-                          'assets/images/Facebook Button.svg',
-                          width: 50,
-                          height: 100,
-                          fit: BoxFit.contain,
+                        GestureDetector(
+                          onTap: () {
+                            signInWithFacebook();
+                            // Navigator.pushReplacementNamed(
+                            //     context as BuildContext, kHomeScrean);
+                          },
+                          child: SvgPicture.asset(
+                            'assets/images/Facebook Button.svg',
+                            width: 50,
+                            height: 100,
+                            fit: BoxFit.contain,
+                          ),
                         ),
                         GestureDetector(
                           onTap: () {
