@@ -17,7 +17,10 @@ class _HomeScreanState extends State<HomeScrean> {
     FirebaseAuth.instance.authStateChanges().listen((User? user) {
       if (user == null) {
         print('User is currently signed out!');
-        Navigator.pushReplacementNamed(context, kLoginScrean);
+       //  Navigator.pushReplacementNamed(context, kLoginScrean);
+        if (mounted) {
+          Navigator.pushReplacementNamed(context, kLoginScrean);
+        }
       } else {
         print('User is signed in!');
       }

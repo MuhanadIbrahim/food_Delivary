@@ -2,6 +2,9 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery_app/widgets/search_textfiled.dart';
+import 'package:google_sign_in/google_sign_in.dart';
+
+import '../constans/constans.dart';
 
 Widget findYourFood(BuildContext context) {
   return Column(
@@ -21,10 +24,26 @@ Widget findYourFood(BuildContext context) {
             ),
           ),
           const SizedBox(
-            width: 100,
+            width: 80,
           ),
           GestureDetector(
-            onTap: () async => await FirebaseAuth.instance.signOut(),
+            onTap: () async {
+              try {
+                await GoogleSignIn().disconnect();
+                print('=================user Google   Sign Out !');
+                // ignore: use_build_context_synchronously
+                Navigator.pushReplacementNamed(context, kLoginScrean);
+              } catch (e) {
+                print('failed to disconnect on signout $e');
+              }
+
+              if (FirebaseAuth.instance.currentUser != null) {
+                await FirebaseAuth.instance.signOut();
+                print('=================user firebase  Sign Out !');
+                // ignore: use_build_context_synchronously
+                Navigator.pushReplacementNamed(context, kLoginScrean);
+              }
+            },
             child: Container(
               width: 50,
               height: 50,

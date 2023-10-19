@@ -172,7 +172,9 @@ class _SignUpBodyContentState extends State<SignUpBodyContent> {
                               .createUserWithEmailAndPassword(
                                   email: Email.toString(),
                                   password: password.toString());
-                          Navigator.pushReplacementNamed(context, kHomeScrean);
+                          FirebaseAuth.instance.currentUser!
+                              .sendEmailVerification();
+                          Navigator.pushReplacementNamed(context, kLoginScrean);
                         } on FirebaseAuthException catch (e) {
                           if (e.code == 'weak-password') {
                             print(

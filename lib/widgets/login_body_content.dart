@@ -1,18 +1,50 @@
 import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
-
+import 'package:google_sign_in/google_sign_in.dart';
 import '../constans/constans.dart';
 import 'Custom_TextFormField_sign_in.dart';
 import 'custom_button.dart';
 
-class LoginScreanBodyContent extends StatelessWidget {
+class LoginScreanBodyContent extends StatefulWidget {
   LoginScreanBodyContent({super.key});
+
+  @override
+  State<LoginScreanBodyContent> createState() => _LoginScreanBodyContentState();
+}
+
+class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
   String? Email;
+
   String? password;
+
   GlobalKey<FormState> formkey = GlobalKey();
+
+  Future signInWithGoogle() async {
+    // Trigger the authentication flow
+    final GoogleSignInAccount? googleUser = await GoogleSignIn().signIn();
+    if (googleUser == null) {
+      return;
+    }
+
+    // Obtain the auth details from the request
+    final GoogleSignInAuthentication? googleAuth =
+        await googleUser?.authentication;
+
+    // Create a new credential
+    final credential = GoogleAuthProvider.credential(
+      accessToken: googleAuth?.accessToken,
+      idToken: googleAuth?.idToken,
+    );
+
+    // Once signed in, return the UserCredential
+    await FirebaseAuth.instance.signInWithCredential(credential);
+    Navigator.pushReplacementNamed(context as BuildContext, kHomeScrean);
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -43,18 +75,23 @@ class LoginScreanBodyContent extends StatelessWidget {
                 Stack(
                   children: [
                     Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SvgPicture.asset(
                           'assets/images/Facebook Button.svg',
-                          width: 80,
-                          height: 125,
+                          width: 50,
+                          height: 100,
                           fit: BoxFit.contain,
                         ),
-                        SvgPicture.asset(
-                          'assets/images/Google Button.svg',
-                          width: 80,
-                          height: 125,
+                        GestureDetector(
+                          onTap: () {
+                            signInWithGoogle();
+                          },
+                          child: SvgPicture.asset(
+                            'assets/images/Google Button.svg',
+                            width: 50,
+                            height: 100,
+                          ),
                         ),
                       ],
                     ),
@@ -62,8 +99,45 @@ class LoginScreanBodyContent extends StatelessWidget {
                         left: MediaQuery.of(context).size.width / 3,
                         bottom: MediaQuery.of(context).size.height / 25,
                         child: GestureDetector(
-                          onTap: () => Navigator.pushNamed(
-                              context, kForgetPasswordScrean),
+                          onTap: () async {
+                            if (Email.toString() == '') {
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                title: 'Rest password failed',
+                                desc: "Please enter your email ",
+                                btnCancelOnPress: () {},
+                                btnOkOnPress: () {},
+                              ).show();
+                            }
+                            try {
+                              FirebaseAuth.instance.sendPasswordResetEmail(
+                                  email: Email.toString());
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.success,
+                                animType: AnimType.rightSlide,
+                                title: 'Rest password link Send',
+                                desc: "Please Check your email ",
+                                btnCancelOnPress: () {},
+                                btnOkOnPress: () {},
+                              ).show();
+                            } catch (e) {
+                              AwesomeDialog(
+                                context: context,
+                                dialogType: DialogType.error,
+                                animType: AnimType.rightSlide,
+                                title: 'Rest password process fialed',
+                                desc: "Please enter avalid  email ",
+                                btnCancelOnPress: () {},
+                                btnOkOnPress: () {},
+                              ).show();
+                              if (kDebugMode) {
+                                print(e);
+                              }
+                            }
+                          },
                           child: SvgPicture.asset(
                               'assets/images/Forgot Password Link.svg'),
                         )),
@@ -78,7 +152,21 @@ class LoginScreanBodyContent extends StatelessWidget {
                             .signInWithEmailAndPassword(
                                 email: Email.toString(),
                                 password: password.toString());
-                        Navigator.pushReplacementNamed(context, kHomeScrean);
+                        if (userCredential.user!.emailVerified) {
+                          Navigator.pushReplacementNamed(context, kHomeScrean);
+                        } else {
+                          // ignore: use_build_context_synchronously
+                          AwesomeDialog(
+                            context: context,
+                            dialogType: DialogType.error,
+                            animType: AnimType.rightSlide,
+                            title: 'Login failed',
+                            desc:
+                                "Please activate your account by clicking the link in your email.",
+                            btnCancelOnPress: () {},
+                            btnOkOnPress: () {},
+                          ).show();
+                        }
                       } on FirebaseAuthException catch (e) {
                         // Temporary Fix
                         final code =

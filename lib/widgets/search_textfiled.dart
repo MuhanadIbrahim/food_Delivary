@@ -9,7 +9,7 @@ class SearchTextFiled extends StatelessWidget {
   Widget build(BuildContext context) {
     return const SizedBox(
       height: 50,
-      width: 300,
+      width: 250,
       child: TextField(
         decoration: InputDecoration(
           enabledBorder: OutlineInputBorder(
@@ -30,7 +30,7 @@ class SearchTextFiled extends StatelessWidget {
           hintText: 'What do you want to order?',
           hintStyle: TextStyle(
             color: Color(0xFFDA6317),
-            fontSize: 15,
+            fontSize: 12,
             fontFamily: 'Roboto',
             fontWeight: FontWeight.w400,
             letterSpacing: 0.50,
