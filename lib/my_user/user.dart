@@ -2,41 +2,41 @@ import 'package:equatable/equatable.dart';
 
 import 'user_entity.dart';
 
-class User extends Equatable {
+class MyUser extends Equatable {
   final String name;
   final int phoneNumber;
   final String email;
   final String? picture;
   final String id;
 
-  const User(
+  const MyUser(
       {required this.id,
       required this.name,
       required this.phoneNumber,
       required this.email,
       this.picture});
 
-  static const empty = User(id: '', name: '', phoneNumber: 0, email: '');
+  static const empty = MyUser(id: '', name: '', phoneNumber: 0, email: '');
 
-  User copyWith(
+  MyUser copyWith(
       {String? name,
       int? phoneNumber,
       String? email,
       String? picture,
       String? id}) {
-    return User(
+    return MyUser(
         id: id ?? this.id,
         name: name ?? this.name,
         phoneNumber: phoneNumber ?? this.phoneNumber,
         email: email ?? this.email);
   }
 
-  bool get isEmpty => this == User.empty;
+  bool get isEmpty => this == MyUser.empty;
 
-  bool get isNotEmpty => this != User.empty;
+  bool get isNotEmpty => this != MyUser.empty;
 
-  UserEntity toEntity() {
-    return UserEntity(
+  MyUserEntity toEntity() {
+    return MyUserEntity(
         email: email,
         name: name,
         phoneNumber: phoneNumber,
@@ -44,8 +44,8 @@ class User extends Equatable {
         picture: picture);
   }
 
-  User fromEntity(UserEntity entity) {
-    return User(
+  MyUser fromEntity(MyUserEntity entity) {
+    return MyUser(
         id: entity.id,
         name: entity.name,
         phoneNumber: entity.phoneNumber,
@@ -54,6 +54,5 @@ class User extends Equatable {
   }
 
   @override
-  
   List<Object?> get props => [id, name, phoneNumber, email, picture];
 }
