@@ -1,16 +1,19 @@
 import 'dart:math';
 
 import 'package:awesome_dialog/awesome_dialog.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:fluttertoast/fluttertoast.dart';
 import 'package:food_delivery_app/my_user/user.dart';
+import 'package:food_delivery_app/my_user/user_entity.dart';
 import 'package:food_delivery_app/my_user/user_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
 class FirebaseUserRepository implements UserRepository {
+  final userCollection = FirebaseFirestore.instance.collection('users');
   @override
   Future<MyUser> signUp(MyUser myUser, String password) async {
     try {
@@ -18,7 +21,7 @@ class FirebaseUserRepository implements UserRepository {
           .createUserWithEmailAndPassword(
               email: myUser.email, password: password);
 
-      myUser = myUser.copyWith(id: user.user!.uid);
+      myUser = myUser.copyWith(id: user.user?.uid);
 
       FirebaseAuth.instance.currentUser!.sendEmailVerification();
     } on FirebaseAuthException catch (e) {
@@ -265,5 +268,25 @@ class FirebaseUserRepository implements UserRepository {
     }
 
     return "unknown";
+  }
+
+  @override
+  Future<MyUser> getMyUser(String myUserId) async {
+    try {
+     return await userCollection.doc(myUserId).get().then((value) =>
+         MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!)));
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  @override
+  Future<void> setUserData(MyUser user) async {
+    try {
+      await userCollection.doc(user.id).set(user.toEntity().toDocument());
+    } catch (e) {
+      print(e);
+      rethrow;
+    }
   }
 }
