@@ -293,4 +293,13 @@ class FirebaseUserRepository implements UserRepository {
       rethrow;
     }
   }
+
+  @override
+  
+  Stream<User?> get user {
+    return FirebaseAuth.instance.authStateChanges().map((firebaseUser) {
+      final user = firebaseUser;
+      return user;
+    });
+  }
 }
