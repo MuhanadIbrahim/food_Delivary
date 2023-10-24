@@ -24,9 +24,12 @@ class FirebaseUserRepository implements UserRepository {
       myUser = myUser.copyWith(id: user.user?.uid);
 
       FirebaseAuth.instance.currentUser!.sendEmailVerification();
+
+      return myUser;
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         print('=========The password provided is too weak.');
+
         // AwesomeDialog(
         //   context: context,
         //   dialogType: DialogType.error,
@@ -64,11 +67,11 @@ class FirebaseUserRepository implements UserRepository {
             textColor: Colors.white,
             fontSize: 16.0);
       }
+      rethrow;
     } catch (e) {
       print(e);
       rethrow;
     }
-    return myUser;
   }
 
   @override
@@ -271,12 +274,13 @@ class FirebaseUserRepository implements UserRepository {
   }
 
   @override
-  Future<MyUser> getMyUser(String myUserId) async {
+  Future<MyUser> getMyUser(String myUserId) {
     try {
-     return await userCollection.doc(myUserId).get().then((value) =>
-         MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!)));
+      return userCollection.doc(myUserId).get().then((value) =>
+          MyUser.fromEntity(MyUserEntity.fromDocument(value.data()!)));
     } catch (e) {
       print(e);
+      rethrow;
     }
   }
 
