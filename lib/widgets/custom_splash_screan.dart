@@ -1,6 +1,8 @@
 import 'package:animated_splash_screen/animated_splash_screen.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/Flutter_bloc.dart';
+import 'package:food_delivery_app/bloc/authentication/bloc/authentication_bloc.dart';
 import 'package:food_delivery_app/views/home_screan.dart';
 import 'package:page_transition/page_transition.dart';
 
@@ -13,12 +15,19 @@ class CustomSplashScreanWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AnimatedSplashScreen(
-      pageTransitionType: PageTransitionType.fade,
-      splashTransition: SplashTransition.rotationTransition,
-      duration: 3000,
-      splashIconSize: double.infinity,
-      splash: const Screan1(),
-      nextScreen: (FirebaseAuth.instance.currentUser!= null&& FirebaseAuth.instance.currentUser!.emailVerified)? const HomeScrean():const Screan2(),
-    );
+        pageTransitionType: PageTransitionType.fade,
+        splashTransition: SplashTransition.rotationTransition,
+        duration: 3000,
+        splashIconSize: double.infinity,
+        splash: const Screan1(),
+        nextScreen: BlocBuilder<AuthenticationBloc, AuthenticationState>(
+          builder: (context, state) {
+            if (state.status == AuthenticationStatus.authenticated) {
+              return const HomeScrean();
+            } else {
+              return const Screan2();
+            }
+          },
+        ));
   }
 }
