@@ -2,8 +2,10 @@ import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/Flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:food_delivery_app/bloc/sign_in/bloc/sign_in_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../constans/constans.dart';
 import 'Custom_TextFormField_sign_in.dart';
@@ -23,6 +25,8 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
   String? password;
 
   GlobalKey<FormState> formkey = GlobalKey();
+
+  bool signInRequired = false;
 
   Future signInWithFacebook() async {
     // Trigger the sign-in flow
@@ -165,110 +169,17 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
                         )),
                   ],
                 ),
-                GestureDetector(
-                  onTap: () async {
-                    if (formkey.currentState!.validate()) {
-                      try {
-                        UserCredential userCredential = await FirebaseAuth
-                            .instance
-                            .signInWithEmailAndPassword(
-                                email: Email.toString(),
-                                password: password.toString());
-                        if (userCredential.user!.emailVerified) {
-                          Navigator.pushReplacementNamed(context, kHomeScrean);
-                        } else {
-                          // ignore: use_build_context_synchronously
-                          AwesomeDialog(
-                            context: context,
-                            dialogType: DialogType.error,
-                            animType: AnimType.rightSlide,
-                            title: 'Login failed',
-                            desc:
-                                "Please activate your account by clicking the link in your email.",
-                            btnCancelOnPress: () {},
-                            btnOkOnPress: () {},
-                          ).show();
-                        }
-                      } on FirebaseAuthException catch (e) {
-                        // Temporary Fix
-                        final code =
-                            parseFirebaseAuthExceptionMessage(input: e.message);
-                        switch (code) {
-                          case 'wrong-password':
-                            Fluttertoast.showToast(
-                                msg: 'wrong-password',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                            break;
-                          case 'user-not-found':
-                            Fluttertoast.showToast(
-                                msg: 'user-not-found',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                            break;
-                          case 'user-disabled':
-                            Fluttertoast.showToast(
-                                msg: 'user-disabled',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                            break;
-                          case 'too-many-requests':
-                            Fluttertoast.showToast(
-                                msg: 'too-many-requests',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                            break;
-                          case 'network-request-failed':
-                            Fluttertoast.showToast(
-                                msg: 'Too Many Request',
-                                toastLength: Toast.LENGTH_SHORT,
-                                gravity: ToastGravity.CENTER,
-                                timeInSecForIosWeb: 1,
-                                backgroundColor: Colors.red,
-                                textColor: Colors.white,
-                                fontSize: 16.0);
-                            break;
-                          default:
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              title: 'Login failed',
-                              desc: "Please check your email and password",
-                              btnCancelOnPress: () {},
-                              btnOkOnPress: () {},
-                            ).show();
-                        }
-                      } catch (error) {
-                        Fluttertoast.showToast(
-                            msg: 'Something is not right.',
-                            toastLength: Toast.LENGTH_SHORT,
-                            gravity: ToastGravity.CENTER,
-                            timeInSecForIosWeb: 1,
-                            backgroundColor: Colors.red,
-                            textColor: Colors.white,
-                            fontSize: 16.0);
-                      }
-                    }
-                  },
-                  child: const CustomButton(title: 'Login'),
-                ),
+                !signInRequired
+                    ? GestureDetector(
+                        onTap: () async {
+                          if (formkey.currentState!.validate()) {
+                            context.read<SignInBloc>().add(SignInRequired(
+                                Email.toString(), password.toString()));
+                          }
+                        },
+                        child: const CustomButton(title: 'Login'),
+                      )
+                    : const CircularProgressIndicator(),
               ],
             ),
           ),
