@@ -19,6 +19,9 @@ class _SignUpBodyContentState extends State<SignUpBodyContent> {
   String? Email;
 
   String? password;
+
+  bool obscurePassword = true;
+
   GlobalKey<FormState> formkey = GlobalKey();
   @override
   Widget build(BuildContext context) {
@@ -110,6 +113,7 @@ class _SignUpBodyContentState extends State<SignUpBodyContent> {
                   ),
                   width: MediaQuery.of(context).size.width - 40,
                   child: TextFormField(
+                    obscureText: obscurePassword,
                     onChanged: (value) {
                       password = value;
                     },
@@ -124,6 +128,7 @@ class _SignUpBodyContentState extends State<SignUpBodyContent> {
                             borderSide:
                                 BorderSide(width: 2, color: Colors.grey)),
                         hintText: 'Password',
+                        
                         hintStyle: TextStyle(color: Colors.grey)),
                   ),
                 ),
