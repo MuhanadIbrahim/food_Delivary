@@ -68,119 +68,138 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 1),
-      child: Form(
-        key: formkey,
-        child: SingleChildScrollView(
-          child: ConstrainedBox(
-            constraints:
-                BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Image.asset('assets/images/AppLogo1.jpg'),
-                SvgPicture.asset(
-                    'assets/images/login to your account login screan.svg'),
-                CustomTextFormFieldForEmail(
-                  onchanged: (value) {
-                    Email = value;
-                  },
-                ),
-                CustomTextFormFieldForPassword(
-                  onchanged: (value) {
-                    password = value;
-                  },
-                ),
-                SvgPicture.asset('assets/images/or continue LoginScrean.svg'),
-                Stack(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        GestureDetector(
-                          onTap: () {
-                            signInWithFacebook();
-                            // Navigator.pushReplacementNamed(
-                            //     context as BuildContext, kHomeScrean);
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/Facebook Button.svg',
-                            width: 50,
-                            height: 100,
-                            fit: BoxFit.contain,
+      child: BlocListener<SignInBloc, SignInState>(
+        listener: (context, state) {
+          if (state is SignInSuccess) {
+            setState(() {
+              signInRequired = false;
+            });
+          } else if (state is SignInProcess) {
+            setState(() {
+              signInRequired = true;
+            });
+          } else if (state is SignInFailure) {
+            setState(() {
+              signInRequired = false;
+            });
+          }
+        },
+        child: Form(
+          key: formkey,
+          child: SingleChildScrollView(
+            child: ConstrainedBox(
+              constraints:
+                  BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: <Widget>[
+                  Image.asset('assets/images/AppLogo1.jpg'),
+                  SvgPicture.asset(
+                      'assets/images/login to your account login screan.svg'),
+                  CustomTextFormFieldForEmail(
+                    onchanged: (value) {
+                      Email = value;
+                    },
+                  ),
+                  CustomTextFormFieldForPassword(
+                    onchanged: (value) {
+                      password = value;
+                    },
+                  ),
+                  SvgPicture.asset('assets/images/or continue LoginScrean.svg'),
+                  Stack(
+                    children: [
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          GestureDetector(
+                            onTap: () {
+                              signInWithFacebook();
+                              // Navigator.pushReplacementNamed(
+                              //     context as BuildContext, kHomeScrean);
+                            },
+                            child: SvgPicture.asset(
+                              'assets/images/Facebook Button.svg',
+                              width: 50,
+                              height: 100,
+                              fit: BoxFit.contain,
+                            ),
                           ),
-                        ),
-                        GestureDetector(
-                          onTap: () {
-                            signInWithGoogle();
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/Google Button.svg',
-                            width: 50,
-                            height: 100,
+                          GestureDetector(
+                            onTap: () {
+                              signInWithGoogle();
+                            },
+                            child: SvgPicture.asset(
+                              'assets/images/Google Button.svg',
+                              width: 50,
+                              height: 100,
+                            ),
                           ),
-                        ),
-                      ],
-                    ),
-                    Positioned(
-                        left: MediaQuery.of(context).size.width / 3,
-                        bottom: MediaQuery.of(context).size.height / 25,
-                        child: GestureDetector(
-                          onTap: () async {
-                            if (Email.toString() == '') {
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.error,
-                                animType: AnimType.rightSlide,
-                                title: 'Rest password failed',
-                                desc: "Please enter your email ",
-                                btnCancelOnPress: () {},
-                                btnOkOnPress: () {},
-                              ).show();
-                            }
-                            try {
-                              FirebaseAuth.instance.sendPasswordResetEmail(
-                                  email: Email.toString());
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.success,
-                                animType: AnimType.rightSlide,
-                                title: 'Rest password link Send',
-                                desc: "Please Check your email ",
-                                btnCancelOnPress: () {},
-                                btnOkOnPress: () {},
-                              ).show();
-                            } catch (e) {
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.error,
-                                animType: AnimType.rightSlide,
-                                title: 'Rest password process fialed',
-                                desc: "Please enter avalid  email ",
-                                btnCancelOnPress: () {},
-                                btnOkOnPress: () {},
-                              ).show();
-                              if (kDebugMode) {
-                                print(e);
+                        ],
+                      ),
+                      Positioned(
+                          left: MediaQuery.of(context).size.width / 3,
+                          bottom: MediaQuery.of(context).size.height / 25,
+                          child: GestureDetector(
+                            onTap: () async {
+                              if (Email.toString() == '') {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.error,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Rest password failed',
+                                  desc: "Please enter your email ",
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {},
+                                ).show();
                               }
+                              try {
+                                FirebaseAuth.instance.sendPasswordResetEmail(
+                                    email: Email.toString());
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.success,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Rest password link Send',
+                                  desc: "Please Check your email ",
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {},
+                                ).show();
+                              } catch (e) {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.error,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Rest password process fialed',
+                                  desc: "Please enter avalid  email ",
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {},
+                                ).show();
+                                if (kDebugMode) {
+                                  print(e);
+                                }
+                              }
+                            },
+                            child: SvgPicture.asset(
+                                'assets/images/Forgot Password Link.svg'),
+                          )),
+                    ],
+                  ),
+                  !signInRequired
+                      ? GestureDetector(
+                          onTap: () async {
+                            if (formkey.currentState!.validate()) {
+                              context.read<SignInBloc>().add(SignInRequired(
+                                  Email.toString(), password.toString()));
                             }
+                            Navigator.pushReplacementNamed(
+                                context, kHomeScrean);
                           },
-                          child: SvgPicture.asset(
-                              'assets/images/Forgot Password Link.svg'),
-                        )),
-                  ],
-                ),
-                !signInRequired
-                    ? GestureDetector(
-                        onTap: () async {
-                          if (formkey.currentState!.validate()) {
-                            context.read<SignInBloc>().add(SignInRequired(
-                                Email.toString(), password.toString()));
-                          }
-                        },
-                        child: const CustomButton(title: 'Login'),
-                      )
-                    : const CircularProgressIndicator(),
-              ],
+                          child: const CustomButton(title: 'Login'),
+                        )
+                      : const CircularProgressIndicator(),
+                ],
+              ),
             ),
           ),
         ),
