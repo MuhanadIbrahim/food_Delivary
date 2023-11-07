@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -46,6 +47,22 @@ void main() async {
         );
   Bloc.observer = SimpleBlocObserver();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
+
+  FirebaseAuth.instance.authStateChanges().listen((User? user) {
+    print('===============================$user');
+    if (user == null) {
+      print('===============================$user');
+      print('User is currently signed out!');
+      //Navigator.pushReplacementNamed(context, kLoginScrean);
+      // if (mounted) {
+      //   Navigator.pushReplacementNamed(context, kLoginScrean);
+      // }
+    } else {
+      print('User is signed in!');
+      print('===============================$user');
+    }
+  });
+
   runApp(MyApp(FirebaseUserRepository()));
 }
 

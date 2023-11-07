@@ -11,21 +11,21 @@ class HomeScrean extends StatefulWidget {
 }
 
 class _HomeScreanState extends State<HomeScrean> {
-  @override
-  void initState() {
-    super.initState();
-    FirebaseAuth.instance.authStateChanges().listen((User? user) {
-      if (user == null) {
-        print('User is currently signed out!');
-       //  Navigator.pushReplacementNamed(context, kLoginScrean);
-        if (mounted) {
-          Navigator.pushReplacementNamed(context, kLoginScrean);
-        }
-      } else {
-        print('User is signed in!');
-      }
-    });
-  }
+  // @override
+  // void initState() {
+  //   super.initState();
+  //   FirebaseAuth.instance.authStateChanges().listen((User? user) {
+  //     if (user == null) {
+  //       print('User is currently signed out!');
+  //       Navigator.pushReplacementNamed(context, kLoginScrean);
+  //       // if (mounted) {
+  //       //   Navigator.pushReplacementNamed(context, kLoginScrean);
+  //       // }
+  //     } else {
+  //       print('User is signed in!');
+  //     }
+  //   });
+  // }
 
   @override
   Widget build(BuildContext context) {

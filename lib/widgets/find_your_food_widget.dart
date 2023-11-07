@@ -51,6 +51,7 @@ Widget findYourFood(BuildContext context) {
                 // ignore: use_build_context_synchronously
                 Navigator.pushReplacementNamed(context, kLoginScrean);
               }
+              Navigator.pushReplacementNamed(context, kLoginScrean);
             },
             child: Container(
               width: 50,
@@ -84,7 +85,7 @@ Widget findYourFood(BuildContext context) {
       Row(
         children: [
           const SearchTextFiled(),
-         const  SizedBox(
+          const SizedBox(
             width: 20,
           ),
           Container(

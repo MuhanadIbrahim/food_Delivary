@@ -1,6 +1,4 @@
-import 'dart:math';
 
-import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -11,6 +9,8 @@ import 'package:food_delivery_app/my_user/user.dart';
 import 'package:food_delivery_app/my_user/user_entity.dart';
 import 'package:food_delivery_app/my_user/user_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+
+import '../constans/constans.dart';
 
 class FirebaseUserRepository implements UserRepository {
   final userCollection = FirebaseFirestore.instance.collection('users');
@@ -77,31 +77,33 @@ class FirebaseUserRepository implements UserRepository {
   @override
   Future<void> signIn(String email, String password) async {
     try {
-      UserCredential userCredential = await FirebaseAuth.instance
+      // UserCredential userCredential =
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      if (userCredential.user!.emailVerified) {
-      } else {
-        // ignore: use_build_context_synchronously
-        // AwesomeDialog(
-        //   context: context,
-        //   dialogType: DialogType.error,
-        //   animType: AnimType.rightSlide,
-        //   title: 'Login failed',
-        //   desc:
-        //       "Please activate your account by clicking the link in your email.",
-        //   btnCancelOnPress: () {},
-        //   btnOkOnPress: () {},
-        // ).show();
-        Fluttertoast.showToast(
-            msg:
-                'Please activate your account by clicking the link in your email.',
-            toastLength: Toast.LENGTH_SHORT,
-            gravity: ToastGravity.CENTER,
-            timeInSecForIosWeb: 1,
-            backgroundColor: Colors.red,
-            textColor: Colors.white,
-            fontSize: 16.0);
-      }
+      
+      // if (userCredential.user!.emailVerified) {
+      // } else {
+      //   // ignore: use_build_context_synchronously
+      //   // AwesomeDialog(
+      //   //   context: context,
+      //   //   dialogType: DialogType.error,
+      //   //   animType: AnimType.rightSlide,
+      //   //   title: 'Login failed',
+      //   //   desc:
+      //   //       "Please activate your account by clicking the link in your email.",
+      //   //   btnCancelOnPress: () {},
+      //   //   btnOkOnPress: () {},
+      //   // ).show();
+      //   Fluttertoast.showToast(
+      //       msg:
+      //           'Please activate your account by clicking the link in your email.',
+      //       toastLength: Toast.LENGTH_SHORT,
+      //       gravity: ToastGravity.CENTER,
+      //       timeInSecForIosWeb: 1,
+      //       backgroundColor: Colors.red,
+      //       textColor: Colors.white,
+      //       fontSize: 16.0);
+      // }
     } on FirebaseAuthException catch (e) {
       // Temporary Fix
       final code = parseFirebaseAuthExceptionMessage(input: e.message);
@@ -295,7 +297,6 @@ class FirebaseUserRepository implements UserRepository {
   }
 
   @override
-  
   Stream<User?> get user {
     return FirebaseAuth.instance.authStateChanges().map((firebaseUser) {
       final user = firebaseUser;

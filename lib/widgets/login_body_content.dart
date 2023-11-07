@@ -66,24 +66,24 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 1),
-      child: BlocListener<SignInBloc, SignInState>(
-        listener: (context, state) {
-          if (state is SignInSuccess) {
-            setState(() {
-              signInRequired = false;
-            });
-          } else if (state is SignInProcess) {
-            setState(() {
-              signInRequired = true;
-            });
-          } else if (state is SignInFailure) {
-            setState(() {
-              signInRequired = false;
-            });
-          }
-        },
+    return BlocListener<SignInBloc, SignInState>(
+      listener: (context, state) {
+        if (state is SignInSuccess) {
+          setState(() {
+            signInRequired = false;
+          });
+        } else if (state is SignInProcess) {
+          setState(() {
+            signInRequired = true;
+          });
+        } else if (state is SignInFailure) {
+          setState(() {
+            signInRequired = false;
+          });
+        }
+      },
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 1),
         child: Form(
           key: formkey,
           child: SingleChildScrollView(
@@ -187,13 +187,12 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
                   ),
                   !signInRequired
                       ? GestureDetector(
-                          onTap: () async {
+                          onTap: () {
                             if (formkey.currentState!.validate()) {
                               context.read<SignInBloc>().add(SignInRequired(
                                   Email.toString(), password.toString()));
+                              Navigator.pushNamed(context, kHomeScrean);
                             }
-                            Navigator.pushReplacementNamed(
-                                context, kHomeScrean);
                           },
                           child: const CustomButton(title: 'Login'),
                         )
