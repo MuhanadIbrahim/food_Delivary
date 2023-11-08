@@ -191,7 +191,7 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
                             if (formkey.currentState!.validate()) {
                               context.read<SignInBloc>().add(SignInRequired(
                                   Email.toString(), password.toString()));
-                              Navigator.pushNamed(context, kHomeScrean);
+                            //  Navigator.pushNamed(context, kHomeScrean);
                             }
                           },
                           child: const CustomButton(title: 'Login'),

@@ -1,4 +1,3 @@
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
@@ -76,11 +75,39 @@ class FirebaseUserRepository implements UserRepository {
 
   @override
   Future<void> signIn(String email, String password) async {
+    // try {
+    //   UserCredential userCredential = await FirebaseAuth.instance
+    //       .signInWithEmailAndPassword(email: email, password: password);
+    // } on FirebaseAuthException catch (e) {
+    //   if (e.code == 'user-not-found') {
+    //     print(
+    //         '=======================================No user found for that email.');
+    //     Fluttertoast.showToast(
+    //         msg: 'No user found for that email.',
+    //         toastLength: Toast.LENGTH_SHORT,
+    //         gravity: ToastGravity.CENTER,
+    //         timeInSecForIosWeb: 1,
+    //         backgroundColor: Colors.red,
+    //         textColor: Colors.white,
+    //         fontSize: 16.0);
+    //   } else if (e.code == 'wrong-password') {
+    //     print(
+    //         '========================================Wrong password provided for that user.');
+    //     Fluttertoast.showToast(
+    //         msg: 'Wrong password provided for that user.',
+    //         toastLength: Toast.LENGTH_SHORT,
+    //         gravity: ToastGravity.CENTER,
+    //         timeInSecForIosWeb: 1,
+    //         backgroundColor: Colors.red,
+    //         textColor: Colors.white,
+    //         fontSize: 16.0);
+    //   }
+    // }
     try {
       // UserCredential userCredential =
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-      
+
       // if (userCredential.user!.emailVerified) {
       // } else {
       //   // ignore: use_build_context_synchronously
