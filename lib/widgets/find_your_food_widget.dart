@@ -1,10 +1,12 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/Flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery_app/widgets/search_textfiled.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../bloc/sign_in/bloc/sign_in_bloc.dart';
 import '../constans/constans.dart';
 
 Widget findYourFood(BuildContext context) {
@@ -29,29 +31,9 @@ Widget findYourFood(BuildContext context) {
           ),
           GestureDetector(
             onTap: () async {
-              try {
-                await GoogleSignIn().disconnect();
-                print('=================user Google   Sign Out !');
-                // ignore: use_build_context_synchronously
-                Navigator.pushReplacementNamed(context, kLoginScrean);
-              } catch (e) {
-                print('failed to disconnect on signout $e');
-              }
-              try {
-                await FacebookAuth.instance.logOut();
-                await FirebaseAuth.instance.signOut();
-              } catch (e) {
-                print(e);
-              }
-              print('not work ');
-
-              if (FirebaseAuth.instance.currentUser != null) {
-                await FirebaseAuth.instance.signOut();
-                print('=================user firebase  Sign Out !');
-                // ignore: use_build_context_synchronously
-                Navigator.pushReplacementNamed(context, kLoginScrean);
-              }
+              context.read<SignInBloc>().add(const SignOutRequired());
               Navigator.pushReplacementNamed(context, kLoginScrean);
+             
             },
             child: Container(
               width: 50,
