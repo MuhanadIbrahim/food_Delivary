@@ -21,7 +21,7 @@ Widget findYourFood(BuildContext context) {
             'Find Your \nFavorite Food',
             style: TextStyle(
               color: Color(0xFF09041B),
-              fontSize: 31,
+              fontSize: 25,
               fontFamily: 'BentonSans Bold',
               fontWeight: FontWeight.bold,
             ),
@@ -33,7 +33,6 @@ Widget findYourFood(BuildContext context) {
             onTap: () async {
               context.read<SignInBloc>().add(const SignOutRequired());
               Navigator.pushReplacementNamed(context, kLoginScrean);
-             
             },
             child: Container(
               width: 50,

@@ -29,7 +29,7 @@ class ContentResturantCard extends StatelessWidget {
             title,
             style: const TextStyle(
               color: Colors.black,
-              fontSize: 18,
+              fontSize: 15,
               fontFamily: 'BentonSans Bold',
               fontWeight: FontWeight.bold,
             ),
