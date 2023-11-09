@@ -11,6 +11,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 
 import '../constans/constans.dart';
 
+
 class FirebaseUserRepository implements UserRepository {
   final userCollection = FirebaseFirestore.instance.collection('users');
   @override
@@ -107,6 +108,8 @@ class FirebaseUserRepository implements UserRepository {
       // UserCredential userCredential =
       await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
+
+      
 
       // if (userCredential.user!.emailVerified) {
       // } else {

@@ -48,21 +48,6 @@ void main() async {
   Bloc.observer = SimpleBlocObserver();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
 
-  FirebaseAuth.instance.authStateChanges().listen((User? user) {
-    print('===============================$user');
-    if (user == null) {
-      print('===============================$user');
-      print('User is currently signed out!');
-      //Navigator.pushReplacementNamed(context, kLoginScrean);
-      // if (mounted) {
-      //   Navigator.pushReplacementNamed(context, kLoginScrean);
-      // }
-    } else {
-      print('User is signed in!');
-      print('===============================$user');
-    }
-  });
-
   runApp(MyApp(FirebaseUserRepository()));
 }
 

@@ -3,14 +3,23 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
 import 'package:food_delivery_app/bloc/authentication/bloc/authentication_bloc.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 import 'package:food_delivery_app/views/home_screan.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../views/screan1.dart';
 import '../views/screan2.dart';
 
-class CustomSplashScreanWidget extends StatelessWidget {
+class CustomSplashScreanWidget extends StatefulWidget {
   const CustomSplashScreanWidget({super.key});
+
+  @override
+  State<CustomSplashScreanWidget> createState() =>
+      _CustomSplashScreanWidgetState();
+}
+
+class _CustomSplashScreanWidgetState extends State<CustomSplashScreanWidget> {
+ 
 
   @override
   Widget build(BuildContext context) {

@@ -12,6 +12,8 @@ import 'Custom_TextFormField_sign_in.dart';
 import 'custom_button.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 
+import 'custom_splash_screan.dart';
+
 class LoginScreanBodyContent extends StatefulWidget {
   LoginScreanBodyContent({super.key});
 
@@ -191,7 +193,29 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
                             if (formkey.currentState!.validate()) {
                               context.read<SignInBloc>().add(SignInRequired(
                                   Email.toString(), password.toString()));
-                            //  Navigator.pushNamed(context, kHomeScrean);
+                              // if (FirebaseAuth.instance.currentUser != null) {
+                              //   Navigator.pushNamed(context, kHomeScrean);
+                              // }
+
+                              FirebaseAuth.instance
+                                  .authStateChanges()
+                                  .listen((User? user) {
+                                print('===============================$user');
+                                if (user == null) {
+                                  print('===============================$user');
+                                  print('User is currently signed out!');
+                                  //Navigator.pushReplacementNamed(context, kLoginScrean);
+                                  // if (mounted) {
+                                  //   Navigator.pushReplacementNamed(context, kLoginScrean);
+                                  // }
+                                } else {
+                                  print('User is signed in!');
+                                  print('===============================$user');
+
+                                  Navigator.of(context)
+                                      .pushReplacementNamed(kHomeScrean);
+                                }
+                              });
                             }
                           },
                           child: const CustomButton(title: 'Login'),

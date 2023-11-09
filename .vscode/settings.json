@@ -1,3 +1,4 @@
 {
-  "java.configuration.updateBuildConfiguration": "interactive"
+  "java.configuration.updateBuildConfiguration": "interactive",
+  "fluttergpt.apiKey": "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"
 }
