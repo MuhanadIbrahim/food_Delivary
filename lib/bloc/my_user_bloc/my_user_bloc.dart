@@ -1,6 +1,8 @@
 import 'package:bloc/bloc.dart';
 import 'package:equatable/equatable.dart';
 
+import '../../my_user/user.dart';
+
 part 'my_user_event.dart';
 part 'my_user_state.dart';
 
