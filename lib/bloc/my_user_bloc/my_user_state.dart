@@ -13,7 +13,7 @@ class MyUserState extends Equatable {
   const MyUserState.success(MyUser user)
       : this._(status: MyUserStatus.success, user: user);
 
-  const MyUserState.failure(MyUser user)
+  const MyUserState.failure()
       : this._(
           status: MyUserStatus.failure,
         );
