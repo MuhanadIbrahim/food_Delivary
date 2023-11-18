@@ -6,17 +6,18 @@ class MyUser extends Equatable {
   final String name;
   final int phoneNumber;
   final String email;
-  final String? picture;
+  String? picture;
   final String id;
 
-  const MyUser(
+  MyUser(
       {required this.id,
       required this.name,
       required this.phoneNumber,
       required this.email,
       this.picture});
 
-  static const empty = MyUser(id: '', name: '', phoneNumber: 0, email: '');
+  static final empty =
+      MyUser(id: '', name: '', phoneNumber: 0, email: '', picture: '');
 
   MyUser copyWith(
       {String? name,
@@ -28,7 +29,8 @@ class MyUser extends Equatable {
         id: id ?? this.id,
         name: name ?? this.name,
         phoneNumber: phoneNumber ?? this.phoneNumber,
-        email: email ?? this.email);
+        email: email ?? this.email,
+        picture: picture ?? this.picture);
   }
 
   bool get isEmpty => this == MyUser.empty;
@@ -44,7 +46,7 @@ class MyUser extends Equatable {
         picture: picture);
   }
 
- static MyUser fromEntity(MyUserEntity entity) {
+  static MyUser fromEntity(MyUserEntity entity) {
     return MyUser(
         id: entity.id,
         name: entity.name,
