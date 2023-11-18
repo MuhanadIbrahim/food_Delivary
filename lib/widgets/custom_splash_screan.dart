@@ -9,6 +9,7 @@ import 'package:food_delivery_app/views/home_screan.dart';
 import 'package:page_transition/page_transition.dart';
 
 import '../bloc/sign_in/bloc/sign_in_bloc.dart';
+import '../bloc/update_user_info_bloc/update_user_info_bloc.dart';
 import '../views/screan1.dart';
 import '../views/screan2.dart';
 
@@ -38,12 +39,12 @@ class _CustomSplashScreanWidgetState extends State<CustomSplashScreanWidget> {
                       userRepository:
                           context.read<AuthenticationBloc>().userRepository),
                 ),
-                // BlocProvider(
-                //   create: (context) => UpdateUserInfoBloc(
-                //     userRepository: context.read<AuthenticationBloc>().userRepository
-                //   ),
+                BlocProvider(
+                  create: (context) => UpdateUserInfoBloc(
+                    userRepository: context.read<AuthenticationBloc>().userRepository
+                  ),
                  
-                // ),
+                ),
                 BlocProvider(
                   create: (context) => MyUserBloc(
                     myUserRepository: context.read<AuthenticationBloc>().userRepository
