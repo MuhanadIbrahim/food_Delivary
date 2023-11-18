@@ -17,6 +17,30 @@ class HomeScreanBodyContent extends StatelessWidget {
       padding: const EdgeInsets.all(15.0),
       child: Column(
         children: [
+          SizedBox(
+            height: 30,
+          ),
+          Row(
+            children: [
+              Container(
+                width: 50,
+                height: 50,
+                decoration: BoxDecoration(
+                    color: Colors.grey.shade300, shape: BoxShape.circle),
+                child: Icon(
+                  Icons.person_outline,
+                  color: Colors.grey.shade400,
+                ),
+              ),
+              SizedBox(
+                width: 10,
+              ),
+              Text(
+                'Welcome Muhanad',
+                style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold),
+              )
+            ],
+          ),
           findYourFood(context),
           Expanded(
             child: ListView(
