@@ -33,7 +33,7 @@ class _HomeScreanState extends State<HomeScrean> {
 
   @override
   Widget build(BuildContext context) {
-    return  BlocProvider<SignInBloc>(
+    return BlocProvider<SignInBloc>(
       create: (context) => SignInBloc(
           userRepository: context.read<AuthenticationBloc>().userRepository),
       child: const HomeScreanBody(),

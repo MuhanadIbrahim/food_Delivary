@@ -28,6 +28,8 @@ import 'package:food_delivery_app/views/upload_preview_screan.dart';
 import 'package:food_delivery_app/views/upload_screan.dart';
 import 'package:food_delivery_app/views/vertification_code_screan.dart';
 
+import 'bloc/my_user_bloc/my_user_bloc.dart';
+import 'bloc/update_user_info_bloc/update_user_info_bloc.dart';
 import 'firebase_options.dart';
 import 'widgets/custom_splash_screan.dart';
 
@@ -51,18 +53,24 @@ void main() async {
   runApp(MyApp(FirebaseUserRepository()));
 }
 
-class MyApp extends StatelessWidget {
+class MyApp extends StatefulWidget {
   final UserRepository userRepository;
 
   const MyApp(this.userRepository, {super.key});
 
+  @override
+  State<MyApp> createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiRepositoryProvider(
         providers: [
           RepositoryProvider<AuthenticationBloc>(
-            create: (_) => AuthenticationBloc(myUserRepository: userRepository),
+            create: (_) =>
+                AuthenticationBloc(myUserRepository: widget.userRepository),
           ),
         ],
         child: MaterialApp(
@@ -88,7 +96,20 @@ class MyApp extends StatelessWidget {
             kHomeScrean: (context) => const HomeScrean(),
             kResutrantScrean: (context) => const ResturantHomeScrean(),
           },
-          home: const CustomSplashScreanWidget(),
+          home: BlocProvider(
+            create: (context) => MyUserBloc(
+                myUserRepository:
+                    context.read<AuthenticationBloc>().userRepository)
+              ..add(GetMyUser(
+                  myUserId:
+                      context.read<AuthenticationBloc>().state.user!.uid)),
+            child:    BlocProvider(
+                  create: (context) => UpdateUserInfoBloc(
+                    userRepository: context.read<AuthenticationBloc>().userRepository
+                  ),child: const  CustomSplashScreanWidget(),
+                 
+                ), 
+          ),
           // Set the initial page
           theme: ThemeData(fontFamily: 'Roboto'),
 

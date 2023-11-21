@@ -53,7 +53,25 @@ class _CustomSplashScreanWidgetState extends State<CustomSplashScreanWidget> {
                 )
               ], child: const HomeScrean(),);
             } else {
-              return const Screan2();
+              return  MultiBlocProvider(providers: [
+                BlocProvider(
+                  create: (context) => SignInBloc(
+                      userRepository:
+                          context.read<AuthenticationBloc>().userRepository),
+                ),
+                BlocProvider(
+                  create: (context) => UpdateUserInfoBloc(
+                    userRepository: context.read<AuthenticationBloc>().userRepository
+                  ),
+                 
+                ),
+                BlocProvider(
+                  create: (context) => MyUserBloc(
+                    myUserRepository: context.read<AuthenticationBloc>().userRepository
+                  )..add(GetMyUser(myUserId: context.read<AuthenticationBloc>().state.user!.uid)),
+                  
+                ),
+              ] ,child :const Screan2());
             }
           },
         ));
