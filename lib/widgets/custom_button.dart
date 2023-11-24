@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 import 'custom_BoxDecoration.dart';
@@ -18,12 +17,9 @@ class CustomButton extends StatelessWidget {
       child: Center(
         child: Text(
           title,
-          style: const TextStyle(color: Colors.white, fontSize: 23),
+          style: const TextStyle(color: Colors.white, fontSize: 20),
         ),
       ),
     );
   }
-
- 
 }
-

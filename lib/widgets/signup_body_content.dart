@@ -42,6 +42,7 @@ class _SignUpBodyContentState extends State<SignUpBodyContent> {
           if (state is SignUpSuccess) {
             setState(() {
               signUpRequired = false;
+              Navigator.pushNamed(context, kLoginScrean);
             });
           } else if (state is SignUpProcess) {
             setState(() {
