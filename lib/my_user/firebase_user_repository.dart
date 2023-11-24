@@ -78,7 +78,7 @@ class FirebaseUserRepository implements UserRepository {
   }
 
   @override
-  Future<void> signIn(String email, String password) async {
+  Future<bool> signIn(String email, String password) async {
     // try {
     //   UserCredential userCredential = await FirebaseAuth.instance
     //       .signInWithEmailAndPassword(email: email, password: password);
@@ -110,9 +110,8 @@ class FirebaseUserRepository implements UserRepository {
     try {
       UserCredential userCredential = await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
-
-      if (userCredential.user!.emailVerified) {
-      } else {
+      var emailVerified = userCredential.user!.emailVerified;
+      if (!emailVerified) {
         // ignore: use_build_context_synchronously
         // AwesomeDialog(
         //   context: context,
@@ -134,6 +133,7 @@ class FirebaseUserRepository implements UserRepository {
             textColor: Colors.white,
             fontSize: 16.0);
       }
+      return emailVerified;
     } on FirebaseAuthException catch (e) {
       // Temporary Fix
       final code = parseFirebaseAuthExceptionMessage(input: e.message);
@@ -217,6 +217,7 @@ class FirebaseUserRepository implements UserRepository {
           textColor: Colors.white,
           fontSize: 16.0);
     }
+    return false;
   }
 
   @override

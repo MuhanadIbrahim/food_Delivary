@@ -73,6 +73,7 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
         if (state is SignInSuccess) {
           setState(() {
             signInRequired = false;
+            Navigator.of(context).pushReplacementNamed(kHomeScrean);
           });
         } else if (state is SignInProcess) {
           setState(() {
@@ -212,8 +213,7 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
                                   print('User is signed in!');
                                   print('===============================$user');
 
-                                  Navigator.of(context)
-                                      .pushReplacementNamed(kHomeScrean);
+// Navigator.of(context).popUntil(ModalRoute.withName('/'));
                                 }
                               });
                             }

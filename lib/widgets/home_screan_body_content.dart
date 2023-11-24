@@ -29,34 +29,38 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
       child: BlocProvider(
         create: (context) => UpdateUserInfoBloc(
             userRepository: context.read<AuthenticationBloc>().userRepository),
-        child: BlocListener<UpdateUserInfoBloc, UpdateUserInfoState>(
-          listener: (context, state) {
-            if (state is UploadPictureSuccess) {
-              setState(() {
-                context.read<MyUserBloc>().state.user!.picture =
-                    state.userImage;
-              });
-            }
-          },
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 30,
-              ),
-              BlocProvider(
-                create: (context) => MyUserBloc(
-                    myUserRepository:
-                        context.read<AuthenticationBloc>().userRepository)
-                  ..add(GetMyUser(
-                      myUserId:
-                          context.read<AuthenticationBloc>().state.user!.uid)),
-                child: BlocBuilder<MyUserBloc, MyUserState>(
-                  builder: (context, state) {
-                    if (state.status == MyUserStatus.success) {
-                      return Row(
-                        children: [
-                          state.user!.picture == ""
-                              ? GestureDetector(
+        child: Column(
+          children: [
+            const SizedBox(
+              height: 30,
+            ),
+            BlocProvider(
+              create: (context) => MyUserBloc(
+                  myUserRepository:
+                      context.read<AuthenticationBloc>().userRepository)
+                ..add(GetMyUser(
+                    myUserId:
+                        context.read<AuthenticationBloc>().state.user!.uid)),
+              child: BlocBuilder<MyUserBloc, MyUserState>(
+                builder: (context, state) {
+                  if (state.status == MyUserStatus.success) {
+                    return Row(
+                      children: [
+                        state.user!.picture == ""
+                            ? BlocListener<UpdateUserInfoBloc,
+                                UpdateUserInfoState>(
+                                listener: (context, state) {
+                                  if (state is UploadPictureSuccess) {
+                                    context
+                                        .read<MyUserBloc>()
+                                        .state
+                                        .user!
+                                        .picture = state.userImage;
+
+                                    setState(() {});
+                                  }
+                                },
+                                child: GestureDetector(
                                   onTap: () async {
                                     final ImagePicker picker = ImagePicker();
                                     final XFile? image = await picker.pickImage(
@@ -64,6 +68,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                         maxHeight: 500,
                                         maxWidth: 500,
                                         imageQuality: 40);
+                                    image;
                                     if (image != null) {
                                       CroppedFile? croppedFile =
                                           await ImageCropper().cropImage(
@@ -85,16 +90,17 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                                 lockAspectRatio: false)
                                           ]);
                                       if (croppedFile != null) {
+                                        var imageUrl = UploadPicture(
+                                            croppedFile.path,
+                                            context
+                                                .read<MyUserBloc>()
+                                                .state
+                                                .user!
+                                                .id);
                                         setState(() {
                                           context
                                               .read<UpdateUserInfoBloc>()
-                                              .add(UploadPicture(
-                                                  croppedFile.path,
-                                                  context
-                                                      .read<MyUserBloc>()
-                                                      .state
-                                                      .user!
-                                                      .id));
+                                              .add(imageUrl);
                                         });
                                       }
                                     }
@@ -110,93 +116,153 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                       color: Colors.grey.shade400,
                                     ),
                                   ),
-                                )
-                              : Container(
-                                  width: 50,
-                                  height: 50,
-                                  decoration: BoxDecoration(
-                                      color: Colors.grey,
-                                      shape: BoxShape.circle,
-                                      image: DecorationImage(
-                                          image: NetworkImage(
-                                              state.user!.picture!),
-                                          fit: BoxFit.cover)),
                                 ),
-                          SizedBox(
-                            width: 10,
-                          ),
-                          Text(
-                            'Welcome Muhanad',
-                            style: TextStyle(
-                                fontSize: 20, fontWeight: FontWeight.bold),
-                          )
-                        ],
-                      );
-                    } else {
-                      return const Center(child: CircularProgressIndicator());
-                    }
-                  },
-                ),
+                              )
+                            : BlocListener<UpdateUserInfoBloc,
+                                UpdateUserInfoState>(
+                                listener: (context, state) {
+                                  if (state is UploadPictureSuccess) {
+                                    context
+                                        .read<MyUserBloc>()
+                                        .state
+                                        .user!
+                                        .picture = state.userImage;
+
+                                    setState(() {});
+                                  }
+                                },
+                                child: GestureDetector(
+                                  onTap: () async {
+                                    final ImagePicker picker = ImagePicker();
+                                    final XFile? image = await picker.pickImage(
+                                        source: ImageSource.gallery,
+                                        maxHeight: 500,
+                                        maxWidth: 500,
+                                        imageQuality: 40);
+                                    image;
+                                    if (image != null) {
+                                      CroppedFile? croppedFile =
+                                          await ImageCropper().cropImage(
+                                              sourcePath: image.path,
+                                              aspectRatio:
+                                                  const CropAspectRatio(
+                                                      ratioX: 1, ratioY: 1),
+                                              aspectRatioPresets: [
+                                            CropAspectRatioPreset.square
+                                          ],
+                                              uiSettings: [
+                                            AndroidUiSettings(
+                                                toolbarTitle: 'Cropper',
+                                                toolbarWidgetColor:
+                                                    Colors.white,
+                                                initAspectRatio:
+                                                    CropAspectRatioPreset
+                                                        .original,
+                                                lockAspectRatio: false)
+                                          ]);
+                                      if (croppedFile != null) {
+                                        var imageUrl = UploadPicture(
+                                            croppedFile.path,
+                                            context
+                                                .read<MyUserBloc>()
+                                                .state
+                                                .user!
+                                                .id);
+                                        setState(() {
+                                          context
+                                              .read<UpdateUserInfoBloc>()
+                                              .add(imageUrl);
+                                        });
+                                      }
+                                    }
+                                  },
+                                  child: Container(
+                                    width: 50,
+                                    height: 50,
+                                    decoration: BoxDecoration(
+                                        color: Colors.grey,
+                                        shape: BoxShape.circle,
+                                        image: DecorationImage(
+                                            image: NetworkImage(
+                                                state.user!.picture!),
+                                            fit: BoxFit.cover)),
+                                  ),
+                                ),
+                              ),
+                        SizedBox(
+                          width: 10,
+                        ),
+                        Text(
+                          'Welcome Muhanad',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold),
+                        )
+                      ],
+                    );
+                  } else {
+                    return const Center(child: CircularProgressIndicator());
+                  }
+                },
               ),
-              findYourFood(context),
-              Expanded(
-                child: ListView(
-                  children: const [
-                    SpecialDealPromoHomeScrean(),
-                    SizedBox(
-                      height: 20,
+            ),
+            findYourFood(context),
+            Expanded(
+              child: ListView(
+                children: const [
+                  SpecialDealPromoHomeScrean(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextOfNearstResAndTextOfViewMore(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  NearstResturantCardsScrolling(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextOfPopluarMenuAndTextOfViewMore(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  MenuDetailsPriceCard(
+                    jpg: 'assets/images/Green Nodejpg.jpg',
+                    title: 'Green Noddle',
+                    subtitle: 'Noodle Home',
+                    price: 15,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  MenuDetailsPriceCard(
+                      jpg: 'assets/images/fruitSaladjpg.jpg',
+                      title: 'Fruit Salad',
+                      subtitle: 'Wijie Resto',
+                      price: 5),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Popular Restaurant',
+                    style: TextStyle(
+                      color: Color(0xFF09041B),
+                      fontSize: 18,
+                      fontFamily: 'BentonSans Bold',
+                      fontWeight: FontWeight.bold,
                     ),
-                    TextOfNearstResAndTextOfViewMore(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    NearstResturantCardsScrolling(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    TextOfPopluarMenuAndTextOfViewMore(),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    MenuDetailsPriceCard(
-                      jpg: 'assets/images/Green Nodejpg.jpg',
-                      title: 'Green Noddle',
-                      subtitle: 'Noodle Home',
-                      price: 15,
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    MenuDetailsPriceCard(
-                        jpg: 'assets/images/fruitSaladjpg.jpg',
-                        title: 'Fruit Salad',
-                        subtitle: 'Wijie Resto',
-                        price: 5),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    Text(
-                      'Popular Restaurant',
-                      style: TextStyle(
-                        color: Color(0xFF09041B),
-                        fontSize: 18,
-                        fontFamily: 'BentonSans Bold',
-                        fontWeight: FontWeight.bold,
-                      ),
-                    ),
-                    SizedBox(
-                      height: 20,
-                    ),
-                    PopularResutrantScrolling(),
-                  ],
-                ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  PopularResutrantScrolling(),
+                ],
               ),
-              const Padding(
-                padding: EdgeInsets.all(2.0),
-                child: CustomNavigationBar(),
-              )
-            ],
-          ),
+            ),
+            const Padding(
+              padding: EdgeInsets.all(2.0),
+              child: CustomNavigationBar(),
+            )
+          ],
         ),
       ),
     );
