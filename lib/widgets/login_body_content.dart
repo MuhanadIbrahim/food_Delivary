@@ -199,8 +199,8 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
                               //   Navigator.pushNamed(context, kHomeScrean);
                               // }
                               // Inside a widget's build method or button onPressed callback
-                              BlocProvider.of<GetAllRestaurantBloc>(context)
-                                  .add(GetAllRestaurantEvent());
+                              // BlocProvider.of<GetAllRestaurantBloc>(context)
+                              //     .add(GetAllRestaurantEvent());
 
                               // Inside a widget's build method or button onPressed callback
 

@@ -28,6 +28,7 @@ class GetAllRestaurantBloc
         emit(GetAllRestaurantFaliuer());
         rethrow;
       }
+      
     });
   }
 }

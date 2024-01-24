@@ -10,8 +10,10 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../bloc/authentication/bloc/authentication_bloc.dart';
+import '../bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
 import '../bloc/my_user_bloc/my_user_bloc.dart';
 import '../my_restaurant/restaurant.dart';
+import 'content_card.dart';
 import 'display_all_restaurant.dart';
 import 'find_your_food_widget.dart';
 import 'menu_details_price_card.dart';
@@ -27,6 +29,11 @@ class HomeScreanBodyContent extends StatefulWidget {
 
 class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
   @override
+  void initState() {
+    context.read<GetAllRestaurantBloc>().add(GetAllRestaurantEvent());
+    super.initState();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -214,7 +221,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
             findYourFood(context),
             Expanded(
               child: ListView(
-                children: const [
+                children: [
                   SpecialDealPromoHomeScrean(),
                   SizedBox(
                     height: 20,
@@ -261,7 +268,43 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                     height: 20,
                   ),
                   PopularResutrantScrolling(),
-                  DispalyAllRestaurant()
+                  Container(
+                    width: 200,
+                    height: 200,
+                    child: BlocBuilder<GetAllRestaurantBloc,
+                        GetAllRestaurantState>(builder: (context, state) {
+                      if (state is GetAllRestaurantLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is GetAllRestaurantFaliuer) {
+                        return const Center(
+                          child: Text('there is something Wrong'),
+                        );
+                      } else if (state is GetAllRestaurantSuccess) {
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          physics: const ScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: state.allRestaurant.length,
+                          itemBuilder: (context, index) {
+                            final restaurant = state.allRestaurant[index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: ContentResturantCard(
+                                jpg:
+                                    'assets/images/LogoVeganLoverResturantjpg.jpg',
+                                title: restaurant.name,
+                                subtitle: restaurant.email,
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                      // return const SizedBox();
+                    }),
+                  )
                 ],
               ),
             ),
