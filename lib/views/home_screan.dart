@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
+import 'package:food_delivery_app/bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
 import 'package:food_delivery_app/constans/constans.dart';
 import 'package:food_delivery_app/widgets/home_screan_body.dart';
 
@@ -33,9 +34,17 @@ class _HomeScreanState extends State<HomeScrean> {
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider<SignInBloc>(
-      create: (context) => SignInBloc(
-          userRepository: context.read<AuthenticationBloc>().userRepository),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<SignInBloc>(
+          create: (context) => SignInBloc(
+              userRepository:
+                  context.read<AuthenticationBloc>().userRepository),
+        ),
+        BlocProvider(
+          create: (context) => GetAllRestaurantBloc(),
+        ),
+      ],
       child: const HomeScreanBody(),
     );
   }

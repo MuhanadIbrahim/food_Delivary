@@ -1,6 +1,8 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
 import 'package:food_delivery_app/bloc/update_user_info_bloc/update_user_info_bloc.dart';
+import 'package:food_delivery_app/my_restaurant/restaurant_entity.dart';
 import 'package:food_delivery_app/widgets/popular_resturant_scrolling.dart';
 import 'package:food_delivery_app/widgets/special_deal_promo.dart';
 import 'package:food_delivery_app/widgets/textof_nears_restrunt_viewmore.dart';
@@ -9,6 +11,8 @@ import 'package:image_picker/image_picker.dart';
 
 import '../bloc/authentication/bloc/authentication_bloc.dart';
 import '../bloc/my_user_bloc/my_user_bloc.dart';
+import '../my_restaurant/restaurant.dart';
+import 'display_all_restaurant.dart';
 import 'find_your_food_widget.dart';
 import 'menu_details_price_card.dart';
 import 'nearst_resturant_scrolling.dart';
@@ -22,6 +26,7 @@ class HomeScreanBodyContent extends StatefulWidget {
 }
 
 class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
+  @override
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -62,6 +67,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                 },
                                 child: GestureDetector(
                                   onTap: () async {
+                                    const CircularProgressIndicator();
                                     final ImagePicker picker = ImagePicker();
                                     final XFile? image = await picker.pickImage(
                                         source: ImageSource.gallery,
@@ -255,13 +261,14 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                     height: 20,
                   ),
                   PopularResutrantScrolling(),
+                  DispalyAllRestaurant()
                 ],
               ),
             ),
             const Padding(
               padding: EdgeInsets.all(2.0),
               child: CustomNavigationBar(),
-            )
+            ),
           ],
         ),
       ),

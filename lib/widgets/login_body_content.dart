@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:fluttertoast/fluttertoast.dart';
+import 'package:food_delivery_app/bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
 import 'package:food_delivery_app/bloc/sign_in/bloc/sign_in_bloc.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import '../constans/constans.dart';
@@ -197,6 +198,11 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
                               // if (FirebaseAuth.instance.currentUser != null) {
                               //   Navigator.pushNamed(context, kHomeScrean);
                               // }
+                              // Inside a widget's build method or button onPressed callback
+                              BlocProvider.of<GetAllRestaurantBloc>(context)
+                                  .add(GetAllRestaurantEvent());
+
+                              // Inside a widget's build method or button onPressed callback
 
                               FirebaseAuth.instance
                                   .authStateChanges()

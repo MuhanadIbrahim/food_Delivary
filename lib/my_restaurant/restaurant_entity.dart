@@ -1,18 +1,19 @@
 import 'package:equatable/equatable.dart';
 
-class MyUserEntity extends Equatable {
+class MyRestaurantEntity extends Equatable {
   final String name;
   final int phoneNumber;
   final String email;
   final String? picture;
   final String id;
 
-  const MyUserEntity(
-      {required this.id,
-      required this.name,
-      required this.phoneNumber,
-      required this.email,
-      this.picture});
+  const MyRestaurantEntity({
+    required this.name,
+    required this.phoneNumber,
+    required this.email,
+    this.picture,
+    required this.id,
+  });
 
   Map<String, Object?> toDocument() {
     return {
@@ -24,8 +25,9 @@ class MyUserEntity extends Equatable {
     };
   }
 
-  static MyUserEntity fromDocument(Map<String, dynamic> doc) {
-    return MyUserEntity(
+  static MyRestaurantEntity fromDocument(Map<String, dynamic> doc) {
+    
+    return MyRestaurantEntity(
       id: doc['id'] as String,
       name: doc['name'] as String,
       phoneNumber: doc['phoneNumber'] as int,
