@@ -230,44 +230,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                   SizedBox(
                     height: 20,
                   ),
-                  NearstResturantCardsScrolling(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  TextOfPopluarMenuAndTextOfViewMore(),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  MenuDetailsPriceCard(
-                    jpg: 'assets/images/Green Nodejpg.jpg',
-                    title: 'Green Noddle',
-                    subtitle: 'Noodle Home',
-                    price: 15,
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  MenuDetailsPriceCard(
-                      jpg: 'assets/images/fruitSaladjpg.jpg',
-                      title: 'Fruit Salad',
-                      subtitle: 'Wijie Resto',
-                      price: 5),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text(
-                    'Popular Restaurant',
-                    style: TextStyle(
-                      color: Color(0xFF09041B),
-                      fontSize: 18,
-                      fontFamily: 'BentonSans Bold',
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  PopularResutrantScrolling(),
+                  // NearstResturantCardsScrolling(),
                   Container(
                     width: 200,
                     height: 200,
@@ -304,7 +267,77 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                       }
                       // return const SizedBox();
                     }),
-                  )
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  TextOfPopluarMenuAndTextOfViewMore(),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  MenuDetailsPriceCard(
+                    jpg: 'assets/images/Green Nodejpg.jpg',
+                    title: 'Green Noddle',
+                    subtitle: 'Noodle Home',
+                    price: 15,
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  MenuDetailsPriceCard(
+                      jpg: 'assets/images/fruitSaladjpg.jpg',
+                      title: 'Fruit Salad',
+                      subtitle: 'Wijie Resto',
+                      price: 5),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  Text(
+                    'Popular Restaurant',
+                    style: TextStyle(
+                      color: Color(0xFF09041B),
+                      fontSize: 18,
+                      fontFamily: 'BentonSans Bold',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  ),
+                  SizedBox(
+                    height: 20,
+                  ),
+                  // PopularResutrantScrolling(),
+                  BlocBuilder<GetAllRestaurantBloc, GetAllRestaurantState>(
+                      builder: (context, state) {
+                    if (state is GetAllRestaurantLoading) {
+                      return const Center(child: CircularProgressIndicator());
+                    } else if (state is GetAllRestaurantFaliuer) {
+                      return const Center(
+                        child: Text('there is something Wrong'),
+                      );
+                    } else if (state is GetAllRestaurantSuccess) {
+                      return GridView.builder(
+                        physics: const ScrollPhysics(),
+                        shrinkWrap: true,
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
+                          mainAxisSpacing: 10,
+                          crossAxisSpacing: 10,
+                          crossAxisCount: 2,
+                        ),
+                        itemCount: state.allRestaurant.length,
+                        itemBuilder: (context, index) {
+                          final restaurant = state.allRestaurant[index];
+                          return ContentResturantCard(
+                              jpg:
+                                  'assets/images/logoHealthyOrganicProducrResturantjpg.jpg',
+                              title: restaurant.name,
+                              subtitle: restaurant.email);
+                        },
+                      );
+                    } else {
+                      return const SizedBox();
+                    }
+                    // return const SizedBox();
+                  })
                 ],
               ),
             ),

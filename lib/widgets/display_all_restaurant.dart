@@ -65,30 +65,38 @@ class DispalyAllRestaurantBody extends StatefulWidget {
 class _DispalyAllRestaurantBodyState extends State<DispalyAllRestaurantBody> {
   @override
   Widget build(BuildContext context) {
-    return BlocBuilder<GetAllRestaurantBloc, GetAllRestaurantState>(
-        builder: (context, state) {
-      if (state is GetAllRestaurantLoading) {
-        return const Center(child: CircularProgressIndicator());
-      }
-      if (state is GetAllRestaurantFaliuer) {
-        return const Center(
-          child: Text('there is something Wrong'),
-        );
-      }
-      if (state is GetAllRestaurantSuccess) {
-        ListView.builder(
-          itemCount: state.allRestaurant.length,
-          itemBuilder: (context, index) {
-            final restaurant = state.allRestaurant[index];
-            return ContentResturantCard(
-              jpg: 'assets/images/LogoVeganLoverResturantjpg.jpg',
-              title: restaurant.name,
-              subtitle: restaurant.email,
-            );
-          },
-        );
-      }
-      return const SizedBox();
-    });
+    return  BlocBuilder<GetAllRestaurantBloc,
+                        GetAllRestaurantState>(builder: (context, state) {
+                      if (state is GetAllRestaurantLoading) {
+                        return const Center(child: CircularProgressIndicator());
+                      } else if (state is GetAllRestaurantFaliuer) {
+                        return const Center(
+                          child: Text('there is something Wrong'),
+                        );
+                      } else if (state is GetAllRestaurantSuccess) {
+                        return ListView.builder(
+                          scrollDirection: Axis.horizontal,
+                          physics: const ScrollPhysics(),
+                          shrinkWrap: true,
+                          itemCount: state.allRestaurant.length,
+                          itemBuilder: (context, index) {
+                            final restaurant = state.allRestaurant[index];
+                            return Padding(
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 10, vertical: 10),
+                              child: ContentResturantCard(
+                                jpg:
+                                    'assets/images/LogoVeganLoverResturantjpg.jpg',
+                                title: restaurant.name,
+                                subtitle: restaurant.email,
+                              ),
+                            );
+                          },
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
+                      // return const SizedBox();
+                    });
   }
 }
