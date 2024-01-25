@@ -25,8 +25,10 @@ final class GetAllMealsLoading extends GetAllMealsState {}
 final class MealOfRequiredRestaurant extends GetAllMealsState {
   final List<MyMeals> allMeals;
 
-  const MealOfRequiredRestaurant({required this.allMeals});
+  final MyRestaurant restaurant;
+
+  const MealOfRequiredRestaurant({required this.allMeals,required this.restaurant});
 
   @override
-  List<Object> get props => [allMeals];
+  List<Object> get props => [allMeals,restaurant];
 }

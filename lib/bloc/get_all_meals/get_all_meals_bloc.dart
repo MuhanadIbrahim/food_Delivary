@@ -43,37 +43,41 @@ class GetAllMealsBloc extends Bloc<GetMealsBlocEvent, GetAllMealsState> {
           List<MyRestaurant> restaurants = querySnapshot.docs
               .map((doc) => MyRestaurant.fromMap(doc.data()))
               .toList();
-          print('~~~~~~~~~~~~~~~~~~~~~~~~~${restaurants[event.requiredRestaurants].id}');
+          restaurants[event.requiredRestaurants];
+          print(
+              '~~~~~~~~~~~~~~~~~~~~~~~~~${restaurants[event.requiredRestaurants].id}');
 
           FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+          firestore
+              .collection('restaurant')
+              .get()
+              .then((QuerySnapshot querySnapshot) {
+            querySnapshot.docs.forEach((restaurantDoc) {
+              final restaurant = restaurantDoc.data();
+              final restaurantId = restaurants[event.requiredRestaurants].id;
 
-          firestore.collection('restaurant')
-    .get()
-    .then((QuerySnapshot querySnapshot) {
-  querySnapshot.docs.forEach((restaurantDoc) {
-    final restaurant = restaurantDoc.data();
-    final restaurantId = restaurants[event.requiredRestaurants].id;
+              // Fetch meals for the current restaurant
+              firestore
+                  .collection('restaurant')
+                  .doc(restaurantId)
+                  .collection('meals')
+                  .get()
+                  .then((QuerySnapshot mealsSnapshot) {
+                List<MyMeals> meals = mealsSnapshot.docs
+                    .map((mealDoc) => MyMeals.fromMap(mealDoc.data()))
+                    .toList();
 
-    // Fetch meals for the current restaurant
-    firestore.collection('restaurant')
-      .doc(restaurantId)
-      .collection('meals')
-      .get()
-      .then((QuerySnapshot mealsSnapshot) {
-      List<MyMeals> meals = mealsSnapshot.docs.map((mealDoc) => MyMeals.fromMap(mealDoc.data())).toList();
-
-      // Process the restaurant and its meals
-      print('Restaurant: $restaurant');
-      print('Meals: $meals');
-      
-      // Display the restaurant and meals in your UI as needed
-    });
-  });
-});
-
-
-          
+                // Process the restaurant and its meals
+                print('Restaurant: $restaurant');
+                print('Meals: $meals');
+                emit(MealOfRequiredRestaurant(
+                    allMeals: meals,
+                    restaurant: restaurants[event.requiredRestaurants]));
+                // Display the restaurant and meals in your UI as needed
+              });
+            });
+          });
         } catch (e) {
           rethrow;
         }
