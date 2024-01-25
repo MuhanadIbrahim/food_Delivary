@@ -1,4 +1,5 @@
 part of 'get_all_meals_bloc.dart';
+
 sealed class GetAllMealsState extends Equatable {
   const GetAllMealsState();
 
@@ -20,3 +21,12 @@ final class GetAllMealsSuccess extends GetAllMealsState {
 }
 
 final class GetAllMealsLoading extends GetAllMealsState {}
+
+final class MealOfRequiredRestaurant extends GetAllMealsState {
+  final List<MyMeals> allMeals;
+
+  const MealOfRequiredRestaurant({required this.allMeals});
+
+  @override
+  List<Object> get props => [allMeals];
+}

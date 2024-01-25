@@ -10,6 +10,7 @@ import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../bloc/authentication/bloc/authentication_bloc.dart';
+import '../bloc/get_all_meals/get_all_meals_bloc.dart';
 import '../bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
 import '../bloc/my_user_bloc/my_user_bloc.dart';
 import '../my_restaurant/restaurant.dart';
@@ -31,6 +32,9 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
   @override
   void initState() {
     context.read<GetAllRestaurantBloc>().add(GetAllRestaurantEvent());
+    context
+        .read<GetAllMealsBloc>()
+        .add(RequiredRestaurant(requiredRestaurants: 6));
     super.initState();
   }
 
