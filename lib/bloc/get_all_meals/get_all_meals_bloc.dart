@@ -35,51 +35,25 @@ class GetAllMealsBloc extends Bloc<GetMealsBlocEvent, GetAllMealsState> {
     on<RequiredRestaurant>(
       (event, emit) async {
         try {
-          final CollectionReference restaurantsCollection = FirebaseFirestore
-              .instance
-              .collection('restaurant'); // Access the 'restaurants' collection
-
+          final restaurantsCollection = FirebaseFirestore.instance.collection('restaurant');
           final querySnapshot = await restaurantsCollection.get();
-          List<MyRestaurant> restaurants = querySnapshot.docs
-              .map((doc) => MyRestaurant.fromMap(doc.data()))
-              .toList();
-          restaurants[event.requiredRestaurants];
-          print(
-              '~~~~~~~~~~~~~~~~~~~~~~~~~${restaurants[event.requiredRestaurants].id}');
+          final restaurants = querySnapshot.docs.map((doc) => MyRestaurant.fromMap(doc.data())).toList();
+          final selectedRestaurant = restaurants[event.requiredRestaurants];
+          print('~~~~~~~~~~~~~~~~~~~~~~~~~${selectedRestaurant.id}');
 
-          FirebaseFirestore firestore = FirebaseFirestore.instance;
-
-          firestore
+          final mealsSnapshot = await FirebaseFirestore.instance
               .collection('restaurant')
-              .get()
-              .then((QuerySnapshot querySnapshot) {
-            querySnapshot.docs.forEach((restaurantDoc) {
-              final restaurant = restaurantDoc.data();
-              final restaurantId = restaurants[event.requiredRestaurants].id;
+              .doc(selectedRestaurant.id)
+              .collection('meals')
+              .get();
+          final meals = mealsSnapshot.docs.map((doc) => MyMeals.fromMap(doc.data())).toList();
 
-              // Fetch meals for the current restaurant
-              firestore
-                  .collection('restaurant')
-                  .doc(restaurantId)
-                  .collection('meals')
-                  .get()
-                  .then((QuerySnapshot mealsSnapshot) {
-                List<MyMeals> meals = mealsSnapshot.docs
-                    .map((mealDoc) => MyMeals.fromMap(mealDoc.data()))
-                    .toList();
-
-                // Process the restaurant and its meals
-                print('Restaurant: $restaurant');
-                print('Meals: $meals');
-                emit(MealOfRequiredRestaurant(
-                    allMeals: meals,
-                    restaurant: restaurants[event.requiredRestaurants]));
-                // Display the restaurant and meals in your UI as needed
-              });
-            });
-          });
+          print('Restaurant: $selectedRestaurant');
+          print('Meals: $meals');
+          emit(MealOfRequiredRestaurant(allMeals: meals, restaurant: selectedRestaurant));
         } catch (e) {
-          rethrow;
+          // Handle error gracefully, display user-friendly message
+        
         }
       },
     );
