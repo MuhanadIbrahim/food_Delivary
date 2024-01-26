@@ -13,12 +13,11 @@ import '../bloc/authentication/bloc/authentication_bloc.dart';
 import '../bloc/get_all_meals/get_all_meals_bloc.dart';
 import '../bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
 import '../bloc/my_user_bloc/my_user_bloc.dart';
+import '../constans/constans.dart';
 import '../my_restaurant/restaurant.dart';
 import 'content_card.dart';
-import 'display_all_restaurant.dart';
 import 'find_your_food_widget.dart';
 import 'menu_details_price_card.dart';
-import 'nearst_resturant_scrolling.dart';
 import 'custom_navigation_bar.dart';
 
 class HomeScreanBodyContent extends StatefulWidget {
@@ -32,9 +31,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
   @override
   void initState() {
     context.read<GetAllRestaurantBloc>().add(GetAllRestaurantEvent());
-    context
-        .read<GetAllMealsBloc>()
-        .add(RequiredRestaurant(requiredRestaurants: 6));
+   
     super.initState();
   }
 
@@ -254,14 +251,26 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                           itemCount: state.allRestaurant.length,
                           itemBuilder: (context, index) {
                             final restaurant = state.allRestaurant[index];
-                            return Padding(
-                              padding: const EdgeInsets.symmetric(
-                                  horizontal: 10, vertical: 10),
-                              child: ContentResturantCard(
-                                jpg:
-                                    'assets/images/LogoVeganLoverResturantjpg.jpg',
-                                title: restaurant.name,
-                                subtitle: restaurant.email,
+
+                            return GestureDetector(
+                              onTap: () {
+                                // Access the index directly here
+                                final tappedIndex = index;
+
+                                Navigator.pushNamed(context, kResutrantScrean);
+                                context.read<GetAllMealsBloc>().add(
+                                    RequiredRestaurant(
+                                        requiredRestaurants: tappedIndex));
+                              },
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 10, vertical: 10),
+                                child: ContentResturantCard(
+                                  jpg:
+                                      'assets/images/LogoVeganLoverResturantjpg.jpg',
+                                  title: restaurant.name,
+                                  subtitle: restaurant.email,
+                                ),
                               ),
                             );
                           },
