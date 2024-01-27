@@ -8,3 +8,18 @@ sealed class MealRequiredRestaurantState extends Equatable {
 }
 
 final class MealRequiredRestaurantInitial extends MealRequiredRestaurantState {}
+
+final class MealRequiredRestaurantLoading extends MealRequiredRestaurantState {}
+
+final class MealRequiredRestaurantISuccess extends MealRequiredRestaurantState {
+  final List<MyMeals> allMeals;
+
+  final MyRestaurant restaurant;
+
+  const MealRequiredRestaurantISuccess({required this.allMeals,required this.restaurant});
+
+  @override
+  List<Object> get props => [allMeals,restaurant];
+}
+
+final class MealRequiredRestaurantFailed extends MealRequiredRestaurantState {}
