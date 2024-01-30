@@ -29,7 +29,7 @@ class _ResturantScreanBodyState extends State<ResturantScreanBody> {
         builder: (context, state) {
           if (state is MealRequiredRestaurantLoading) {
             // Show a loading indicator or any other UI for loading state
-            return CircularProgressIndicator();
+            return const Center(child: CircularProgressIndicator());
           } else if (state is MealRequiredRestaurantISuccess) {
             // Update the UI with the fetched data
             restaurant = state.restaurant;
