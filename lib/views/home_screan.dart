@@ -7,6 +7,7 @@ import 'package:food_delivery_app/widgets/home_screan_body.dart';
 
 import '../bloc/authentication/bloc/authentication_bloc.dart';
 import '../bloc/get_all_meals/get_all_meals_bloc.dart';
+import '../bloc/meal_required_restaurant/meal_required_restaurant_bloc.dart';
 import '../bloc/sign_in/bloc/sign_in_bloc.dart';
 
 class HomeScrean extends StatefulWidget {
@@ -47,6 +48,9 @@ class _HomeScreanState extends State<HomeScrean> {
         ), BlocProvider(
           create: (context) => GetAllMealsBloc(),
         ),
+        //  BlocProvider(
+        //   create: (context) => MealRequiredRestaurantBloc(),
+        // ),
       ],
       child: const HomeScreanBody(),
     );

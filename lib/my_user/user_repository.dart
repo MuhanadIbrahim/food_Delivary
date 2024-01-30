@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:food_delivery_app/my_user/user.dart';
 
+import '../my_meals/meals.dart';
+import '../my_restaurant/restaurant.dart';
+
 abstract class UserRepository {
   Stream<User?> get user;
 
@@ -17,4 +20,6 @@ abstract class UserRepository {
   Future<MyUser> getMyUser(String myUserId);
 
   Future<String> uploadPicture(String file, String userId);
+
+  
 }

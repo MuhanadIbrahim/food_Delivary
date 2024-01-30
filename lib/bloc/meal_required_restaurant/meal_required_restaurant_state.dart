@@ -11,6 +11,8 @@ final class MealRequiredRestaurantInitial extends MealRequiredRestaurantState {}
 
 final class MealRequiredRestaurantLoading extends MealRequiredRestaurantState {}
 
+final class MealRequiredRestaurantchange extends MealRequiredRestaurantState {}
+
 final class MealRequiredRestaurantISuccess extends MealRequiredRestaurantState {
   final List<MyMeals> allMeals;
 

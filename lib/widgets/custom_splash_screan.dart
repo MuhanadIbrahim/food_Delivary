@@ -8,6 +8,7 @@ import 'package:food_delivery_app/constans/constans.dart';
 import 'package:food_delivery_app/views/home_screan.dart';
 import 'package:page_transition/page_transition.dart';
 
+import '../bloc/meal_required_restaurant/meal_required_restaurant_bloc.dart';
 import '../bloc/sign_in/bloc/sign_in_bloc.dart';
 import '../bloc/update_user_info_bloc/update_user_info_bloc.dart';
 import '../views/screan1.dart';
@@ -34,6 +35,8 @@ class _CustomSplashScreanWidgetState extends State<CustomSplashScreanWidget> {
           builder: (context, state) {
             if (state.status == AuthenticationStatus.authenticated) {
               return MultiBlocProvider(providers: [
+                // BlocProvider(create: (context) => MealRequiredRestaurantBloc(),),
+                
                 BlocProvider(
                   create: (context) => SignInBloc(
                       userRepository:

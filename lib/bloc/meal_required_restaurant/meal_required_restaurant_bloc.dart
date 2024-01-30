@@ -8,8 +8,8 @@ import '../../my_restaurant/restaurant.dart';
 part 'meal_required_restaurant_event.dart';
 part 'meal_required_restaurant_state.dart';
 
-class MealRequiredRestaurantBloc extends Bloc<
-    MealRequiredRestaurantInitialEvent, MealRequiredRestaurantState> {
+class MealRequiredRestaurantBloc
+    extends Bloc<MealsRequiredEvent, MealRequiredRestaurantState> {
   MealRequiredRestaurantBloc() : super(MealRequiredRestaurantInitial()) {
     on<MealsRequiredEvent>((event, emit) async {
       emit(MealRequiredRestaurantLoading());
@@ -32,13 +32,16 @@ class MealRequiredRestaurantBloc extends Bloc<
             .map((doc) => MyMeals.fromMap(doc.data()))
             .toList();
 
-        print('Restaurant: $selectedRestaurant');
-        print('Meals: $meals');
+        print(
+            '?????????????????????????????????Restaurant: $selectedRestaurant');
+        print('??????????????????????????????????????????Meals: $meals');
+        emit(MealRequiredRestaurantchange());
         emit(MealRequiredRestaurantISuccess(
             allMeals: meals, restaurant: selectedRestaurant));
       } catch (e) {
         // Handle error gracefully, display user-friendly message
         emit(MealRequiredRestaurantFailed());
+        rethrow;
       }
     });
   }

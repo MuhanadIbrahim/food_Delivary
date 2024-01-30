@@ -13,6 +13,9 @@ import 'package:food_delivery_app/my_user/user_entity.dart';
 import 'package:food_delivery_app/my_user/user_repository.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 
+import '../my_meals/meals.dart';
+import '../my_restaurant/restaurant.dart';
+
 
 class FirebaseUserRepository implements UserRepository {
   final userCollection = FirebaseFirestore.instance.collection('users');
@@ -351,4 +354,5 @@ class FirebaseUserRepository implements UserRepository {
       rethrow;
     }
   }
+  
 }

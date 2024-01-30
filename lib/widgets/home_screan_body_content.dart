@@ -12,6 +12,7 @@ import 'package:image_picker/image_picker.dart';
 import '../bloc/authentication/bloc/authentication_bloc.dart';
 import '../bloc/get_all_meals/get_all_meals_bloc.dart';
 import '../bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
+import '../bloc/meal_required_restaurant/meal_required_restaurant_bloc.dart';
 import '../bloc/my_user_bloc/my_user_bloc.dart';
 import '../constans/constans.dart';
 import '../my_restaurant/restaurant.dart';
@@ -31,7 +32,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
   @override
   void initState() {
     context.read<GetAllRestaurantBloc>().add(GetAllRestaurantEvent());
-   
+
     super.initState();
   }
 
@@ -258,9 +259,12 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                 final tappedIndex = index;
 
                                 Navigator.pushNamed(context, kResutrantScrean);
-                                context.read<GetAllMealsBloc>().add(
-                                    RequiredRestaurant(
-                                        requiredRestaurants: tappedIndex));
+                                // context.read<GetAllMealsBloc>().add(
+                                //     RequiredRestaurant(
+                                //         requiredRestaurants: tappedIndex));
+                                context
+                                    .read<MealRequiredRestaurantBloc>()
+                                    .add(MealsRequiredEvent(requiredRestaurants: tappedIndex));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
