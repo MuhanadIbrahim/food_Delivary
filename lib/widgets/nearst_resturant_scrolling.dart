@@ -50,26 +50,32 @@ class PopularMenuCardsScrolling extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.4 ,
+      height: MediaQuery.of(context).size.height * 0.31,
       width: double.infinity,
-      child: ListView.builder(
-       physics: ScrollPhysics(),
-       clipBehavior: Clip.none,
-       scrollDirection: Axis.horizontal,
-       padding: EdgeInsets.only(top: 35, left: 5, bottom: 10),
-       itemCount: allMeals.length,
-       itemBuilder: (context, index) {
-         return Padding(
-           padding: const EdgeInsets.symmetric(horizontal:  10.0),
-           child: ContentResturantCard(
-             jpg: 'assets/images/spacy and creepjpg.jpg',
-             title: allMeals[index].name,
-             subtitle: '${allMeals[index].price} \$',
-           ),
-         );
-       },
-       
-        ),
+      child: allMeals.isEmpty
+          ? const Center(
+              child: Text(
+                'Sorry we are work on our meals',
+                style: TextStyle(fontWeight: FontWeight.bold),
+              ),
+            )
+          : ListView.builder(
+              physics: ScrollPhysics(),
+              clipBehavior: Clip.none,
+              scrollDirection: Axis.horizontal,
+              padding: EdgeInsets.only(top: 35, left: 5, bottom: 10),
+              itemCount: allMeals.length,
+              itemBuilder: (context, index) {
+                return Padding(
+                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                  child: ContentResturantCard(
+                    jpg: 'assets/images/spacy and creepjpg.jpg',
+                    title: allMeals[index].name,
+                    subtitle: '${allMeals[index].price} \$',
+                  ),
+                );
+              },
+            ),
     );
   }
 }
