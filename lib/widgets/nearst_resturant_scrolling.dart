@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+import '../my_meals/meals.dart';
 import 'content_card.dart';
 
 class NearstResturantCardsScrolling extends StatelessWidget {
@@ -43,39 +44,32 @@ class NearstResturantCardsScrolling extends StatelessWidget {
 }
 
 class PopularMenuCardsScrolling extends StatelessWidget {
-  const PopularMenuCardsScrolling({super.key});
+  final List<MyMeals> allMeals;
+  const PopularMenuCardsScrolling({super.key, required this.allMeals});
 
   @override
   Widget build(BuildContext context) {
-    return const SingleChildScrollView(
-      physics: ScrollPhysics(),
-      clipBehavior: Clip.none,
-      scrollDirection: Axis.horizontal,
-      padding: EdgeInsets.only(top: 35, left: 5, bottom: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          ContentResturantCard(
-            jpg: 'assets/images/spacy and creepjpg.jpg',
-            title: 'Spacy fresh crab',
-            subtitle: '16 \$',
-          ),
-          SizedBox(
-            width: 20,
-          ),
-          ContentResturantCard(
-              jpg: 'assets/images/spcy and creep 2 jpg.jpg',
-              title: 'Spacy fresh crab',
-              subtitle: ' 12 \$'),
-          SizedBox(
-            width: 20,
-          ),
-          ContentResturantCard(
-              jpg: 'assets/images/spacy and creepjpg.jpg',
-              title: 'Spacy fresh crab',
-              subtitle: ' 13 \$')
-        ],
-      ),
+    return Container(
+      height: MediaQuery.of(context).size.height * 0.4 ,
+      width: double.infinity,
+      child: ListView.builder(
+       physics: ScrollPhysics(),
+       clipBehavior: Clip.none,
+       scrollDirection: Axis.horizontal,
+       padding: EdgeInsets.only(top: 35, left: 5, bottom: 10),
+       itemCount: allMeals.length,
+       itemBuilder: (context, index) {
+         return Padding(
+           padding: const EdgeInsets.symmetric(horizontal:  10.0),
+           child: ContentResturantCard(
+             jpg: 'assets/images/spacy and creepjpg.jpg',
+             title: allMeals[index].name,
+             subtitle: '${allMeals[index].price} \$',
+           ),
+         );
+       },
+       
+        ),
     );
   }
 }

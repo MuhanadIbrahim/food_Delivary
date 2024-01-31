@@ -10,16 +10,17 @@ import 'nearst_resturant_scrolling.dart';
 
 class MyCustomWidgetUsingFetchedData extends StatelessWidget {
   final MyRestaurant restaurant;
-  // final List<MyMeals> allMeals;
+  final List<MyMeals> allMeals;
   const MyCustomWidgetUsingFetchedData({
     super.key,
     required this.restaurant,
+    required this.allMeals,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: MediaQuery.of(context).size.height * 0.75,
+      height: MediaQuery.of(context).size.height * 0.99,
       decoration: const BoxDecoration(
         color: Colors.white,
         borderRadius: BorderRadius.only(
@@ -54,7 +55,9 @@ class MyCustomWidgetUsingFetchedData extends StatelessWidget {
               const SizedBox(
                 height: 25,
               ),
-              const PopularMenuCardsScrolling(),
+              PopularMenuCardsScrolling(
+                allMeals: allMeals,
+              ),
               const SizedBox(
                 height: 25,
               ),
@@ -69,7 +72,7 @@ class MyCustomWidgetUsingFetchedData extends StatelessWidget {
                 ),
               ),
               const SizedBox(
-                height: 25,
+                height: 8,
               ),
               ListView.builder(
                 physics: const ScrollPhysics(),

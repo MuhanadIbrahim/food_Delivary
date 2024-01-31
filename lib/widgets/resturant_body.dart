@@ -34,6 +34,7 @@ class _ResturantScreanBodyState extends State<ResturantScreanBody> {
             // Update the UI with the fetched data
             restaurant = state.restaurant;
             return MyCustomWidgetUsingFetchedData(
+              allMeals: state.allMeals,
               restaurant: state.restaurant,
             );
           } else if (state is MealRequiredRestaurantFailed) {
