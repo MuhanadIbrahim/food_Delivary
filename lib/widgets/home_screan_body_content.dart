@@ -207,7 +207,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                         const SizedBox(
                           width: 10,
                         ),
-                        Text(
+                        const Text(
                           'Welcome Muhanad',
                           style: TextStyle(
                               fontSize: 20, fontWeight: FontWeight.bold),
