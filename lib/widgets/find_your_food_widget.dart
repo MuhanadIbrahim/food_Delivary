@@ -17,17 +17,17 @@ Widget findYourFood(BuildContext context) {
       ),
       Row(
         children: [
-          const Text(
+          Text(
             'Find Your \nFavorite Food',
             style: TextStyle(
               color: Color(0xFF09041B),
-              fontSize: 25,
+              fontSize: 28 * MediaQuery.of(context).textScaleFactor,
               fontFamily: 'BentonSans Bold',
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
-            width: 80,
+          SizedBox(
+            width: 0.33 * MediaQuery.of(context).size.width,
           ),
           GestureDetector(
             onTap: () async {
@@ -35,39 +35,46 @@ Widget findYourFood(BuildContext context) {
               Navigator.pushReplacementNamed(context, kLoginScrean);
             },
             child: Container(
-              width: 50,
-              height: 50,
+              width: 0.09 * MediaQuery.of(context).size.shortestSide,
+              height: 0.09 * MediaQuery.of(context).size.shortestSide,
               decoration: ShapeDecoration(
                 color: const Color(0xFFFAFDFF),
                 shape: RoundedRectangleBorder(
                   borderRadius: BorderRadius.circular(15),
                 ),
-                shadows: const [
+                shadows: [
                   BoxShadow(
                     color: Color(0x33134D5A),
-                    blurRadius: 50,
-                    offset: Offset(11, 28),
-                    spreadRadius: 0,
+                    blurRadius: MediaQuery.of(context).size.width > 600
+                        ? 50
+                        : 25, // Adjust blur based on screen width
+                    offset: Offset(
+                        MediaQuery.of(context).size.width * 0.02,
+                        MediaQuery.of(context).size.height *
+                            0.05), // Scale offset proportionally
+                    spreadRadius: MediaQuery.of(context).size.width > 800
+                        ? 5
+                        : 0, // Optional spread adjustment
                   )
                 ],
               ),
-              child: const Icon(
+              child: Icon(
                 Icons.notifications_none,
-                size: 40,
-                color: Color(0xff14be77),
+                size: 50 * MediaQuery.of(context).textScaleFactor,
+                color: const Color(0xff14be77),
               ),
             ),
           ),
         ],
       ),
-      const SizedBox(
-        height: 15,
+      SizedBox(
+        height: 0.009 * MediaQuery.of(context).size.height,
       ),
       Row(
         children: [
           const SearchTextFiled(),
-          const SizedBox(
-            width: 20,
+          SizedBox(
+            width: 0.039 * MediaQuery.of(context).size.width,
           ),
           Container(
             width: 40,
