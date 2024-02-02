@@ -211,7 +211,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                           'Welcome Muhanad',
                           style: TextStyle(
                               fontSize:
-                                  20 * MediaQuery.of(context).textScaleFactor,
+                                  12 * MediaQuery.of(context).textScaleFactor,
                               fontWeight: FontWeight.bold),
                         )
                       ],

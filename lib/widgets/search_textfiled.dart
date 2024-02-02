@@ -8,7 +8,7 @@ class SearchTextFiled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 0.099 * MediaQuery.of(context).size.width,
+      height: 0.149 * MediaQuery.of(context).size.width,
       width: 0.38 * MediaQuery.of(context).size.height,
       child: TextField(
         decoration: InputDecoration(
@@ -30,7 +30,7 @@ class SearchTextFiled extends StatelessWidget {
           hintText: 'What do you want to order?',
           hintStyle: TextStyle(
             color: const Color(0xFFDA6317),
-            fontSize: 12 * MediaQuery.of(context).textScaleFactor,
+            fontSize: 9 * MediaQuery.of(context).textScaleFactor,
             fontFamily: 'Roboto',
             fontWeight: FontWeight.w400,
             letterSpacing: 0.50,

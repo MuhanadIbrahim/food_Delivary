@@ -21,13 +21,13 @@ Widget findYourFood(BuildContext context) {
             'Find Your \nFavorite Food',
             style: TextStyle(
               color: Color(0xFF09041B),
-              fontSize: 28 * MediaQuery.of(context).textScaleFactor,
+              fontSize: 20 * MediaQuery.of(context).textScaleFactor,
               fontFamily: 'BentonSans Bold',
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
-            width: 0.33 * MediaQuery.of(context).size.width,
+            width: 0.13 * MediaQuery.of(context).size.width,
           ),
           GestureDetector(
             onTap: () async {
@@ -60,7 +60,7 @@ Widget findYourFood(BuildContext context) {
               ),
               child: Icon(
                 Icons.notifications_none,
-                size: 50 * MediaQuery.of(context).textScaleFactor,
+                size: 40 * MediaQuery.of(context).textScaleFactor,
                 color: const Color(0xff14be77),
               ),
             ),
@@ -77,8 +77,8 @@ Widget findYourFood(BuildContext context) {
             width: 0.039 * MediaQuery.of(context).size.width,
           ),
           Container(
-            width: 40,
-            height: 40,
+            width: 0.12 * MediaQuery.of(context).size.shortestSide,
+            height: 0.12 * MediaQuery.of(context).size.shortestSide,
             decoration: ShapeDecoration(
               color: const Color(0xFFfef5ec),
               shape: RoundedRectangleBorder(
@@ -86,11 +86,11 @@ Widget findYourFood(BuildContext context) {
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(10.0),
+              padding: const EdgeInsets.all(2.0),
               child: SvgPicture.asset(
                 'assets/images/FilterIcon.svg',
-                height: 20,
-                width: 20,
+                width: 0.09 * MediaQuery.of(context).size.shortestSide,
+                height: 0.09 * MediaQuery.of(context).size.shortestSide,
               ),
             ),
           ),
