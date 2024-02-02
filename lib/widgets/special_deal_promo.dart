@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 class SpecialDealPromoHomeScrean extends StatelessWidget {
@@ -10,7 +9,7 @@ class SpecialDealPromoHomeScrean extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       width: double.infinity,
-      height: 150,
+      height: MediaQuery.of(context).size.height * 0.19,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(25),
       ),

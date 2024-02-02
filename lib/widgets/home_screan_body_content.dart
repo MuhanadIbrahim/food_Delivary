@@ -204,8 +204,8 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                   ),
                                 ),
                               ),
-                        const SizedBox(
-                          width: 10,
+                        SizedBox(
+                          width: 0.09 * MediaQuery.of(context).size.width,
                         ),
                         Text(
                           'Welcome Muhanad',
