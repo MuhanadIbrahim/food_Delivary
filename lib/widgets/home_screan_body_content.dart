@@ -262,9 +262,9 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                 // context.read<GetAllMealsBloc>().add(
                                 //     RequiredRestaurant(
                                 //         requiredRestaurants: tappedIndex));
-                                context
-                                    .read<MealRequiredRestaurantBloc>()
-                                    .add(MealsRequiredEvent(requiredRestaurants: tappedIndex));
+                                context.read<MealRequiredRestaurantBloc>().add(
+                                    MealsRequiredEvent(
+                                        requiredRestaurants: tappedIndex));
                               },
                               child: Padding(
                                 padding: const EdgeInsets.symmetric(
@@ -309,7 +309,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                   SizedBox(
                     height: 20,
                   ),
-                  Text(
+                  const Text(
                     'Popular Restaurant',
                     style: TextStyle(
                       color: Color(0xFF09041B),
@@ -318,7 +318,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // PopularResutrantScrolling(),
@@ -343,11 +343,24 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                         itemCount: state.allRestaurant.length,
                         itemBuilder: (context, index) {
                           final restaurant = state.allRestaurant[index];
-                          return ContentResturantCard(
-                              jpg:
-                                  'assets/images/logoHealthyOrganicProducrResturantjpg.jpg',
-                              title: restaurant.name,
-                              subtitle: restaurant.email);
+                          return GestureDetector(
+                            onTap: () {
+                              final tappedIndex = index;
+
+                              Navigator.pushNamed(context, kResutrantScrean);
+                              // context.read<GetAllMealsBloc>().add(
+                              //     RequiredRestaurant(
+                              //         requiredRestaurants: tappedIndex));
+                              context.read<MealRequiredRestaurantBloc>().add(
+                                  MealsRequiredEvent(
+                                      requiredRestaurants: tappedIndex));
+                            },
+                            child: ContentResturantCard(
+                                jpg:
+                                    'assets/images/logoHealthyOrganicProducrResturantjpg.jpg',
+                                title: restaurant.name,
+                                subtitle: restaurant.email),
+                          );
                         },
                       );
                     } else {
