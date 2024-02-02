@@ -204,7 +204,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                   ),
                                 ),
                               ),
-                        SizedBox(
+                        const SizedBox(
                           width: 10,
                         ),
                         Text(
