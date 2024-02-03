@@ -231,7 +231,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                     height: 20,
                   ),
                   TextOfNearstResAndTextOfViewMore(),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   // NearstResturantCardsScrolling(),
