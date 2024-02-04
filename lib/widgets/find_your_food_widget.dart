@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:food_delivery_app/widgets/search_textfiled.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -12,8 +13,8 @@ import '../constans/constans.dart';
 Widget findYourFood(BuildContext context) {
   return Column(
     children: [
-      const SizedBox(
-        height: 50,
+      SizedBox(
+        height: 30.h,
       ),
       Row(
         children: [
@@ -21,13 +22,13 @@ Widget findYourFood(BuildContext context) {
             'Find Your \nFavorite Food',
             style: TextStyle(
               color: Color(0xFF09041B),
-              fontSize: 20 * MediaQuery.of(context).textScaleFactor,
+              fontSize: 26.sp,
               fontFamily: 'BentonSans Bold',
               fontWeight: FontWeight.bold,
             ),
           ),
           SizedBox(
-            width: 0.13 * MediaQuery.of(context).size.width,
+            width: 125.w,
           ),
           GestureDetector(
             onTap: () async {
@@ -60,7 +61,7 @@ Widget findYourFood(BuildContext context) {
               ),
               child: Icon(
                 Icons.notifications_none,
-                size: 40 * MediaQuery.of(context).textScaleFactor,
+                size: 40.sp,
                 color: const Color(0xff14be77),
               ),
             ),
@@ -68,29 +69,29 @@ Widget findYourFood(BuildContext context) {
         ],
       ),
       SizedBox(
-        height: 0.009 * MediaQuery.of(context).size.height,
+        height: 10.h,
       ),
       Row(
         children: [
           const SearchTextFiled(),
           SizedBox(
-            width: 0.039 * MediaQuery.of(context).size.width,
+            width: 10.w,
           ),
           Container(
-            width: 0.12 * MediaQuery.of(context).size.shortestSide,
-            height: 0.12 * MediaQuery.of(context).size.shortestSide,
+            width: 48.w,
+            height: 35.h,
             decoration: ShapeDecoration(
               color: const Color(0xFFfef5ec),
               shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(15),
+                borderRadius: BorderRadius.circular(12.r),
               ),
             ),
             child: Padding(
-              padding: const EdgeInsets.all(2.0),
+              padding: EdgeInsets.all(2.0.w),
               child: SvgPicture.asset(
                 'assets/images/FilterIcon.svg',
-                width: 0.09 * MediaQuery.of(context).size.shortestSide,
-                height: 0.09 * MediaQuery.of(context).size.shortestSide,
+                width: 35.w,
+                height: 35.h,
               ),
             ),
           ),

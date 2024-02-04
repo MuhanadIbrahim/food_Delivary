@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery_app/bloc/update_user_info_bloc/update_user_info_bloc.dart';
 import 'package:food_delivery_app/my_restaurant/restaurant_entity.dart';
 import 'package:food_delivery_app/widgets/popular_resturant_scrolling.dart';
@@ -205,14 +206,12 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                 ),
                               ),
                         SizedBox(
-                          width: 0.09 * MediaQuery.of(context).size.width,
+                          width: 10.w,
                         ),
                         Text(
                           'Welcome Muhanad',
                           style: TextStyle(
-                              fontSize:
-                                  12 * MediaQuery.of(context).textScaleFactor,
-                              fontWeight: FontWeight.bold),
+                              fontSize: 20.sp, fontWeight: FontWeight.bold),
                         )
                       ],
                     );

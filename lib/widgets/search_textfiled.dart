@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class SearchTextFiled extends StatelessWidget {
   const SearchTextFiled({
@@ -8,19 +9,19 @@ class SearchTextFiled extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 0.149 * MediaQuery.of(context).size.width,
-      width: 0.38 * MediaQuery.of(context).size.height,
+      height: 40.h,
+      width: 250.w,
       child: TextField(
         decoration: InputDecoration(
-          enabledBorder: const OutlineInputBorder(
+          enabledBorder: OutlineInputBorder(
             borderRadius: BorderRadius.all(
-              Radius.circular(12.0),
+              Radius.circular(12.0.r),
             ),
-            borderSide: BorderSide(width: 20, color: Colors.transparent),
+            borderSide: BorderSide(width: 20.w, color: Colors.transparent),
           ),
           prefixIcon: IconTheme(
             data: IconThemeData(
-              size: 38 * MediaQuery.of(context).textScaleFactor,
+              size: 32.sp,
               color: const Color(0xffda6317),
             ),
             child: const Icon(
@@ -30,10 +31,10 @@ class SearchTextFiled extends StatelessWidget {
           hintText: 'What do you want to order?',
           hintStyle: TextStyle(
             color: const Color(0xFFDA6317),
-            fontSize: 9 * MediaQuery.of(context).textScaleFactor,
+            fontSize: 14.sp,
             fontFamily: 'Roboto',
             fontWeight: FontWeight.w400,
-            letterSpacing: 0.50,
+            letterSpacing: 0.50.sp,
           ),
           filled: true,
           fillColor: const Color(0xfffef5ec),

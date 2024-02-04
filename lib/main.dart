@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
+import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery_app/bloc/authentication/bloc/authentication_bloc.dart';
 import 'package:food_delivery_app/constans/constans.dart';
 import 'package:food_delivery_app/my_user/firebase_user_repository.dart';
@@ -50,7 +51,7 @@ void main() async {
         );
   Bloc.observer = SimpleBlocObserver();
   SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp]);
-
+  await ScreenUtil.ensureScreenSize(); // In
   runApp(MyApp(FirebaseUserRepository()));
 }
 
@@ -76,47 +77,59 @@ class _MyAppState extends State<MyApp> {
         ],
         child: BlocProvider(
           create: (context) => MealRequiredRestaurantBloc(),
-          child: MaterialApp(
-            routes: {
-              kScrean1: (context) => const Screan1(),
-              kScrean2: (context) => const Screan2(),
-              kScrean3: (context) => const Screan3(),
-              kLoginScrean: (context) => const LoginScrean(),
-              kSignUpScrean: (context) => const SignUpScrean(),
-              kSignUpProcess: (context) => const SignUpProcess(),
-              kPaymentMethod: (context) => const PaymentMethodScrean(),
-              kUplaodScrean: (context) => const UploadScrean(),
-              kUploadPreview: (context) => const UploadPreviewScrean(),
-              kSetLocationScrean: (context) => const SetLocationScrean(),
-              kSignUpSuccessNotification: (context) =>
-                  const SignupSuccessNotifaction(),
-              kVertificationCodeScrean: (context) =>
-                  const VertificationCodeScrean(),
-              kForgetPasswordScrean: (context) => const ForgetPasswordScrean(),
-              kRestpasswordScrean: (context) => const RestPasswordScrean(),
-              kRestpasswordNoticationSuccess: (context) =>
-                  const RestPasswordSuccesNoticationScrean(),
-              kHomeScrean: (context) => const HomeScrean(),
-              kResutrantScrean: (context) => const ResturantHomeScrean(),
-            },
-            home: BlocProvider(
-              create: (context) => MyUserBloc(
-                  myUserRepository:
-                      context.read<AuthenticationBloc>().userRepository)
-                ..add(GetMyUser(
-                    myUserId:
-                        context.read<AuthenticationBloc>().state.user!.uid)),
-              child:    BlocProvider(
+          child: ScreenUtilInit(
+            designSize: const Size(360, 690),
+            minTextAdapt: true,
+            splitScreenMode: true,
+            // Use builder only if you need to use library outside ScreenUtilInit context
+            builder: (_, child) {
+              return MaterialApp(
+                routes: {
+                  kScrean1: (context) => const Screan1(),
+                  kScrean2: (context) => const Screan2(),
+                  kScrean3: (context) => const Screan3(),
+                  kLoginScrean: (context) => const LoginScrean(),
+                  kSignUpScrean: (context) => const SignUpScrean(),
+                  kSignUpProcess: (context) => const SignUpProcess(),
+                  kPaymentMethod: (context) => const PaymentMethodScrean(),
+                  kUplaodScrean: (context) => const UploadScrean(),
+                  kUploadPreview: (context) => const UploadPreviewScrean(),
+                  kSetLocationScrean: (context) => const SetLocationScrean(),
+                  kSignUpSuccessNotification: (context) =>
+                      const SignupSuccessNotifaction(),
+                  kVertificationCodeScrean: (context) =>
+                      const VertificationCodeScrean(),
+                  kForgetPasswordScrean: (context) =>
+                      const ForgetPasswordScrean(),
+                  kRestpasswordScrean: (context) => const RestPasswordScrean(),
+                  kRestpasswordNoticationSuccess: (context) =>
+                      const RestPasswordSuccesNoticationScrean(),
+                  kHomeScrean: (context) => const HomeScrean(),
+                  kResutrantScrean: (context) => const ResturantHomeScrean(),
+                },
+                home: BlocProvider(
+                  create: (context) => MyUserBloc(
+                      myUserRepository:
+                          context.read<AuthenticationBloc>().userRepository)
+                    ..add(GetMyUser(
+                        myUserId: context
+                            .read<AuthenticationBloc>()
+                            .state
+                            .user!
+                            .uid)),
+                  child: BlocProvider(
                     create: (context) => UpdateUserInfoBloc(
-                      userRepository: context.read<AuthenticationBloc>().userRepository
-                    ),child: const  CustomSplashScreanWidget(),
-                   
-                  ), 
-            ),
-            // Set the initial page
-            theme: ThemeData(fontFamily: 'Roboto'),
-        
-            debugShowCheckedModeBanner: false,
+                        userRepository:
+                            context.read<AuthenticationBloc>().userRepository),
+                    child: const CustomSplashScreanWidget(),
+                  ),
+                ),
+                // Set the initial page
+                theme: ThemeData(fontFamily: 'Roboto'),
+
+                debugShowCheckedModeBanner: false,
+              );
+            },
           ),
         ));
   }
