@@ -21,7 +21,7 @@ class SearchTextFiled extends StatelessWidget {
           ),
           prefixIcon: IconTheme(
             data: IconThemeData(
-              size: 32.sp,
+              size: 25.sp,
               color: const Color(0xffda6317),
             ),
             child: const Icon(
@@ -31,10 +31,10 @@ class SearchTextFiled extends StatelessWidget {
           hintText: 'What do you want to order?',
           hintStyle: TextStyle(
             color: const Color(0xFFDA6317),
-            fontSize: 14.sp,
+            // fontSize: 10.sp,
             fontFamily: 'Roboto',
             fontWeight: FontWeight.w400,
-            letterSpacing: 0.50.sp,
+            letterSpacing: 0.11.sp,
           ),
           filled: true,
           fillColor: const Color(0xfffef5ec),

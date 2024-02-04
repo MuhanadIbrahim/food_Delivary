@@ -16,57 +16,58 @@ Widget findYourFood(BuildContext context) {
       SizedBox(
         height: 30.h,
       ),
-      Row(
-        children: [
-          Text(
-            'Find Your \nFavorite Food',
-            style: TextStyle(
-              color: Color(0xFF09041B),
-              fontSize: 26.sp,
-              fontFamily: 'BentonSans Bold',
-              fontWeight: FontWeight.bold,
+      Padding(
+        padding: EdgeInsets.symmetric(horizontal: 11.0.w),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              'Find Your \nFavorite Food',
+              style: TextStyle(
+                color: Color(0xFF09041B),
+                fontSize: 23.sp,
+                fontFamily: 'BentonSans Bold',
+                fontWeight: FontWeight.bold,
+              ),
             ),
-          ),
-          SizedBox(
-            width: 125.w,
-          ),
-          GestureDetector(
-            onTap: () async {
-              context.read<SignInBloc>().add(const SignOutRequired());
-              Navigator.pushReplacementNamed(context, kLoginScrean);
-            },
-            child: Container(
-              width: 0.09 * MediaQuery.of(context).size.shortestSide,
-              height: 0.09 * MediaQuery.of(context).size.shortestSide,
-              decoration: ShapeDecoration(
-                color: const Color(0xFFFAFDFF),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(15),
+            GestureDetector(
+              onTap: () async {
+                context.read<SignInBloc>().add(const SignOutRequired());
+                Navigator.pushReplacementNamed(context, kLoginScrean);
+              },
+              child: Container(
+                width: 0.09 * MediaQuery.of(context).size.shortestSide,
+                height: 0.09 * MediaQuery.of(context).size.shortestSide,
+                decoration: ShapeDecoration(
+                  color: const Color(0xFFFAFDFF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x33134D5A),
+                      blurRadius: MediaQuery.of(context).size.width > 600
+                          ? 50
+                          : 25, // Adjust blur based on screen width
+                      offset: Offset(
+                          MediaQuery.of(context).size.width * 0.02,
+                          MediaQuery.of(context).size.height *
+                              0.05), // Scale offset proportionally
+                      spreadRadius: MediaQuery.of(context).size.width > 800
+                          ? 5
+                          : 0, // Optional spread adjustment
+                    )
+                  ],
                 ),
-                shadows: [
-                  BoxShadow(
-                    color: Color(0x33134D5A),
-                    blurRadius: MediaQuery.of(context).size.width > 600
-                        ? 50
-                        : 25, // Adjust blur based on screen width
-                    offset: Offset(
-                        MediaQuery.of(context).size.width * 0.02,
-                        MediaQuery.of(context).size.height *
-                            0.05), // Scale offset proportionally
-                    spreadRadius: MediaQuery.of(context).size.width > 800
-                        ? 5
-                        : 0, // Optional spread adjustment
-                  )
-                ],
-              ),
-              child: Icon(
-                Icons.notifications_none,
-                size: 40.sp,
-                color: const Color(0xff14be77),
+                child: Icon(
+                  Icons.notifications_none,
+                  size: 40.sp,
+                  color: const Color(0xff14be77),
+                ),
               ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
       SizedBox(
         height: 10.h,
