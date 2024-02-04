@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:food_delivery_app/views/seach_page_body.dart';
+import 'package:food_delivery_app/views/all_restaurant_page.dart';
 
 import '../bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
 

@@ -229,7 +229,11 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                   SizedBox(
                     height: 20,
                   ),
-                  TextOfNearstResAndTextOfViewMore(),
+                  GestureDetector(
+                      onTap: () {
+                        Navigator.pushNamed(context, kAllRestaurantScrean);
+                      },
+                      child: TextOfNearstResAndTextOfViewMore()),
                   const SizedBox(
                     height: 20,
                   ),
@@ -286,7 +290,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                       // return const SizedBox();
                     }),
                   ),
-                  SizedBox(
+                  const SizedBox(
                     height: 20,
                   ),
                   TextOfPopluarMenuAndTextOfViewMore(),

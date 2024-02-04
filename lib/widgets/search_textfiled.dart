@@ -17,7 +17,6 @@ class SearchTextFiled extends StatelessWidget {
           context,
           MaterialPageRoute(builder: (context) => RestaurantSearchScreen()),
         );
-       
       },
       child: Container(
         height: 39.h,
@@ -28,7 +27,7 @@ class SearchTextFiled extends StatelessWidget {
           color: const Color(0xfffef5ec), // Same background color as TextField
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
             // Icon remains the same
             IconTheme(
@@ -45,7 +44,7 @@ class SearchTextFiled extends StatelessWidget {
               'What do you want to order?',
               style: TextStyle(
                 color: const Color(0xFFDA6317),
-                fontSize: 10.sp, // Uncomment if needed
+                fontSize: 12.sp, // Uncomment if needed
                 fontFamily: 'Roboto',
                 fontWeight: FontWeight.w400,
                 letterSpacing: 0.11.sp,
