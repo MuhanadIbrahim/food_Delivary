@@ -23,7 +23,8 @@ class GetAllMealsBloc extends Bloc<GetMealsBlocEvent, GetAllMealsState> {
               .map((doc) => MyMeals.fromMap(doc.data()))
               .toList();
 
-          print('================================${meals.length.toString()}');
+          print(
+              '==============================all meals==${meals.length.toString()}');
 
           emit(GetAllMealsSuccess(allMeals: meals));
         } catch (e) {
@@ -35,25 +36,31 @@ class GetAllMealsBloc extends Bloc<GetMealsBlocEvent, GetAllMealsState> {
     on<RequiredRestaurant>(
       (event, emit) async {
         try {
-          final restaurantsCollection = FirebaseFirestore.instance.collection('restaurant');
+          final restaurantsCollection =
+              FirebaseFirestore.instance.collection('restaurant');
           final querySnapshot = await restaurantsCollection.get();
-          final restaurants = querySnapshot.docs.map((doc) => MyRestaurant.fromMap(doc.data())).toList();
+          final restaurants = querySnapshot.docs
+              .map((doc) => MyRestaurant.fromMap(doc.data()))
+              .toList();
           final selectedRestaurant = restaurants[event.requiredRestaurants];
-          print('~~~~~~~~~~~~~~~~~~~~~~~~~${selectedRestaurant.id}');
+          print(
+              '~~~~~~~~~~~~~~~~~~~~~selectedRestaurant~~~~${selectedRestaurant.id}');
 
           final mealsSnapshot = await FirebaseFirestore.instance
               .collection('restaurant')
               .doc(selectedRestaurant.id)
               .collection('meals')
               .get();
-          final meals = mealsSnapshot.docs.map((doc) => MyMeals.fromMap(doc.data())).toList();
+          final meals = mealsSnapshot.docs
+              .map((doc) => MyMeals.fromMap(doc.data()))
+              .toList();
 
           print('Restaurant: $selectedRestaurant');
           print('Meals: $meals');
-          emit(MealOfRequiredRestaurant(allMeals: meals, restaurant: selectedRestaurant));
+          emit(MealOfRequiredRestaurant(
+              allMeals: meals, restaurant: selectedRestaurant));
         } catch (e) {
           // Handle error gracefully, display user-friendly message
-        
         }
       },
     );

@@ -21,7 +21,7 @@ class GetAllRestaurantBloc
             .map((doc) => MyRestaurant.fromMap(doc.data()))
             .toList();
         print(
-            '================================${restaurants.length.toString()}');
+            '============================restaurants====${restaurants.length.toString()}');
 
         emit(GetAllRestaurantSuccess(allRestaurant: restaurants));
       } catch (e) {

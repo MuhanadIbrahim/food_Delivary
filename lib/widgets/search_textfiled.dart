@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
+import '../constans/constans.dart';
+import '../views/search_page.dart';
+
 class SearchTextFiled extends StatelessWidget {
   const SearchTextFiled({
     super.key,
@@ -8,36 +11,47 @@ class SearchTextFiled extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 40.h,
-      width: 250.w,
-      child: TextField(
-        decoration: InputDecoration(
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.all(
-              Radius.circular(12.0.r),
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          MaterialPageRoute(builder: (context) => RestaurantSearchScreen()),
+        );
+       
+      },
+      child: Container(
+        height: 39.h,
+        width: 250.w,
+        decoration: BoxDecoration(
+          borderRadius: BorderRadius.all(Radius.circular(12.0.r)),
+
+          color: const Color(0xfffef5ec), // Same background color as TextField
+        ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            // Icon remains the same
+            IconTheme(
+              data: IconThemeData(
+                size: 25.sp,
+                color: const Color(0xffda6317),
+              ),
+              child: const Icon(Icons.search),
             ),
-            borderSide: BorderSide(width: 20.w, color: Colors.transparent),
-          ),
-          prefixIcon: IconTheme(
-            data: IconThemeData(
-              size: 25.sp,
-              color: const Color(0xffda6317),
+            // Add a spacer to mimic text field padding
+            SizedBox(width: 15.w), // Adjust spacing as needed
+            // Use a Text widget for the hint text (optional)
+            Text(
+              'What do you want to order?',
+              style: TextStyle(
+                color: const Color(0xFFDA6317),
+                fontSize: 10.sp, // Uncomment if needed
+                fontFamily: 'Roboto',
+                fontWeight: FontWeight.w400,
+                letterSpacing: 0.11.sp,
+              ),
             ),
-            child: const Icon(
-              Icons.search,
-            ),
-          ),
-          hintText: 'What do you want to order?',
-          hintStyle: TextStyle(
-            color: const Color(0xFFDA6317),
-            // fontSize: 10.sp,
-            fontFamily: 'Roboto',
-            fontWeight: FontWeight.w400,
-            letterSpacing: 0.11.sp,
-          ),
-          filled: true,
-          fillColor: const Color(0xfffef5ec),
+          ],
         ),
       ),
     );

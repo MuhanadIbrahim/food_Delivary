@@ -72,31 +72,37 @@ Widget findYourFood(BuildContext context) {
       SizedBox(
         height: 10.h,
       ),
-      Row(
-        children: [
-          const SearchTextFiled(),
-          SizedBox(
-            width: 10.w,
-          ),
-          Container(
-            width: 48.w,
-            height: 35.h,
-            decoration: ShapeDecoration(
-              color: const Color(0xFFfef5ec),
-              shape: RoundedRectangleBorder(
-                borderRadius: BorderRadius.circular(12.r),
+      GestureDetector(
+        onTap: () {
+          Navigator.pushNamed(context, kSearchPageScrean);
+          
+        },
+        child: Row(
+          children: [
+            const SearchTextFiled(),
+            SizedBox(
+              width: 10.w,
+            ),
+            Container(
+              width: 48.w,
+              height: 35.h,
+              decoration: ShapeDecoration(
+                color: const Color(0xFFfef5ec),
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12.r),
+                ),
+              ),
+              child: Padding(
+                padding: EdgeInsets.all(2.0.w),
+                child: SvgPicture.asset(
+                  'assets/images/FilterIcon.svg',
+                  width: 35.w,
+                  height: 35.h,
+                ),
               ),
             ),
-            child: Padding(
-              padding: EdgeInsets.all(2.0.w),
-              child: SvgPicture.asset(
-                'assets/images/FilterIcon.svg',
-                width: 35.w,
-                height: 35.h,
-              ),
-            ),
-          ),
-        ],
+          ],
+        ),
       )
     ],
   );
