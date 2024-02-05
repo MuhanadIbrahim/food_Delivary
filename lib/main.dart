@@ -15,6 +15,7 @@ import 'package:food_delivery_app/views/all_restaurant_page.dart';
 import 'package:food_delivery_app/views/forget_password.dart';
 import 'package:food_delivery_app/views/home_screan.dart';
 import 'package:food_delivery_app/views/login_screan.dart';
+import 'package:food_delivery_app/views/meal_detail_screan.dart';
 import 'package:food_delivery_app/views/payment_method.dart';
 import 'package:food_delivery_app/views/rest_password_screan.dart';
 import 'package:food_delivery_app/views/restpassword_successnotication_screan.dart';
@@ -110,6 +111,7 @@ class _MyAppState extends State<MyApp> {
                   kResutrantScrean: (context) => const ResturantHomeScrean(),
                   kSearchPageScrean:(context) =>  const RestaurantSearchScreen(),
                   kAllRestaurantScrean:(context) => const AllRestaurantPage(),
+                  kMealDetailScrean:(context) =>const  MealDetailScrean()
                 },
                 home: BlocProvider(
                   create: (context) => MyUserBloc(

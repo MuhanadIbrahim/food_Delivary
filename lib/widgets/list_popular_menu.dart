@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
 
 import '../bloc/meal_required_restaurant/meal_required_restaurant_bloc.dart';
+import '../constans/constans.dart';
 import 'menu_details_price_card.dart';
 
 class ListPopularMenu extends StatelessWidget {
@@ -29,12 +30,18 @@ class ListPopularMenu extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return state.allMeals.isEmpty
                       ? Text('Sorry we are working in our meals')
-                      : MenuDetailsPriceCard(
-                          jpg: 'assets/images/Green Nodejpg.jpg',
-                          title: state.allMeals[index].name,
-                          subtitle: 'Noodle Home',
-                          price: double.parse(state.allMeals[index].price),
-                        );
+                      : GestureDetector(
+                        onTap: () {
+                           Navigator.pushNamed(context, kMealDetailScrean,
+                        arguments: state.allMeals[index]);
+                        },
+                        child: MenuDetailsPriceCard(
+                            jpg: 'assets/images/Green Nodejpg.jpg',
+                            title: state.allMeals[index].name,
+                            subtitle: 'Noodle Home',
+                            price: double.parse(state.allMeals[index].price),
+                          ),
+                      );
                 },
               );
             } else if (state is MealRequiredRestaurantFailed) {

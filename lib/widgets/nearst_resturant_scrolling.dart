@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 
 import '../my_meals/meals.dart';
 import 'content_card.dart';
@@ -66,12 +67,18 @@ class PopularMenuCardsScrolling extends StatelessWidget {
               padding: EdgeInsets.only(top: 35, left: 5, bottom: 10),
               itemCount: allMeals.length,
               itemBuilder: (context, index) {
-                return Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                  child: ContentResturantCard(
-                    jpg: 'assets/images/spacy and creepjpg.jpg',
-                    title: allMeals[index].name,
-                    subtitle: '${allMeals[index].price} \$',
+                return GestureDetector(
+                  onTap: () {
+                    Navigator.pushNamed(context, kMealDetailScrean,
+                        arguments: allMeals[index]);
+                  },
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    child: ContentResturantCard(
+                      jpg: 'assets/images/spacy and creepjpg.jpg',
+                      title: allMeals[index].name,
+                      subtitle: '${allMeals[index].price} \$',
+                    ),
                   ),
                 );
               },

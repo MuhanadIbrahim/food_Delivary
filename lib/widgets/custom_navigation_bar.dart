@@ -36,13 +36,13 @@ class CustomNavigationBar extends StatelessWidget {
                     begin: Alignment.centerRight,
                     end: Alignment.centerLeft,
                     colors: [Color(0xff9ae5bf), Color(0xffd7f6e6)])),
-            GradientIcon(
-                size: 40,
-                icon: Icons.wechat,
-                gradient: LinearGradient(
-                    begin: Alignment.centerRight,
-                    end: Alignment.centerLeft,
-                    colors: [Color(0xff9ae5bf), Color(0xffd7f6e6)]))
+            // GradientIcon(
+            //     size: 40,
+            //     icon: Icons.wechat,
+            //     gradient: LinearGradient(
+            //         begin: Alignment.centerRight,
+            //         end: Alignment.centerLeft,
+            //         colors: [Color(0xff9ae5bf), Color(0xffd7f6e6)]))
           ],
         ),
       ),
