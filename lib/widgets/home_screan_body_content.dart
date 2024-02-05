@@ -4,6 +4,7 @@ import 'package:flutter_bloc/Flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery_app/bloc/update_user_info_bloc/update_user_info_bloc.dart';
 import 'package:food_delivery_app/my_restaurant/restaurant_entity.dart';
+import 'package:food_delivery_app/widgets/list_popular_menu.dart';
 import 'package:food_delivery_app/widgets/popular_resturant_scrolling.dart';
 import 'package:food_delivery_app/widgets/special_deal_promo.dart';
 import 'package:food_delivery_app/widgets/textof_nears_restrunt_viewmore.dart';
@@ -224,6 +225,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
             findYourFood(context),
             Expanded(
               child: ListView(
+                
                 children: [
                   SpecialDealPromoHomeScrean(),
                   SizedBox(
@@ -297,23 +299,10 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                   SizedBox(
                     height: 20,
                   ),
-                  MenuDetailsPriceCard(
-                    jpg: 'assets/images/Green Nodejpg.jpg',
-                    title: 'Green Noddle',
-                    subtitle: 'Noodle Home',
-                    price: 15,
-                  ),
                   SizedBox(
-                    height: 20,
-                  ),
-                  MenuDetailsPriceCard(
-                      jpg: 'assets/images/fruitSaladjpg.jpg',
-                      title: 'Fruit Salad',
-                      subtitle: 'Wijie Resto',
-                      price: 5),
-                  SizedBox(
-                    height: 20,
-                  ),
+                      width: double.infinity,
+                      height: 100,
+                      child: ListPopularMenu()),
                   const Text(
                     'Popular Restaurant',
                     style: TextStyle(
