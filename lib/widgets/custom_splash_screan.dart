@@ -34,29 +34,37 @@ class _CustomSplashScreanWidgetState extends State<CustomSplashScreanWidget> {
         nextScreen: BlocBuilder<AuthenticationBloc, AuthenticationState>(
           builder: (context, state) {
             if (state.status == AuthenticationStatus.authenticated) {
-              return MultiBlocProvider(providers: [
-                // BlocProvider(create: (context) => MealRequiredRestaurantBloc(),),
-                
-                BlocProvider(
-                  create: (context) => SignInBloc(
-                      userRepository:
-                          context.read<AuthenticationBloc>().userRepository),
-                ),
-                // BlocProvider(
-                //   create: (context) => UpdateUserInfoBloc(
-                //     userRepository: context.read<AuthenticationBloc>().userRepository
-                //   ),
-                 
-                // ),
-                BlocProvider(
-                  create: (context) => MyUserBloc(
-                    myUserRepository: context.read<AuthenticationBloc>().userRepository
-                  )..add(GetMyUser(myUserId: context.read<AuthenticationBloc>().state.user!.uid)),
-                  
-                )
-              ], child: const HomeScrean(),);
+              return MultiBlocProvider(
+                providers: [
+                  // BlocProvider(create: (context) => MealRequiredRestaurantBloc(),),
+
+                  BlocProvider(
+                    create: (context) => SignInBloc(
+                        userRepository:
+                            context.read<AuthenticationBloc>().userRepository),
+                  ),
+                  // BlocProvider(
+                  //   create: (context) => UpdateUserInfoBloc(
+                  //     userRepository: context.read<AuthenticationBloc>().userRepository
+                  //   ),
+
+                  // ),
+                  BlocProvider(
+                    create: (context) => MyUserBloc(
+                        myUserRepository:
+                            context.read<AuthenticationBloc>().userRepository)
+                      ..add(GetMyUser(
+                          myUserId: context
+                              .read<AuthenticationBloc>()
+                              .state
+                              .user!
+                              .uid)),
+                  )
+                ],
+                child: const HomeScrean(),
+              );
             } else {
-              return  const Screan2();
+              return const Screan2();
             }
           },
         ));
