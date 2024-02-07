@@ -32,6 +32,10 @@ class _SignUpBodyContentState extends State<SignUpBodyContent> {
   bool signUpRequired = false;
 
   GlobalKey<FormState> formkey = GlobalKey();
+
+  bool isKeepSignIn = false;
+
+  bool isSendingEmail = false;
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -183,10 +187,21 @@ class _SignUpBodyContentState extends State<SignUpBodyContent> {
                     const SizedBox(
                       width: 10,
                     ),
-                    CircleAvatar(
-                        radius: 8,
-                        backgroundColor: const Color(0xff14be77),
-                        child: SvgPicture.asset('assets/images/checksvg.svg')),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isKeepSignIn = !isKeepSignIn;
+                        });
+                      },
+                      child: CircleAvatar(
+                          radius: 8,
+                          backgroundColor: isKeepSignIn
+                              ? Colors.grey
+                              : const Color(0xff14be77),
+                          child: isKeepSignIn
+                              ? SizedBox()
+                              : SvgPicture.asset('assets/images/checksvg.svg')),
+                    ),
                     const SizedBox(
                       width: 10,
                     ),
@@ -201,10 +216,21 @@ class _SignUpBodyContentState extends State<SignUpBodyContent> {
                     const SizedBox(
                       width: 10,
                     ),
-                    CircleAvatar(
-                        backgroundColor: const Color(0xff14be77),
-                        radius: 8,
-                        child: SvgPicture.asset('assets/images/checksvg.svg')),
+                    GestureDetector(
+                      onTap: () {
+                        setState(() {
+                          isSendingEmail = !isSendingEmail;
+                        });
+                      },
+                      child: CircleAvatar(
+                          backgroundColor: isSendingEmail
+                              ? Colors.grey
+                              : const Color(0xff14be77),
+                          radius: 8,
+                          child: isSendingEmail
+                              ? SizedBox()
+                              : SvgPicture.asset('assets/images/checksvg.svg')),
+                    ),
                     const SizedBox(
                       width: 10,
                     ),
