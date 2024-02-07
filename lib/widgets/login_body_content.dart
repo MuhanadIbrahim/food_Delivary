@@ -141,51 +141,52 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
                       ],
                     ),
                     Positioned(
-                        left: MediaQuery.of(context).size.width / 3,
-                        bottom: MediaQuery.of(context).size.height / 25,
-                        child: GestureDetector(
-                          onTap: () async {
-                            if (Email.toString() == '') {
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.error,
-                                animType: AnimType.rightSlide,
-                                title: 'Rest password failed',
-                                desc: "Please enter your email ",
-                                btnCancelOnPress: () {},
-                                btnOkOnPress: () {},
-                              ).show();
+                      left: MediaQuery.of(context).size.width / 3,
+                      bottom: MediaQuery.of(context).size.height / 180,
+                      child: GestureDetector(
+                        onTap: () async {
+                          if (Email.toString() == '') {
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              title: 'Rest password failed',
+                              desc: "Please enter your email ",
+                              btnCancelOnPress: () {},
+                              btnOkOnPress: () {},
+                            ).show();
+                          }
+                          try {
+                            FirebaseAuth.instance.sendPasswordResetEmail(
+                                email: Email.toString());
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.success,
+                              animType: AnimType.rightSlide,
+                              title: 'Rest password link Send',
+                              desc: "Please Check your email ",
+                              btnCancelOnPress: () {},
+                              btnOkOnPress: () {},
+                            ).show();
+                          } catch (e) {
+                            AwesomeDialog(
+                              context: context,
+                              dialogType: DialogType.error,
+                              animType: AnimType.rightSlide,
+                              title: 'Rest password process fialed',
+                              desc: "Please enter avalid  email ",
+                              btnCancelOnPress: () {},
+                              btnOkOnPress: () {},
+                            ).show();
+                            if (kDebugMode) {
+                              print(e);
                             }
-                            try {
-                              FirebaseAuth.instance.sendPasswordResetEmail(
-                                  email: Email.toString());
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.success,
-                                animType: AnimType.rightSlide,
-                                title: 'Rest password link Send',
-                                desc: "Please Check your email ",
-                                btnCancelOnPress: () {},
-                                btnOkOnPress: () {},
-                              ).show();
-                            } catch (e) {
-                              AwesomeDialog(
-                                context: context,
-                                dialogType: DialogType.error,
-                                animType: AnimType.rightSlide,
-                                title: 'Rest password process fialed',
-                                desc: "Please enter avalid  email ",
-                                btnCancelOnPress: () {},
-                                btnOkOnPress: () {},
-                              ).show();
-                              if (kDebugMode) {
-                                print(e);
-                              }
-                            }
-                          },
-                          child: SvgPicture.asset(
-                              'assets/images/Forgot Password Link.svg'),
-                        )),
+                          }
+                        },
+                        child: SvgPicture.asset(
+                            'assets/images/Forgot Password Link.svg'),
+                      ),
+                    ),
                   ],
                 ),
                 !signInRequired
