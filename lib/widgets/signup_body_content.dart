@@ -52,7 +52,9 @@ class _SignUpBodyContentState extends State<SignUpBodyContent> {
               signUpRequired = true;
             });
           } else if (state is SignUpFailure) {
-            return;
+            setState(() {
+              signUpRequired = false;
+            });
           }
         },
         child: Form(
