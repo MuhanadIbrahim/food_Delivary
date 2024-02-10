@@ -57,210 +57,224 @@ class _SignUpBodyContentState extends State<SignUpBodyContent> {
         },
         child: Form(
           key: formkey,
-          child: ConstrainedBox(
-            constraints:
-                BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                Image.asset('assets/images/AppLogo1.jpg'),
-                const Text(
-                  'Sign Up For Free',
-                  style: TextStyle(
-                      color: Colors.black,
-                      fontWeight: FontWeight.bold,
-                      fontSize: 26),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 0),
-                          color: Color(0x115a6cea),
-                          spreadRadius: 25,
-                          blurRadius: 50)
-                    ],
-                  ),
-                  width: MediaQuery.of(context).size.width - 40,
-                  child: TextFormField(
-                    onChanged: (value) {
-                      name = value;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'please fill the in this field';
-                      } else if (value.length > 30) {
-                        return 'name too long';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide:
-                                BorderSide(width: 2, color: Colors.grey)),
-                        hintText: 'Your Name',
-                        hintStyle: TextStyle(color: Colors.grey)),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 0),
-                          color: Color(0x115a6cea),
-                          spreadRadius: 25,
-                          blurRadius: 50)
-                    ],
-                  ),
-                  width: MediaQuery.of(context).size.width - 40,
-                  child: TextFormField(
-                    onChanged: (value) {
-                      Email = value;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please Enter Your Email';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide:
-                                BorderSide(width: 2, color: Colors.grey)),
-                        hintText: 'Email',
-                        hintStyle: TextStyle(color: Colors.grey)),
-                  ),
-                ),
-                Container(
-                  decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(15),
-                    color: Colors.white,
-                    boxShadow: [
-                      BoxShadow(
-                          offset: Offset(0, 0),
-                          color: Color(0x115a6cea),
-                          spreadRadius: 25,
-                          blurRadius: 50)
-                    ],
-                  ),
-                  width: MediaQuery.of(context).size.width - 40,
-                  child: TextFormField(
-                    obscureText: obscurePassword,
-                    onChanged: (value) {
-                      password = value;
-                    },
-                    validator: (value) {
-                      if (value!.isEmpty) {
-                        return 'Please Enter Your Password';
-                      }
-                      return null;
-                    },
-                    decoration: InputDecoration(
-                        suffixIcon: IconButton(
-                            onPressed: () {
-                              setState(() {
-                                obscurePassword = !obscurePassword;
-                                if (obscurePassword) {
-                                  iconPassword = Icons.visibility;
-                                } else {
-                                  iconPassword = Icons.visibility_off;
-                                }
-                              });
-                            },
-                            icon: Icon(iconPassword)),
-                        border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(15),
-                            borderSide:
-                                BorderSide(width: 2, color: Colors.grey)),
-                        hintText: 'Password',
-                        hintStyle: TextStyle(color: Colors.grey)),
-                  ),
-                ),
-                Row(
+          child: SingleChildScrollView(
+            child: SafeArea(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                   children: [
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isKeepSignIn = !isKeepSignIn;
-                        });
-                      },
-                      child: CircleAvatar(
-                          radius: 8,
-                          backgroundColor: isKeepSignIn
-                              ? Colors.grey
-                              : const Color(0xff14be77),
-                          child: isKeepSignIn
-                              ? SizedBox()
-                              : SvgPicture.asset('assets/images/checksvg.svg')),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
+                    Image.asset('assets/images/AppLogo1.jpg'),
                     const Text(
-                      'Keep Me Signed In',
-                      style: TextStyle(fontSize: 15),
+                      'Sign Up For Free',
+                      style: TextStyle(
+                          color: Colors.black,
+                          fontWeight: FontWeight.bold,
+                          fontSize: 26),
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    GestureDetector(
-                      onTap: () {
-                        setState(() {
-                          isSendingEmail = !isSendingEmail;
-                        });
-                      },
-                      child: CircleAvatar(
-                          backgroundColor: isSendingEmail
-                              ? Colors.grey
-                              : const Color(0xff14be77),
-                          radius: 8,
-                          child: isSendingEmail
-                              ? SizedBox()
-                              : SvgPicture.asset('assets/images/checksvg.svg')),
-                    ),
-                    const SizedBox(
-                      width: 10,
-                    ),
-                    const Text(
-                      'Email Me About Special Pricing',
-                      style: TextStyle(fontSize: 15),
-                    ),
-                  ],
-                ),
-                !signUpRequired
-                    ? GestureDetector(
-                        onTap: () async {
-                          if (formkey.currentState!.validate()) {
-                            MyUser myUser = MyUser.empty;
-                            myUser = myUser.copyWith(
-                                email: Email.toString(), name: name.toString());
-
-                            setState(() {
-                              context.read<SignUpBloc>().add(
-                                  SignUpRequired(myUser, password.toString()));
-                            });
-                          }
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0, 0),
+                              color: Color(0x115a6cea),
+                              spreadRadius: 25,
+                              blurRadius: 50)
+                        ],
+                      ),
+                      width: MediaQuery.of(context).size.width - 40,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          name = value;
                         },
-                        child: const CustomButton(title: 'Create Account'))
-                    : const CircularProgressIndicator(),
-                GestureDetector(
-                    onTap: () => Navigator.pushNamed(context, kLoginScrean),
-                    child: SvgPicture.asset(
-                        'assets/images/Create Accalready have account.svg')),
-              ],
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'please fill the in this field';
+                          } else if (value.length > 30) {
+                            return 'name too long';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(width: 2, color: Colors.grey)),
+                            hintText: 'Your Name',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0, 0),
+                              color: Color(0x115a6cea),
+                              spreadRadius: 25,
+                              blurRadius: 50)
+                        ],
+                      ),
+                      width: MediaQuery.of(context).size.width - 40,
+                      child: TextFormField(
+                        onChanged: (value) {
+                          Email = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please Enter Your Email';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(width: 2, color: Colors.grey)),
+                            hintText: 'Email',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                      ),
+                    ),
+                    Container(
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(15),
+                        color: Colors.white,
+                        boxShadow: [
+                          BoxShadow(
+                              offset: Offset(0, 0),
+                              color: Color(0x115a6cea),
+                              spreadRadius: 25,
+                              blurRadius: 50)
+                        ],
+                      ),
+                      width: MediaQuery.of(context).size.width - 40,
+                      child: TextFormField(
+                        obscureText: obscurePassword,
+                        onChanged: (value) {
+                          password = value;
+                        },
+                        validator: (value) {
+                          if (value!.isEmpty) {
+                            return 'Please Enter Your Password';
+                          }
+                          return null;
+                        },
+                        decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                                onPressed: () {
+                                  setState(() {
+                                    obscurePassword = !obscurePassword;
+                                    if (obscurePassword) {
+                                      iconPassword = Icons.visibility_off;
+                                    } else {
+                                      iconPassword = Icons.visibility;
+                                    }
+                                  });
+                                },
+                                icon: Icon(iconPassword)),
+                            border: OutlineInputBorder(
+                                borderRadius: BorderRadius.circular(15),
+                                borderSide:
+                                    BorderSide(width: 2, color: Colors.grey)),
+                            hintText: 'Password',
+                            hintStyle: TextStyle(color: Colors.grey)),
+                      ),
+                    ),
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isKeepSignIn = !isKeepSignIn;
+                              print(isKeepSignIn.toString());
+                            });
+                            print('iskeepsign ${isKeepSignIn.toString()}');
+                          },
+                          child: CircleAvatar(
+                              radius: 8,
+                              backgroundColor: isKeepSignIn
+                                  ? const Color(0xff14be77)
+                                  : Colors.grey,
+                              child: isKeepSignIn
+                                  ? SvgPicture.asset(
+                                      'assets/images/checksvg.svg')
+                                  : SizedBox()),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Text(
+                          'Keep Me Signed In',
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      children: [
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        GestureDetector(
+                          onTap: () {
+                            setState(() {
+                              isSendingEmail = !isSendingEmail;
+                              print(isSendingEmail.toString());
+                            });
+                            print('issendingEmail${isSendingEmail.toString()}');
+                          },
+                          child: CircleAvatar(
+                              backgroundColor: isSendingEmail
+                                  ? const Color(0xff14be77)
+                                  : Colors.grey,
+                              radius: 8,
+                              child: isSendingEmail
+                                  ? SvgPicture.asset(
+                                      'assets/images/checksvg.svg')
+                                  : SizedBox()),
+                        ),
+                        const SizedBox(
+                          width: 10,
+                        ),
+                        const Text(
+                          'Email Me About Special Pricing',
+                          style: TextStyle(fontSize: 15),
+                        ),
+                      ],
+                    ),
+                    !signUpRequired
+                        ? GestureDetector(
+                            onTap: () async {
+                              if (formkey.currentState!.validate()) {
+                                MyUser myUser = MyUser.empty;
+                                myUser = myUser.copyWith(
+                                    email: Email.toString(),
+                                    name: name.toString());
+
+                                setState(() {
+                                  context.read<SignUpBloc>().add(SignUpRequired(
+                                      myUser, password.toString()));
+                                });
+                              }
+                            },
+                            child: const CustomButton(title: 'Create Account'))
+                        : const CircularProgressIndicator(),
+                    GestureDetector(
+                        onTap: () => Navigator.pushNamed(context, kLoginScrean),
+                        child: SvgPicture.asset(
+                            'assets/images/Create Accalready have account.svg')),
+                    SizedBox(
+                      height: 25,
+                    )
+                  ],
+                ),
+              ),
             ),
           ),
         ),

@@ -90,144 +90,154 @@ class _LoginScreanBodyContentState extends State<LoginScreanBodyContent> {
         padding: const EdgeInsets.symmetric(horizontal: 10.0, vertical: 10),
         child: Form(
           key: formkey,
-          child: ConstrainedBox(
-            constraints:
-                BoxConstraints(minHeight: MediaQuery.of(context).size.height),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: <Widget>[
-                Image.asset('assets/images/AppLogo1.jpg'),
-                SvgPicture.asset(
-                    'assets/images/login to your account login screan.svg'),
-                CustomTextFormFieldForEmail(
-                  onchanged: (value) {
-                    Email = value;
-                  },
-                ),
-                CustomTextFormFieldForPassword(
-                  onchanged: (value) {
-                    password = value;
-                  },
-                ),
-                SvgPicture.asset('assets/images/or continue LoginScrean.svg'),
-                Stack(
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
+          child: SingleChildScrollView(
+            child: SafeArea(
+              child: ConstrainedBox(
+                constraints: BoxConstraints(
+                    minHeight: MediaQuery.of(context).size.height),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: <Widget>[
+                    Image.asset('assets/images/AppLogo1.jpg'),
+                    SvgPicture.asset(
+                        'assets/images/login to your account login screan.svg'),
+                    CustomTextFormFieldForEmail(
+                      onchanged: (value) {
+                        Email = value;
+                      },
+                    ),
+                    CustomTextFormFieldForPassword(
+                      onchanged: (value) {
+                        password = value;
+                      },
+                    ),
+                    SvgPicture.asset(
+                        'assets/images/or continue LoginScrean.svg'),
+                    Stack(
                       children: [
-                        GestureDetector(
-                          onTap: () {
-                            signInWithFacebook();
-                            // Navigator.pushReplacementNamed(
-                            //     context as BuildContext, kHomeScrean);
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/Facebook Button.svg',
-                            width: 50,
-                            height: 100,
-                            fit: BoxFit.contain,
-                          ),
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.center,
+                          children: [
+                            GestureDetector(
+                              onTap: () {
+                                signInWithFacebook();
+                                // Navigator.pushReplacementNamed(
+                                //     context as BuildContext, kHomeScrean);
+                              },
+                              child: SvgPicture.asset(
+                                'assets/images/Facebook Button.svg',
+                                width: 50,
+                                height: 100,
+                                fit: BoxFit.contain,
+                              ),
+                            ),
+                            GestureDetector(
+                              onTap: () {
+                                signInWithGoogle();
+                              },
+                              child: SvgPicture.asset(
+                                'assets/images/Google Button.svg',
+                                width: 50,
+                                height: 100,
+                              ),
+                            ),
+                          ],
                         ),
-                        GestureDetector(
-                          onTap: () {
-                            signInWithGoogle();
-                          },
-                          child: SvgPicture.asset(
-                            'assets/images/Google Button.svg',
-                            width: 50,
-                            height: 100,
+                        Positioned(
+                          left: MediaQuery.of(context).size.width / 3,
+                          bottom: MediaQuery.of(context).size.height / 180,
+                          child: GestureDetector(
+                            onTap: () async {
+                              if (Email.toString() == '') {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.error,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Rest password failed',
+                                  desc: "Please enter your email ",
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {},
+                                ).show();
+                              }
+                              try {
+                                FirebaseAuth.instance.sendPasswordResetEmail(
+                                    email: Email.toString());
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.success,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Rest password link Send',
+                                  desc: "Please Check your email ",
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {},
+                                ).show();
+                              } catch (e) {
+                                AwesomeDialog(
+                                  context: context,
+                                  dialogType: DialogType.error,
+                                  animType: AnimType.rightSlide,
+                                  title: 'Rest password process fialed',
+                                  desc: "Please enter avalid  email ",
+                                  btnCancelOnPress: () {},
+                                  btnOkOnPress: () {},
+                                ).show();
+                                if (kDebugMode) {
+                                  print(e);
+                                }
+                              }
+                            },
+                            child: SvgPicture.asset(
+                                'assets/images/Forgot Password Link.svg'),
                           ),
                         ),
                       ],
                     ),
-                    Positioned(
-                      left: MediaQuery.of(context).size.width / 3,
-                      bottom: MediaQuery.of(context).size.height / 180,
-                      child: GestureDetector(
-                        onTap: () async {
-                          if (Email.toString() == '') {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              title: 'Rest password failed',
-                              desc: "Please enter your email ",
-                              btnCancelOnPress: () {},
-                              btnOkOnPress: () {},
-                            ).show();
-                          }
-                          try {
-                            FirebaseAuth.instance.sendPasswordResetEmail(
-                                email: Email.toString());
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.success,
-                              animType: AnimType.rightSlide,
-                              title: 'Rest password link Send',
-                              desc: "Please Check your email ",
-                              btnCancelOnPress: () {},
-                              btnOkOnPress: () {},
-                            ).show();
-                          } catch (e) {
-                            AwesomeDialog(
-                              context: context,
-                              dialogType: DialogType.error,
-                              animType: AnimType.rightSlide,
-                              title: 'Rest password process fialed',
-                              desc: "Please enter avalid  email ",
-                              btnCancelOnPress: () {},
-                              btnOkOnPress: () {},
-                            ).show();
-                            if (kDebugMode) {
-                              print(e);
-                            }
-                          }
-                        },
-                        child: SvgPicture.asset(
-                            'assets/images/Forgot Password Link.svg'),
-                      ),
-                    ),
+                    !signInRequired
+                        ? GestureDetector(
+                            onTap: () {
+                              if (formkey.currentState!.validate()) {
+                                context.read<SignInBloc>().add(SignInRequired(
+                                    Email.toString(), password.toString()));
+                                // if (FirebaseAuth.instance.currentUser != null) {
+                                //   Navigator.pushNamed(context, kHomeScrean);
+                                // }
+                                // Inside a widget's build method or button onPressed callback
+                                // BlocProvider.of<GetAllRestaurantBloc>(context)
+                                //     .add(GetAllRestaurantEvent());
+
+                                // Inside a widget's build method or button onPressed callback
+
+                                FirebaseAuth.instance
+                                    .authStateChanges()
+                                    .listen((User? user) {
+                                  print('===============================$user');
+                                  if (user == null) {
+                                    print(
+                                        '===============================$user');
+                                    print('User is currently signed out!');
+                                    //Navigator.pushReplacementNamed(context, kLoginScrean);
+                                    // if (mounted) {
+                                    //   Navigator.pushReplacementNamed(context, kLoginScrean);
+                                    // }
+                                  } else {
+                                    print('User is signed in!');
+                                    print(
+                                        '===============================$user');
+
+                                    // Navigator.of(context).popUntil(ModalRoute.withName('/'));
+                                  }
+                                });
+                              }
+                            },
+                            child: const CustomButton(title: 'Login'),
+                          )
+                        : const CircularProgressIndicator(),
+                    SizedBox(
+                      height: 25,
+                    )
                   ],
                 ),
-                !signInRequired
-                    ? GestureDetector(
-                        onTap: () {
-                          if (formkey.currentState!.validate()) {
-                            context.read<SignInBloc>().add(SignInRequired(
-                                Email.toString(), password.toString()));
-                            // if (FirebaseAuth.instance.currentUser != null) {
-                            //   Navigator.pushNamed(context, kHomeScrean);
-                            // }
-                            // Inside a widget's build method or button onPressed callback
-                            // BlocProvider.of<GetAllRestaurantBloc>(context)
-                            //     .add(GetAllRestaurantEvent());
-
-                            // Inside a widget's build method or button onPressed callback
-
-                            FirebaseAuth.instance
-                                .authStateChanges()
-                                .listen((User? user) {
-                              print('===============================$user');
-                              if (user == null) {
-                                print('===============================$user');
-                                print('User is currently signed out!');
-                                //Navigator.pushReplacementNamed(context, kLoginScrean);
-                                // if (mounted) {
-                                //   Navigator.pushReplacementNamed(context, kLoginScrean);
-                                // }
-                              } else {
-                                print('User is signed in!');
-                                print('===============================$user');
-
-                                // Navigator.of(context).popUntil(ModalRoute.withName('/'));
-                              }
-                            });
-                          }
-                        },
-                        child: const CustomButton(title: 'Login'),
-                      )
-                    : const CircularProgressIndicator(),
-              ],
+              ),
             ),
           ),
         ),
