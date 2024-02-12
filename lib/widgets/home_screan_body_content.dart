@@ -1,26 +1,24 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
+import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:food_delivery_app/bloc/sign_in_method/sign_in_method_bloc.dart';
+
 import 'package:food_delivery_app/bloc/update_user_info_bloc/update_user_info_bloc.dart';
-import 'package:food_delivery_app/my_restaurant/restaurant_entity.dart';
 import 'package:food_delivery_app/widgets/list_popular_menu.dart';
-import 'package:food_delivery_app/widgets/popular_resturant_scrolling.dart';
 import 'package:food_delivery_app/widgets/special_deal_promo.dart';
 import 'package:food_delivery_app/widgets/textof_nears_restrunt_viewmore.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
 
 import '../bloc/authentication/bloc/authentication_bloc.dart';
-import '../bloc/get_all_meals/get_all_meals_bloc.dart';
 import '../bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
 import '../bloc/meal_required_restaurant/meal_required_restaurant_bloc.dart';
 import '../bloc/my_user_bloc/my_user_bloc.dart';
 import '../constans/constans.dart';
-import '../my_restaurant/restaurant.dart';
 import 'content_card.dart';
 import 'find_your_food_widget.dart';
-import 'menu_details_price_card.dart';
 import 'custom_navigation_bar.dart';
 
 class HomeScreanBodyContent extends StatefulWidget {
@@ -35,16 +33,50 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
   void initState() {
     context.read<GetAllRestaurantBloc>().add(GetAllRestaurantEvent());
 
+    final User user = FirebaseAuth.instance.currentUser!;
+
+    if (user != null) {
+      final String providerId = user.providerData[0].providerId;
+
+      if (providerId == 'facebook.com') {
+        print('user sign in by +++++++++++++++++++++ facebook');
+        // User signed in with Facebook
+      } else if (providerId == 'google.com') {
+        print('user sign in by +++++++++++++++++++++++google');
+
+        // User signed in with Google
+      } else if (providerId == 'password') {
+        print(
+            'user sign in by ++++++++++++++++++++++++++++++email and password');
+
+        // User signed in with email and password
+      } else {
+        print('user sign in ++++++++++++++++other way');
+        // Handle other sign-in methods (if relevant)
+      }
+    } else {
+      print('user is not ++++++++++++++++++++++++++++sign in ');
+      // User is not currently signed in
+    }
+
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.all(15.0),
-      child: BlocProvider(
-        create: (context) => UpdateUserInfoBloc(
-            userRepository: context.read<AuthenticationBloc>().userRepository),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider(
+          create: (context) => SignInMethodBloc()..add(SignInAllMethodEvent()),
+        ),
+        BlocProvider(
+          create: (context) => UpdateUserInfoBloc(
+              userRepository:
+                  context.read<AuthenticationBloc>().userRepository),
+        ),
+      ],
+      child: Padding(
+        padding: const EdgeInsets.all(15.0),
         child: Column(
           children: [
             const SizedBox(
@@ -57,175 +89,199 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                 ..add(GetMyUser(
                     myUserId:
                         context.read<AuthenticationBloc>().state.user!.uid)),
-              child: BlocBuilder<MyUserBloc, MyUserState>(
+              child: BlocBuilder<SignInMethodBloc, SignInMethodState>(
                 builder: (context, state) {
-                  if (state.status == MyUserStatus.success) {
-                    return Row(
-                      children: [
-                        state.user!.picture == ""
-                            ? BlocListener<UpdateUserInfoBloc,
-                                UpdateUserInfoState>(
-                                listener: (context, state) {
-                                  if (state is UploadPictureSuccess) {
-                                    context
-                                        .read<MyUserBloc>()
-                                        .state
-                                        .user!
-                                        .picture = state.userImage;
-
-                                    setState(() {});
-                                  }
-                                },
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    const CircularProgressIndicator();
-                                    final ImagePicker picker = ImagePicker();
-                                    final XFile? image = await picker.pickImage(
-                                        source: ImageSource.gallery,
-                                        maxHeight: 500,
-                                        maxWidth: 500,
-                                        imageQuality: 40);
-                                    image;
-                                    if (image != null) {
-                                      CroppedFile? croppedFile =
-                                          await ImageCropper().cropImage(
-                                              sourcePath: image.path,
-                                              aspectRatio:
-                                                  const CropAspectRatio(
-                                                      ratioX: 1, ratioY: 1),
-                                              aspectRatioPresets: [
-                                            CropAspectRatioPreset.square
-                                          ],
-                                              uiSettings: [
-                                            AndroidUiSettings(
-                                                toolbarTitle: 'Cropper',
-                                                toolbarWidgetColor:
-                                                    Colors.white,
-                                                initAspectRatio:
-                                                    CropAspectRatioPreset
-                                                        .original,
-                                                lockAspectRatio: false)
-                                          ]);
-                                      if (croppedFile != null) {
-                                        var imageUrl = UploadPicture(
-                                            croppedFile.path,
-                                            context
-                                                .read<MyUserBloc>()
-                                                .state
-                                                .user!
-                                                .id);
-                                        setState(() {
+                  if (state is SignInMethodEmailPassword) {
+                    return BlocBuilder<MyUserBloc, MyUserState>(
+                      builder: (context, state) {
+                        if (state.status == MyUserStatus.success) {
+                          return Row(
+                            children: [
+                              state.user!.picture == ""
+                                  ? BlocListener<UpdateUserInfoBloc,
+                                      UpdateUserInfoState>(
+                                      listener: (context, state) {
+                                        if (state is UploadPictureSuccess) {
                                           context
-                                              .read<UpdateUserInfoBloc>()
-                                              .add(imageUrl);
-                                        });
-                                      }
-                                    }
-                                  },
-                                  child: Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey.shade300,
-                                        shape: BoxShape.circle),
-                                    child: Icon(
-                                      Icons.person_outline,
-                                      color: Colors.grey.shade400,
+                                              .read<MyUserBloc>()
+                                              .state
+                                              .user!
+                                              .picture = state.userImage;
+
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          const CircularProgressIndicator();
+                                          final ImagePicker picker =
+                                              ImagePicker();
+                                          final XFile? image =
+                                              await picker.pickImage(
+                                                  source: ImageSource.gallery,
+                                                  maxHeight: 500,
+                                                  maxWidth: 500,
+                                                  imageQuality: 40);
+                                          image;
+                                          if (image != null) {
+                                            CroppedFile? croppedFile =
+                                                await ImageCropper().cropImage(
+                                                    sourcePath: image.path,
+                                                    aspectRatio:
+                                                        const CropAspectRatio(
+                                                            ratioX: 1,
+                                                            ratioY: 1),
+                                                    aspectRatioPresets: [
+                                                  CropAspectRatioPreset.square
+                                                ],
+                                                    uiSettings: [
+                                                  AndroidUiSettings(
+                                                      toolbarTitle: 'Cropper',
+                                                      toolbarWidgetColor:
+                                                          Colors.white,
+                                                      initAspectRatio:
+                                                          CropAspectRatioPreset
+                                                              .original,
+                                                      lockAspectRatio: false)
+                                                ]);
+                                            if (croppedFile != null) {
+                                              var imageUrl = UploadPicture(
+                                                  croppedFile.path,
+                                                  context
+                                                      .read<MyUserBloc>()
+                                                      .state
+                                                      .user!
+                                                      .id);
+                                              setState(() {
+                                                context
+                                                    .read<UpdateUserInfoBloc>()
+                                                    .add(imageUrl);
+                                              });
+                                            }
+                                          }
+                                        },
+                                        child: Container(
+                                          width: 50,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey.shade300,
+                                              shape: BoxShape.circle),
+                                          child: Icon(
+                                            Icons.person_outline,
+                                            color: Colors.grey.shade400,
+                                          ),
+                                        ),
+                                      ),
+                                    )
+                                  : BlocListener<UpdateUserInfoBloc,
+                                      UpdateUserInfoState>(
+                                      listener: (context, state) {
+                                        if (state is UploadPictureSuccess) {
+                                          context
+                                              .read<MyUserBloc>()
+                                              .state
+                                              .user!
+                                              .picture = state.userImage;
+
+                                          setState(() {});
+                                        }
+                                      },
+                                      child: GestureDetector(
+                                        onTap: () async {
+                                          final ImagePicker picker =
+                                              ImagePicker();
+                                          final XFile? image =
+                                              await picker.pickImage(
+                                                  source: ImageSource.gallery,
+                                                  maxHeight: 500,
+                                                  maxWidth: 500,
+                                                  imageQuality: 40);
+                                          image;
+                                          if (image != null) {
+                                            CroppedFile? croppedFile =
+                                                await ImageCropper().cropImage(
+                                                    sourcePath: image.path,
+                                                    aspectRatio:
+                                                        const CropAspectRatio(
+                                                            ratioX: 1,
+                                                            ratioY: 1),
+                                                    aspectRatioPresets: [
+                                                  CropAspectRatioPreset.square
+                                                ],
+                                                    uiSettings: [
+                                                  AndroidUiSettings(
+                                                      toolbarTitle: 'Cropper',
+                                                      toolbarWidgetColor:
+                                                          Colors.white,
+                                                      initAspectRatio:
+                                                          CropAspectRatioPreset
+                                                              .original,
+                                                      lockAspectRatio: false)
+                                                ]);
+                                            if (croppedFile != null) {
+                                              var imageUrl = UploadPicture(
+                                                  croppedFile.path,
+                                                  context
+                                                      .read<MyUserBloc>()
+                                                      .state
+                                                      .user!
+                                                      .id);
+                                              setState(() {
+                                                context
+                                                    .read<UpdateUserInfoBloc>()
+                                                    .add(imageUrl);
+                                              });
+                                            }
+                                          }
+                                        },
+                                        child: Container(
+                                          width: 50,
+                                          height: 50,
+                                          decoration: BoxDecoration(
+                                              color: Colors.grey,
+                                              shape: BoxShape.circle,
+                                              image: DecorationImage(
+                                                  image: NetworkImage(
+                                                      state.user!.picture!),
+                                                  fit: BoxFit.cover)),
+                                        ),
+                                      ),
                                     ),
-                                  ),
-                                ),
-                              )
-                            : BlocListener<UpdateUserInfoBloc,
-                                UpdateUserInfoState>(
-                                listener: (context, state) {
-                                  if (state is UploadPictureSuccess) {
-                                    context
-                                        .read<MyUserBloc>()
-                                        .state
-                                        .user!
-                                        .picture = state.userImage;
-
-                                    setState(() {});
-                                  }
-                                },
-                                child: GestureDetector(
-                                  onTap: () async {
-                                    final ImagePicker picker = ImagePicker();
-                                    final XFile? image = await picker.pickImage(
-                                        source: ImageSource.gallery,
-                                        maxHeight: 500,
-                                        maxWidth: 500,
-                                        imageQuality: 40);
-                                    image;
-                                    if (image != null) {
-                                      CroppedFile? croppedFile =
-                                          await ImageCropper().cropImage(
-                                              sourcePath: image.path,
-                                              aspectRatio:
-                                                  const CropAspectRatio(
-                                                      ratioX: 1, ratioY: 1),
-                                              aspectRatioPresets: [
-                                            CropAspectRatioPreset.square
-                                          ],
-                                              uiSettings: [
-                                            AndroidUiSettings(
-                                                toolbarTitle: 'Cropper',
-                                                toolbarWidgetColor:
-                                                    Colors.white,
-                                                initAspectRatio:
-                                                    CropAspectRatioPreset
-                                                        .original,
-                                                lockAspectRatio: false)
-                                          ]);
-                                      if (croppedFile != null) {
-                                        var imageUrl = UploadPicture(
-                                            croppedFile.path,
-                                            context
-                                                .read<MyUserBloc>()
-                                                .state
-                                                .user!
-                                                .id);
-                                        setState(() {
-                                          context
-                                              .read<UpdateUserInfoBloc>()
-                                              .add(imageUrl);
-                                        });
-                                      }
-                                    }
-                                  },
-                                  child: Container(
-                                    width: 50,
-                                    height: 50,
-                                    decoration: BoxDecoration(
-                                        color: Colors.grey,
-                                        shape: BoxShape.circle,
-                                        image: DecorationImage(
-                                            image: NetworkImage(
-                                                state.user!.picture!),
-                                            fit: BoxFit.cover)),
-                                  ),
-                                ),
+                              SizedBox(
+                                width: 10.w,
                               ),
-                        SizedBox(
-                          width: 10.w,
-                        ),
-                        Text(
-                          'Welcome Muhanad',
-                          style: TextStyle(
-                              fontSize: 20.sp, fontWeight: FontWeight.bold),
-                        )
+                              Text(
+                                'Welcome Muhanad',
+                                style: TextStyle(
+                                    fontSize: 20.sp,
+                                    fontWeight: FontWeight.bold),
+                              )
+                            ],
+                          );
+                        } else {
+                          return const Center(
+                              child: CircularProgressIndicator());
+                        }
+                      },
+                    );
+                  } else if (state is SignInMethodFacebook) {
+                    return Column(
+                      children: [
+                        Text(state.userName),
+                        Image.network(state.imageUrl),
                       ],
                     );
+                  } else if (state is SignInMethodGoogle) {
                   } else {
-                    return const Center(child: CircularProgressIndicator());
+                    return CircularProgressIndicator();
                   }
+                  return Text('there is some thing wrong');
                 },
               ),
             ),
             findYourFood(context),
             Expanded(
               child: ListView(
-                
                 children: [
                   SpecialDealPromoHomeScrean(),
                   SizedBox(
