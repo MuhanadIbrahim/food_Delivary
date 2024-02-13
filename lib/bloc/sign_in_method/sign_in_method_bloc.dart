@@ -25,27 +25,39 @@ class SignInMethodBloc extends Bloc<SignInAllMethodEvent, SignInMethodState> {
               userName: _userData["name"],
               imageUrl: _userData["picture"]["data"]["url"]));
         } else if (providerId == 'google.com') {
-          
-GoogleSignIn _googleSignIn = GoogleSignIn();
-FirebaseAuth _auth = FirebaseAuth.instance;
+          GoogleSignIn _googleSignIn = GoogleSignIn();
+          FirebaseAuth _auth = FirebaseAuth.instance;
           print('user sign in by +++++++++++++++++++++++google');
-          GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
-    GoogleSignInAuthentication googleAuth = await googleUser!.authentication;
+          GoogleSignInAccount? googleSignInAccount =
+              await _googleSignIn.signIn();
+          if (googleSignInAccount == null) {
+            return null;
+          }
 
-    AuthCredential credential = GoogleAuthProvider.credential(
-      accessToken: googleAuth.accessToken,
-      idToken: googleAuth.idToken,
-    );
+          GoogleSignInAuthentication googleSignInAuthentication =
+              await googleSignInAccount.authentication;
 
-    UserCredential userCredential =
-        await _auth.signInWithCredential(credential);
-    final User user = userCredential.user!;
+          final AuthCredential credential = GoogleAuthProvider.credential(
+              idToken: googleSignInAuthentication.idToken,
+              accessToken: googleSignInAuthentication.accessToken);
 
-    
-      // Display user's name and image
-      print(user.displayName);
-      print(user.photoURL);
-          emit(SignInMethodGoogle(imageUrl: user.photoURL.toString(),userName:user.displayName.toString() ));
+          try {
+            final UserCredential userCredential =
+                await _auth.signInWithCredential(credential);
+            // userCredential.user.displayName;
+            print(userCredential.user!.photoURL.toString());
+            print(userCredential.user!.displayName.toString());
+            emit(SignInMethodGoogle(
+                imageUrl: userCredential.user!.photoURL.toString(),
+                userName: userCredential.user!.displayName.toString()));
+          } on FirebaseAuthException catch (e) {
+            // Handle errors here
+            print(e.code);
+            return null;
+          }
+
+          // Display user's name and image
+
           // User signed in with Google
         } else if (providerId == 'password') {
           print(

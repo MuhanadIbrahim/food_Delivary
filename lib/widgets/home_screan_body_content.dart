@@ -1,8 +1,10 @@
+import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 import 'package:food_delivery_app/bloc/sign_in_method/sign_in_method_bloc.dart';
 
 import 'package:food_delivery_app/bloc/update_user_info_bloc/update_user_info_bloc.dart';
@@ -265,17 +267,144 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                       },
                     );
                   } else if (state is SignInMethodFacebook) {
-                    return Column(
+                    return Row(
                       children: [
-                        Text(state.userName),
-                        Image.network(state.imageUrl),
+                        // Avatar with shadow
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                blurRadius: 5.0,
+                                spreadRadius: 2.0,
+                                offset: const Offset(1.0, 1.0),
+                              ),
+                            ],
+                          ),
+                          child: ClipOval(
+                            child: Image.network(
+                              state.imageUrl,
+                              fit: BoxFit.cover,
+                              width: 60.0,
+                              height: 60.0,
+                              errorBuilder: (BuildContext context,
+                                  Object exception, StackTrace? stackTrace) {
+                                return CircleAvatar(
+                                  backgroundColor: Colors.grey[200],
+                                  child: const Icon(Icons.person),
+                                );
+                              },
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                }
+                                return Center(
+                                  child: SpinKitChasingDots(
+                                      color: Colors.grey[300], size: 30.0),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+
+                        // Animated name with delay
+                        const SizedBox(width: 10.0),
+
+                        AnimatedTextKit(
+                          
+                          totalRepeatCount:
+                              1, // Infinite animation (or specify a number)
+                          animatedTexts: [
+                            TyperAnimatedText(
+                              state.userName,
+                              
+                              textStyle: const TextStyle(
+                                fontSize: 12.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                          pause: const Duration(milliseconds: 1000),
+
+                          onTap: () {
+                            // Handle tap on name (optional)
+                          },
+                        ),
                       ],
                     );
                   } else if (state is SignInMethodGoogle) {
+                    return Row(
+                      children: [
+                        // Avatar with shadow
+                        Container(
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            boxShadow: [
+                              BoxShadow(
+                                color: Colors.black.withOpacity(0.2),
+                                blurRadius: 5.0,
+                                spreadRadius: 2.0,
+                                offset: const Offset(1.0, 1.0),
+                              ),
+                            ],
+                          ),
+                          child: ClipOval(
+                            child: Image.network(
+                              state.imageUrl,
+                              fit: BoxFit.cover,
+                              width: 60.0,
+                              height: 60.0,
+                              errorBuilder: (BuildContext context,
+                                  Object exception, StackTrace? stackTrace) {
+                                return CircleAvatar(
+                                  backgroundColor: Colors.grey[200],
+                                  child: const Icon(Icons.person),
+                                );
+                              },
+                              loadingBuilder: (BuildContext context,
+                                  Widget child,
+                                  ImageChunkEvent? loadingProgress) {
+                                if (loadingProgress == null) {
+                                  return child;
+                                }
+                                return Center(
+                                  child: SpinKitChasingDots(
+                                      color: Colors.grey[300], size: 30.0),
+                                );
+                              },
+                            ),
+                          ),
+                        ),
+
+                        // Animated name with delay
+                        const SizedBox(width: 10.0),
+
+                        AnimatedTextKit(
+                          totalRepeatCount:
+                              1, // Infinite animation (or specify a number)
+                          animatedTexts: [
+                            TyperAnimatedText(
+                              state.userName,
+                              textStyle: const TextStyle(
+                                fontSize: 18.0,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                          pause: const Duration(milliseconds: 1000),
+
+                          onTap: () {
+                            // Handle tap on name (optional)
+                          },
+                        ),
+                      ],
+                    );
                   } else {
                     return CircularProgressIndicator();
                   }
-                  return Text('there is some thing wrong');
                 },
               ),
             ),
