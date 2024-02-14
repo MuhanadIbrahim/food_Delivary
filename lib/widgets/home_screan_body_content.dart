@@ -35,31 +35,8 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
   void initState() {
     context.read<GetAllRestaurantBloc>().add(GetAllRestaurantEvent());
 
-    final User user = FirebaseAuth.instance.currentUser!;
+   
 
-    if (user != null) {
-      final String providerId = user.providerData[0].providerId;
-
-      if (providerId == 'facebook.com') {
-        print('user sign in by +++++++++++++++++++++ facebook');
-        // User signed in with Facebook
-      } else if (providerId == 'google.com') {
-        print('user sign in by +++++++++++++++++++++++google');
-
-        // User signed in with Google
-      } else if (providerId == 'password') {
-        print(
-            'user sign in by ++++++++++++++++++++++++++++++email and password');
-
-        // User signed in with email and password
-      } else {
-        print('user sign in ++++++++++++++++other way');
-        // Handle other sign-in methods (if relevant)
-      }
-    } else {
-      print('user is not ++++++++++++++++++++++++++++sign in ');
-      // User is not currently signed in
-    }
 
     super.initState();
   }

@@ -6,8 +6,10 @@ class MyRestaurantEntity extends Equatable {
   final String email;
   final String? picture;
   final String id;
+  final String description;
 
   const MyRestaurantEntity({
+    required this.description,
     required this.name,
     required this.phoneNumber,
     required this.email,
@@ -17,6 +19,7 @@ class MyRestaurantEntity extends Equatable {
 
   Map<String, Object?> toDocument() {
     return {
+      'description' : description,
       'id': id,
       'email': email,
       'name': name,
@@ -26,8 +29,8 @@ class MyRestaurantEntity extends Equatable {
   }
 
   static MyRestaurantEntity fromDocument(Map<String, dynamic> doc) {
-    
     return MyRestaurantEntity(
+      description:doc['description'] as String ,
       id: doc['id'] as String,
       name: doc['name'] as String,
       phoneNumber: doc['phoneNumber'] as int,
@@ -37,7 +40,7 @@ class MyRestaurantEntity extends Equatable {
   }
 
   @override
-  List<Object?> get props => [id, name, phoneNumber, email, picture];
+  List<Object?> get props => [description,id, name, phoneNumber, email, picture];
 
   @override
   String toString() {
