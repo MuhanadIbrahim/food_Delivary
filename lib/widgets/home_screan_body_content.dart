@@ -35,9 +35,6 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
   void initState() {
     context.read<GetAllRestaurantBloc>().add(GetAllRestaurantEvent());
 
-   
-
-
     super.initState();
   }
 
@@ -291,13 +288,11 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                         const SizedBox(width: 10.0),
 
                         AnimatedTextKit(
-                          
                           totalRepeatCount:
                               1, // Infinite animation (or specify a number)
                           animatedTexts: [
                             TyperAnimatedText(
                               state.userName,
-                              
                               textStyle: const TextStyle(
                                 fontSize: 12.0,
                                 fontWeight: FontWeight.bold,
@@ -442,7 +437,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                   jpg:
                                       'assets/images/LogoVeganLoverResturantjpg.jpg',
                                   title: restaurant.name,
-                                  subtitle: restaurant.email,
+                                  subtitle: restaurant.phoneNumber.toString(),
                                 ),
                               ),
                             );
@@ -515,7 +510,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                 jpg:
                                     'assets/images/logoHealthyOrganicProducrResturantjpg.jpg',
                                 title: restaurant.name,
-                                subtitle: restaurant.email),
+                                subtitle: restaurant.phoneNumber.toString()),
                           );
                         },
                       );
