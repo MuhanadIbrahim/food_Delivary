@@ -434,8 +434,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                 padding: const EdgeInsets.symmetric(
                                     horizontal: 10, vertical: 10),
                                 child: ContentResturantCard(
-                                  jpg:
-                                      'assets/images/LogoVeganLoverResturantjpg.jpg',
+                                  jpg: restaurant.picture!,
                                   title: restaurant.name,
                                   subtitle: restaurant.phoneNumber.toString(),
                                 ),
@@ -507,8 +506,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                       requiredRestaurants: tappedIndex));
                             },
                             child: ContentResturantCard(
-                                jpg:
-                                    'assets/images/logoHealthyOrganicProducrResturantjpg.jpg',
+                                jpg: restaurant.picture!,
                                 title: restaurant.name,
                                 subtitle: restaurant.phoneNumber.toString()),
                           );

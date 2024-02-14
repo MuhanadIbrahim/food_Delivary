@@ -1,5 +1,5 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
-
 import 'decoration_resturant_card.dart';
 
 class ContentResturantCard extends StatelessWidget {
@@ -21,10 +21,15 @@ class ContentResturantCard extends StatelessWidget {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Image.asset(jpg),
-          const SizedBox(
-            height: 5,
+          CachedNetworkImage(
+            height: 184 / 2,
+            imageUrl: jpg,
+            progressIndicatorBuilder: (context, url, downloadProgress) =>
+                CircularProgressIndicator(value: downloadProgress.progress),
+            errorWidget: (context, url, error) => Icon(Icons.error),
           ),
+          //Image.asset(jpg),
+
           Text(
             title,
             style: const TextStyle(
@@ -34,9 +39,7 @@ class ContentResturantCard extends StatelessWidget {
               fontWeight: FontWeight.bold,
             ),
           ),
-          const SizedBox(
-            height: 10,
-          ),
+
           Opacity(
             opacity: 0.50,
             child: Text(
