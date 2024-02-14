@@ -28,54 +28,54 @@ class AllRestaurantPageBody extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(appBar: AppBar(title: const Text('All Restaurant'), ),
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('All Restaurant'),
+      ),
       body: Builder(builder: (context) {
-        return  BlocBuilder<GetAllRestaurantBloc, GetAllRestaurantState>(
-                      builder: (context, state) {
-                    if (state is GetAllRestaurantLoading) {
-                      return const Center(child: CircularProgressIndicator());
-                    } else if (state is GetAllRestaurantFaliuer) {
-                      return const Center(
-                        child: Text('there is something Wrong'),
-                      );
-                    } else if (state is GetAllRestaurantSuccess) {
-                      return GridView.builder(
-                        physics: const ScrollPhysics(),
-                        shrinkWrap: true,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          mainAxisSpacing: 10,
-                          crossAxisSpacing: 10,
-                          crossAxisCount: 2,
-                        ),
-                        itemCount: state.allRestaurant.length,
-                        itemBuilder: (context, index) {
-                          final restaurant = state.allRestaurant[index];
-                          return GestureDetector(
-                            onTap: () {
-                              final tappedIndex = index;
+        return BlocBuilder<GetAllRestaurantBloc, GetAllRestaurantState>(
+            builder: (context, state) {
+          if (state is GetAllRestaurantLoading) {
+            return const Center(child: CircularProgressIndicator());
+          } else if (state is GetAllRestaurantFaliuer) {
+            return const Center(
+              child: Text('there is something Wrong'),
+            );
+          } else if (state is GetAllRestaurantSuccess) {
+            return GridView.builder(
+              physics: const ScrollPhysics(),
+              shrinkWrap: true,
+              gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+                mainAxisSpacing: 10,
+                crossAxisSpacing: 10,
+                crossAxisCount: 2,
+              ),
+              itemCount: state.allRestaurant.length,
+              itemBuilder: (context, index) {
+                final restaurant = state.allRestaurant[index];
+                return GestureDetector(
+                  onTap: () {
+                    final tappedIndex = index;
 
-                              Navigator.pushNamed(context, kResutrantScrean);
-                              // context.read<GetAllMealsBloc>().add(
-                              //     RequiredRestaurant(
-                              //         requiredRestaurants: tappedIndex));
-                              context.read<MealRequiredRestaurantBloc>().add(
-                                  MealsRequiredEvent(
-                                      requiredRestaurants: tappedIndex));
-                            },
-                            child: ContentResturantCard(
-                                jpg:
-                                    'assets/images/logoHealthyOrganicProducrResturantjpg.jpg',
-                                title: restaurant.name,
-                                subtitle: restaurant.email),
-                          );
-                        },
-                      );
-                    } else {
-                      return const SizedBox();
-                    }
-                    // return const SizedBox();
-                  });
+                    Navigator.pushNamed(context, kResutrantScrean);
+                    // context.read<GetAllMealsBloc>().add(
+                    //     RequiredRestaurant(
+                    //         requiredRestaurants: tappedIndex));
+                    context.read<MealRequiredRestaurantBloc>().add(
+                        MealsRequiredEvent(requiredRestaurants: tappedIndex));
+                  },
+                  child: ContentResturantCard(
+                      jpg: restaurant.picture!,
+                      title: restaurant.name,
+                      subtitle: restaurant.phoneNumber.toString()),
+                );
+              },
+            );
+          } else {
+            return const SizedBox();
+          }
+          // return const SizedBox();
+        });
       }),
     );
   }
