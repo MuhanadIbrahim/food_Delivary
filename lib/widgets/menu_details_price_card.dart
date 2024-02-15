@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 
 import 'borderless_box_decoration.dart';
@@ -20,7 +21,13 @@ class MenuDetailsPriceCard extends StatelessWidget {
       margin: const EdgeInsets.all(5),
       decoration: borderLessBoxDecoration(),
       child: ListTile(
-        leading: Image.asset(jpg),
+        leading: CachedNetworkImage(
+          height: 184 / 2,
+          imageUrl: jpg,
+          progressIndicatorBuilder: (context, url, downloadProgress) =>
+              CircularProgressIndicator(value: downloadProgress.progress),
+          errorWidget: (context, url, error) => Icon(Icons.error),
+        ),
         title: Text(
           title,
           style: const TextStyle(

@@ -38,7 +38,7 @@ class MealDetailScrean extends StatelessWidget {
                 InfoForTheResturant(
                   titleResturant: meal.name,
                   bioOfResurant:
-                      'Most whole Alaskan Red King Crabs get broken down into legs, claws, and lump meat. We offer all of these options as well in our online shop, but there is nothing like getting the whole . . . .',
+                      meal.description,
                   distanc: 19,
                   rating: 4.8,
                 ),

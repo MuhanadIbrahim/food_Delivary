@@ -75,7 +75,7 @@ class PopularMenuCardsScrolling extends StatelessWidget {
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
                     child: ContentResturantCard(
-                      jpg: 'assets/images/spacy and creepjpg.jpg',
+                      jpg: allMeals[index].picture,
                       title: allMeals[index].name,
                       subtitle: '${allMeals[index].price} \$',
                     ),

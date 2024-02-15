@@ -30,14 +30,19 @@ class ContentResturantCard extends StatelessWidget {
           ),
           //Image.asset(jpg),
 
-          Text(
-            title,
-            style: const TextStyle(
-              color: Colors.black,
-              fontSize: 15,
-              fontFamily: 'BentonSans Bold',
-              fontWeight: FontWeight.bold,
-            ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              Text(
+                title,
+                style: const TextStyle(
+                  color: Colors.black,
+                  fontSize: 12,
+                  fontFamily: 'BentonSans Bold',
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ],
           ),
 
           Opacity(

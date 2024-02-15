@@ -36,9 +36,9 @@ class ListPopularMenu extends StatelessWidget {
                         arguments: state.allMeals[index]);
                         },
                         child: MenuDetailsPriceCard(
-                            jpg: 'assets/images/Green Nodejpg.jpg',
+                            jpg: state.allMeals[index].picture,
                             title: state.allMeals[index].name,
-                            subtitle: 'Noodle Home',
+                            subtitle: '',
                             price: double.parse(state.allMeals[index].price),
                           ),
                       );
