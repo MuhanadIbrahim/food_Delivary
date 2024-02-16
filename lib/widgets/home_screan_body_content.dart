@@ -227,9 +227,9 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                                 width: 10.w,
                               ),
                               Text(
-                                'Welcome Muhanad',
+                                state.user!.name,
                                 style: TextStyle(
-                                    fontSize: 20.sp,
+                                    fontSize: 15.sp,
                                     fontWeight: FontWeight.bold),
                               )
                             ],
@@ -457,7 +457,7 @@ class _HomeScreanBodyContentState extends State<HomeScreanBodyContent> {
                   ),
                   SizedBox(
                       width: double.infinity,
-                      height: 100,
+                      height: 220,
                       child: ListPopularMenu()),
                   const Text(
                     'Popular Restaurant',

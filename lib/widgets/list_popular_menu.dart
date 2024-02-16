@@ -13,7 +13,7 @@ class ListPopularMenu extends StatelessWidget {
     return Scaffold(
       body: BlocProvider(
         create: (context) => MealRequiredRestaurantBloc()
-          ..add(MealsRequiredEvent(requiredRestaurants: 6)),
+          ..add(MealsRequiredEvent(requiredRestaurants: 1)),
         child: BlocBuilder<MealRequiredRestaurantBloc,
             MealRequiredRestaurantState>(
           builder: (context, state) {
@@ -31,17 +31,17 @@ class ListPopularMenu extends StatelessWidget {
                   return state.allMeals.isEmpty
                       ? Text('Sorry we are working in our meals')
                       : GestureDetector(
-                        onTap: () {
-                           Navigator.pushNamed(context, kMealDetailScrean,
-                        arguments: state.allMeals[index]);
-                        },
-                        child: MenuDetailsPriceCard(
+                          onTap: () {
+                            Navigator.pushNamed(context, kMealDetailScrean,
+                                arguments: state.allMeals[index]);
+                          },
+                          child: MenuDetailsPriceCard(
                             jpg: state.allMeals[index].picture,
                             title: state.allMeals[index].name,
                             subtitle: '',
                             price: double.parse(state.allMeals[index].price),
                           ),
-                      );
+                        );
                 },
               );
             } else if (state is MealRequiredRestaurantFailed) {
