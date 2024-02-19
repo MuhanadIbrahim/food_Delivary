@@ -21,3 +21,4 @@ const String kResutrantScrean = 'resturant_home_screan';
 const String kSearchPageScrean = 'search_page_screan';
 const String kAllRestaurantScrean = 'all_restaurant_page';
 const String kMealDetailScrean = 'meal_detail_screan';
+const String kBascketScrean = 'bascket_screan';

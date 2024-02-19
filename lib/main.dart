@@ -7,11 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 import 'package:food_delivery_app/bloc/authentication/bloc/authentication_bloc.dart';
+import 'package:food_delivery_app/bloc/basket/basket_bloc.dart';
 import 'package:food_delivery_app/constans/constans.dart';
 import 'package:food_delivery_app/my_user/firebase_user_repository.dart';
 import 'package:food_delivery_app/my_user/user_repository.dart';
 import 'package:food_delivery_app/simple_bloc_observer.dart';
 import 'package:food_delivery_app/views/all_restaurant_page.dart';
+import 'package:food_delivery_app/views/basket_screan.dart';
 import 'package:food_delivery_app/views/forget_password.dart';
 import 'package:food_delivery_app/views/home_screan.dart';
 import 'package:food_delivery_app/views/login_screan.dart';
@@ -78,8 +80,15 @@ class _MyAppState extends State<MyApp> {
                 AuthenticationBloc(myUserRepository: widget.userRepository),
           ),
         ],
-        child: BlocProvider(
-          create: (context) => MealRequiredRestaurantBloc(),
+        child: MultiBlocProvider(
+          providers: [
+            BlocProvider(
+              create: (context) => MealRequiredRestaurantBloc(),
+            ),
+            BlocProvider(
+              create: (context) => BasketBloc(),
+            ),
+          ],
           child: ScreenUtilInit(
             designSize: const Size(360, 690),
             minTextAdapt: true,
@@ -109,9 +118,11 @@ class _MyAppState extends State<MyApp> {
                       const RestPasswordSuccesNoticationScrean(),
                   kHomeScrean: (context) => const HomeScrean(),
                   kResutrantScrean: (context) => const ResturantHomeScrean(),
-                  kSearchPageScrean:(context) =>  const RestaurantSearchScreen(),
-                  kAllRestaurantScrean:(context) => const AllRestaurantPage(),
-                  kMealDetailScrean:(context) =>const  MealDetailScrean()
+                  kSearchPageScrean: (context) =>
+                      const RestaurantSearchScreen(),
+                  kAllRestaurantScrean: (context) => const AllRestaurantPage(),
+                  kMealDetailScrean: (context) => const MealDetailScrean(),
+                  kBascketScrean:(context) => const CartScrean(),
                 },
                 home: BlocProvider(
                   create: (context) => MyUserBloc(

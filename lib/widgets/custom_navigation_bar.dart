@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 
 import 'borderless_box_decoration.dart';
 import 'gradient_icon.dart';
@@ -34,6 +35,11 @@ class _CustomNavigationBarState extends State<CustomNavigationBar>
     setState(() {
       _selectedIndex = index;
       _animationController.forward(from: 0.0);
+      if (_selectedIndex == 2) {
+        Navigator.pushNamed(context, kBascketScrean);
+      } else if (_selectedIndex == 0) {
+        Navigator.pushNamed(context, kHomeScrean);
+      }
     });
   }
 
