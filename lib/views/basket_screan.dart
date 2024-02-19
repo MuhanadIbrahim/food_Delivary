@@ -3,6 +3,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/basket/basket_item.dart';
 import 'package:food_delivery_app/bloc/basket/basket_bloc.dart';
 import 'package:food_delivery_app/my_meals/meals.dart';
+import 'package:food_delivery_app/my_restaurant/restaurant.dart';
 import 'package:food_delivery_app/widgets/custom_navigation_bar.dart';
 
 class CartScrean extends StatefulWidget {
@@ -17,6 +18,7 @@ class _CartScreanState extends State<CartScrean> {
   Widget build(BuildContext context) {
     var sum = 0;
     var sumPrice = 0;
+
     void initState() {
       super.initState();
       sum;
@@ -29,7 +31,7 @@ class _CartScreanState extends State<CartScrean> {
     for (var element in context.read<BasketBloc>().cartItems) {
       int elementMealPrice = int.parse(element.meal.price);
       //double elementCount = double.parse(element.count);
-
+      //restaurant = element.restaurant;
       sumPrice += elementMealPrice * element.count;
       //  * element.count;
     }
@@ -125,7 +127,7 @@ class _CartScreanState extends State<CartScrean> {
             body: SingleChildScrollView(
                 child: Column(
               children: [
-               const  SizedBox(
+                const SizedBox(
                   height: 80,
                 ),
                 Padding(
@@ -187,6 +189,11 @@ class _CartScreanState extends State<CartScrean> {
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: context.read<BasketBloc>().cartItems.length,
                   itemBuilder: (context, index) {
+                    MyRestaurant restaurant = context
+                        .read<BasketBloc>()
+                        .cartItems
+                        .elementAt(index)
+                        .restaurant;
                     MyMeals product = context
                         .read<BasketBloc>()
                         .cartItems
@@ -281,7 +288,7 @@ class _CartScreanState extends State<CartScrean> {
                                               width: 3,
                                             ),
                                             Text(
-                                              product.name,
+                                              restaurant.name,
                                               style: const TextStyle(
                                                 color: Color(0xff287184),
                                               ),

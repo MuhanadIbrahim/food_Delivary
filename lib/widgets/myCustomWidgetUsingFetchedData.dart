@@ -55,6 +55,7 @@ class MyCustomWidgetUsingFetchedData extends StatelessWidget {
                 height: 25,
               ),
               PopularMenuCardsScrolling(
+                restaurant: restaurant,
                 allMeals: allMeals,
               ),
               const SizedBox(

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:food_delivery_app/basket/basket_item.dart';
 import 'package:food_delivery_app/constans/constans.dart';
+import 'package:food_delivery_app/my_restaurant/restaurant.dart';
 
 import '../my_meals/meals.dart';
 import 'content_card.dart';
@@ -46,7 +48,9 @@ class NearstResturantCardsScrolling extends StatelessWidget {
 
 class PopularMenuCardsScrolling extends StatelessWidget {
   final List<MyMeals> allMeals;
-  const PopularMenuCardsScrolling({super.key, required this.allMeals});
+  final MyRestaurant restaurant;
+  const PopularMenuCardsScrolling(
+      {super.key, required this.allMeals, required this.restaurant});
 
   @override
   Widget build(BuildContext context) {
@@ -69,8 +73,12 @@ class PopularMenuCardsScrolling extends StatelessWidget {
               itemBuilder: (context, index) {
                 return GestureDetector(
                   onTap: () {
+                    ;
+                    // Navigator.pushNamed(context, kMealDetailScrean,
+                    //     arguments: allMeals[index]);
                     Navigator.pushNamed(context, kMealDetailScrean,
-                        arguments: allMeals[index]);
+                        arguments: RestaurantMeal(
+                            meal: allMeals[index], restaurant: restaurant));
                   },
                   child: Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 10.0),
