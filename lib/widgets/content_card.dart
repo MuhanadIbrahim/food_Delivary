@@ -1,3 +1,4 @@
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'decoration_resturant_card.dart';
@@ -15,7 +16,7 @@ class ContentResturantCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: 147,
+      width: 148,
       height: 184,
       decoration: decorationOfResturantCard(),
       child: Column(
@@ -24,8 +25,10 @@ class ContentResturantCard extends StatelessWidget {
           CachedNetworkImage(
             height: 184 / 2,
             imageUrl: jpg,
-            progressIndicatorBuilder: (context, url, downloadProgress) =>
-                CircularProgressIndicator(value: downloadProgress.progress),
+            progressIndicatorBuilder: (context, url, downloadProgress) {
+              return SizedBox();
+              // CircularProgressIndicator(value: downloadProgress.progress);
+            },
             errorWidget: (context, url, error) => Icon(Icons.error),
           ),
           //Image.asset(jpg),
@@ -33,15 +36,24 @@ class ContentResturantCard extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Text(
+              AutoSizeText(
                 title,
-                style: const TextStyle(
-                  color: Colors.black,
-                  fontSize: 12,
+                style: TextStyle(
+                  // fontSize: 12,
                   fontFamily: 'BentonSans Bold',
                   fontWeight: FontWeight.bold,
                 ),
-              ),
+                maxLines: 1,
+              )
+              // Text(
+              //   title,
+              //   style: const TextStyle(
+              //     color: Colors.black,
+              //     fontSize: 12,
+              //     fontFamily: 'BentonSans Bold',
+              //     fontWeight: FontWeight.bold,
+              //   ),
+              // ),
             ],
           ),
 

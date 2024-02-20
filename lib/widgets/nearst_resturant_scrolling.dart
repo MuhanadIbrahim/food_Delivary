@@ -81,7 +81,7 @@ class PopularMenuCardsScrolling extends StatelessWidget {
                             meal: allMeals[index], restaurant: restaurant));
                   },
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 10.0),
+                    padding: const EdgeInsets.symmetric(horizontal: 5.0),
                     child: ContentResturantCard(
                       jpg: allMeals[index].picture,
                       title: allMeals[index].name,

@@ -1,9 +1,12 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
 import 'package:food_delivery_app/bloc/get_all_meals/get_all_meals_bloc.dart';
 import 'package:food_delivery_app/my_restaurant/restaurant.dart';
 import 'package:food_delivery_app/widgets/testimonials.dart';
 import 'package:food_delivery_app/widgets/textof_nears_restrunt_viewmore.dart';
+import 'package:skeletonizer/skeletonizer.dart';
 
 import '../bloc/meal_required_restaurant/meal_required_restaurant_bloc.dart';
 import 'icon_button_resturant_screan.dart';
@@ -28,8 +31,7 @@ class _ResturantScreanBodyState extends State<ResturantScreanBody> {
           BlocBuilder<MealRequiredRestaurantBloc, MealRequiredRestaurantState>(
         builder: (context, state) {
           if (state is MealRequiredRestaurantLoading) {
-            // Show a loading indicator or any other UI for loading state
-            return const Center(child: CircularProgressIndicator());
+            return Center(child: Image.asset('assets/images/Hourglass.gif'));
           } else if (state is MealRequiredRestaurantISuccess) {
             // Update the UI with the fetched data
             restaurant = state.restaurant;

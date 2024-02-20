@@ -142,7 +142,7 @@ class _CartScreanState extends State<CartScrean> {
                                 fontWeight: FontWeight.bold, fontSize: 27)),
                       ),
                       const Text(
-                        'EGP',
+                        'USD',
                       ),
                       Text(
                         '$sumPrice',
@@ -256,7 +256,7 @@ class _CartScreanState extends State<CartScrean> {
                                                 CrossAxisAlignment.start,
                                             children: [
                                               Text(
-                                                'EGP',
+                                                'USD',
                                                 style: TextStyle(
                                                   color: Colors.red[900],
                                                 ),
