@@ -1,9 +1,11 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/basket/basket_item.dart';
 import 'package:food_delivery_app/bloc/basket/basket_bloc.dart';
 import 'package:food_delivery_app/my_meals/meals.dart';
 import 'package:food_delivery_app/my_restaurant/restaurant.dart';
+import 'package:food_delivery_app/widgets/borderless_box_decoration.dart';
 import 'package:food_delivery_app/widgets/custom_navigation_bar.dart';
 
 class CartScrean extends StatefulWidget {
@@ -201,185 +203,282 @@ class _CartScreanState extends State<CartScrean> {
                         .meal;
                     CartItem cartItem =
                         context.read<BasketBloc>().cartItems.elementAt(index);
-                    return Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 8.0),
-                          child: Container(
-                            height: 230,
-                            width: 378,
-                            decoration: BoxDecoration(
-                              borderRadius: BorderRadius.circular(5),
-                              color: Colors.grey[100],
+
+                    return Container(
+                      width: double.infinity,
+                      // height: 200,
+                      margin: const EdgeInsets.all(5),
+                      decoration: borderLessBoxDecoration(),
+                      child: ListTile(
+                        leading: CachedNetworkImage(
+                          height: 184 / 2,
+                          imageUrl: product.picture,
+                          progressIndicatorBuilder:
+                              (context, url, downloadProgress) =>
+                                  CircularProgressIndicator(
+                                      value: downloadProgress.progress),
+                          errorWidget: (context, url, error) =>
+                              Icon(Icons.error),
+                        ),
+                        title: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Text(
+                              product.name,
+                              style: const TextStyle(
+                                color: Color(0xFF09041B),
+                                fontSize: 15,
+                                fontFamily: 'BentonSans Medium',
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
-                            child: Column(
-                              children: [
-                                Row(
-                                  children: [
-                                    SizedBox(
-                                      width: 150,
-                                      height: 150,
-                                      child: Image.network(
-                                        product.picture,
-                                        fit: BoxFit.fill,
-                                      ),
-                                    ),
-                                    const SizedBox(
-                                      width: 5,
-                                    ),
-                                    Column(
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        const SizedBox(
-                                          height: 8,
-                                        ),
-                                        ConstrainedBox(
-                                          constraints: const BoxConstraints(
-                                            maxHeight: 150,
-                                            maxWidth: 200,
-                                          ),
-                                          child: Text(
-                                            product.name,
-                                            maxLines: 2,
-                                            overflow: TextOverflow.ellipsis,
-                                            style: const TextStyle(
-                                              fontSize: 16,
-                                            ),
-                                          ),
-                                        ),
-                                        Padding(
-                                          padding: const EdgeInsets.only(
-                                              bottom: 8.0),
-                                          child: Row(
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'USD',
-                                                style: TextStyle(
-                                                  color: Colors.red[900],
-                                                ),
-                                              ),
-                                              Text(
-                                                '${product.price}',
-                                                style: TextStyle(
-                                                  fontSize: 35,
-                                                  color: Colors.red[900],
-                                                ),
-                                              ),
-                                              Text(
-                                                '00',
-                                                style: TextStyle(
-                                                  color: Colors.red[900],
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ),
-                                        Row(
-                                          children: [
-                                            const Text(
-                                              'sold by:',
-                                              style:
-                                                  TextStyle(color: Colors.grey),
-                                            ),
-                                            const SizedBox(
-                                              width: 3,
-                                            ),
-                                            Text(
-                                              restaurant.name,
-                                              style: const TextStyle(
-                                                color: Color(0xff287184),
-                                              ),
-                                            )
-                                          ],
-                                        ),
-                                      ],
-                                    ),
-                                  ],
+                            Opacity(
+                              opacity: 0.30,
+                              child: Text(
+                                restaurant.name,
+                                style: const TextStyle(
+                                  color: Color(0xFF3B3B3B),
+                                  fontSize: 14,
+                                  fontFamily: 'BentonSans Regular',
+                                  fontWeight: FontWeight.w400,
+                                  letterSpacing: 0.50,
                                 ),
-                                Row(
-                                  children: [
-                                    const SizedBox(width: 8),
-                                    Container(
-                                      decoration: BoxDecoration(
-                                        border: Border.all(
-                                          width: 1,
-                                          color: Colors.grey,
-                                        ),
-                                        borderRadius: BorderRadius.circular(5),
-                                      ),
-                                      child: Row(
-                                        children: [
-                                          IconButton(
-                                            icon: const Icon(Icons.remove),
-                                            onPressed: () {
-                                              setState(() {
-                                                if (cartItem.count > 1) {
-                                                  cartItem.count--;
-                                                } else {
-                                                  context
-                                                      .read<BasketBloc>()
-                                                      .cartItems
-                                                      .remove(cartItem);
-                                                }
-                                              });
-                                            },
-                                          ),
-                                          Text(
-                                              '${cartItem.count}'), // Display the count here
-                                          IconButton(
-                                            icon: const Icon(Icons.add),
-                                            onPressed: () {
-                                              setState(() {
-                                                cartItem.count++;
-                                              });
-                                            },
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white),
-                                      onPressed: () {
-                                        // Implement the functionality for "Delete" button
-                                        // e.g., remove the item from the cart list
-                                        setState(() {
-                                          context
-                                              .read<BasketBloc>()
-                                              .cartItems
-                                              .remove(cartItem);
-                                        });
-                                      },
-                                      child: const Text(
-                                        'Delete',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                    const SizedBox(width: 8),
-                                    ElevatedButton(
-                                      style: ElevatedButton.styleFrom(
-                                          backgroundColor: Colors.white),
-                                      onPressed: () {
-                                        // Implement the functionality for "Save for Later" button
-                                        // e.g., move the item to a "Saved for Later" list
-                                      },
-                                      child: const Text(
-                                        'Save for Later',
-                                        style: TextStyle(color: Colors.black),
-                                      ),
-                                    ),
-                                  ],
-                                )
-                              ],
+                              ),
                             ),
+                            Text(
+                              '\$ ${product.price}',
+                              style: const TextStyle(
+                                color: Colors.greenAccent,
+                                fontSize: 22,
+                                fontFamily: 'BentonSans Bold',
+                                fontWeight: FontWeight.w400,
+                              ),
+                            ),
+                          ],
+                        ),
+                        trailing: Container(
+                          width: 115,
+                          decoration: BoxDecoration(
+                            border: Border.all(
+                              width: 1,
+                              color: Colors.grey,
+                            ),
+                            borderRadius: BorderRadius.circular(5),
+                          ),
+                          child: Row(
+                            children: [
+                              IconButton(
+                                icon: const Icon(Icons.remove),
+                                onPressed: () {
+                                  setState(() {
+                                    if (cartItem.count > 1) {
+                                      cartItem.count--;
+                                    } else {
+                                      context
+                                          .read<BasketBloc>()
+                                          .cartItems
+                                          .remove(cartItem);
+                                    }
+                                  });
+                                },
+                              ),
+                              Text(
+                                '${cartItem.count}',
+                                style: TextStyle(
+                                    fontWeight: FontWeight.bold, fontSize: 18),
+                              ), // Display the count here
+                              IconButton(
+                                icon: const Icon(Icons.add),
+                                onPressed: () {
+                                  setState(() {
+                                    cartItem.count++;
+                                  });
+                                },
+                              ),
+                            ],
                           ),
                         ),
-                      ],
+                      ),
                     );
+                    //  Column(
+                    //   children: [
+                    //     Padding(
+                    //       padding: const EdgeInsets.symmetric(vertical: 8.0),
+                    //       child: Container(
+                    //         height: 230,
+                    //         width: 378,
+                    //         decoration: BoxDecoration(
+                    //           borderRadius: BorderRadius.circular(5),
+                    //           color: Colors.grey[100],
+                    //         ),
+                    //         child: Column(
+                    //           children: [
+                    //             Row(
+                    //               children: [
+                    //                 SizedBox(
+                    //                   width: 150,
+                    //                   height: 150,
+                    //                   child: Image.network(
+                    //                     product.picture,
+                    //                     fit: BoxFit.fill,
+                    //                   ),
+                    //                 ),
+                    //                 const SizedBox(
+                    //                   width: 5,
+                    //                 ),
+                    //                 Column(
+                    //                   crossAxisAlignment:
+                    //                       CrossAxisAlignment.start,
+                    //                   children: [
+                    //                     const SizedBox(
+                    //                       height: 8,
+                    //                     ),
+                    //                     ConstrainedBox(
+                    //                       constraints: const BoxConstraints(
+                    //                         maxHeight: 150,
+                    //                         maxWidth: 200,
+                    //                       ),
+                    //                       child: Text(
+                    //                         product.name,
+                    //                         maxLines: 2,
+                    //                         overflow: TextOverflow.ellipsis,
+                    //                         style: const TextStyle(
+                    //                           fontSize: 16,
+                    //                         ),
+                    //                       ),
+                    //                     ),
+                    //                     Padding(
+                    //                       padding: const EdgeInsets.only(
+                    //                           bottom: 8.0),
+                    //                       child: Row(
+                    //                         crossAxisAlignment:
+                    //                             CrossAxisAlignment.start,
+                    //                         children: [
+                    //                           Text(
+                    //                             'USD',
+                    //                             style: TextStyle(
+                    //                               color: Colors.red[900],
+                    //                             ),
+                    //                           ),
+                    //                           Text(
+                    //                             '${product.price}',
+                    //                             style: TextStyle(
+                    //                               fontSize: 35,
+                    //                               color: Colors.red[900],
+                    //                             ),
+                    //                           ),
+                    //                           Text(
+                    //                             '00',
+                    //                             style: TextStyle(
+                    //                               color: Colors.red[900],
+                    //                             ),
+                    //                           ),
+                    //                         ],
+                    //                       ),
+                    //                     ),
+                    //                     Row(
+                    //                       children: [
+                    //                         const Text(
+                    //                           'sold by:',
+                    //                           style:
+                    //                               TextStyle(color: Colors.grey),
+                    //                         ),
+                    //                         const SizedBox(
+                    //                           width: 3,
+                    //                         ),
+                    //                         Text(
+                    //                           restaurant.name,
+                    //                           style: const TextStyle(
+                    //                             color: Color(0xff287184),
+                    //                           ),
+                    //                         )
+                    //                       ],
+                    //                     ),
+                    //                   ],
+                    //                 ),
+                    //               ],
+                    //             ),
+                    //             Row(
+                    //               children: [
+                    //                 const SizedBox(width: 8),
+                    //                 Container(
+                    //                   decoration: BoxDecoration(
+                    //                     border: Border.all(
+                    //                       width: 1,
+                    //                       color: Colors.grey,
+                    //                     ),
+                    //                     borderRadius: BorderRadius.circular(5),
+                    //                   ),
+                    //                   child: Row(
+                    //                     children: [
+                    //                       IconButton(
+                    //                         icon: const Icon(Icons.remove),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             if (cartItem.count > 1) {
+                    //                               cartItem.count--;
+                    //                             } else {
+                    //                               context
+                    //                                   .read<BasketBloc>()
+                    //                                   .cartItems
+                    //                                   .remove(cartItem);
+                    //                             }
+                    //                           });
+                    //                         },
+                    //                       ),
+                    //                       Text(
+                    //                           '${cartItem.count}'), // Display the count here
+                    //                       IconButton(
+                    //                         icon: const Icon(Icons.add),
+                    //                         onPressed: () {
+                    //                           setState(() {
+                    //                             cartItem.count++;
+                    //                           });
+                    //                         },
+                    //                       ),
+                    //                     ],
+                    //                   ),
+                    //                 ),
+                    //                 const SizedBox(width: 8),
+                    //                 ElevatedButton(
+                    //                   style: ElevatedButton.styleFrom(
+                    //                       backgroundColor: Colors.white),
+                    //                   onPressed: () {
+                    //                     // Implement the functionality for "Delete" button
+                    //                     // e.g., remove the item from the cart list
+                    //                     setState(() {
+                    //                       context
+                    //                           .read<BasketBloc>()
+                    //                           .cartItems
+                    //                           .remove(cartItem);
+                    //                     });
+                    //                   },
+                    //                   child: const Text(
+                    //                     'Delete',
+                    //                     style: TextStyle(color: Colors.black),
+                    //                   ),
+                    //                 ),
+                    //                 const SizedBox(width: 8),
+                    //                 ElevatedButton(
+                    //                   style: ElevatedButton.styleFrom(
+                    //                       backgroundColor: Colors.white),
+                    //                   onPressed: () {
+                    //                     // Implement the functionality for "Save for Later" button
+                    //                     // e.g., move the item to a "Saved for Later" list
+                    //                   },
+                    //                   child: const Text(
+                    //                     'Save for Later',
+                    //                     style: TextStyle(color: Colors.black),
+                    //                   ),
+                    //                 ),
+                    //               ],
+                    //             )
+                    //           ],
+                    //         ),
+                    //       ),
+                    //     ),
+                    //   ],
+                    // );
                   },
                 )
               ],

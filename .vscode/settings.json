@@ -1,4 +1,6 @@
 {
   "java.configuration.updateBuildConfiguration": "interactive",
-  "fluttergpt.apiKey": "AIzaSyAHaY2fENwDbRfR8AWTRj6ibqfSVyE0tHw"
+  "fluttergpt.apiKey": "AIzaSyAHaY2fENwDbRfR8AWTRj6ibqfSVyE0tHw",
+  "dart.openDevTools": "flutter",
+  "dart.sdkPath": null
 }

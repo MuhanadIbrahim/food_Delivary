@@ -53,19 +53,25 @@ class MealBasketCard extends StatelessWidget {
             ),
           ),
         ),
-            GradientText(
-    'Gradient Text Example',
-    style: TextStyle(
-        fontSize: 40.0,
-    ),
-    colors: [
-        Colors.blue,
-        Colors.red,
-        Colors.teal,
-    ],
-),
+        Text(
+          '\$ ${price.toString()}',
+          style: const TextStyle(
+            color: Color(0xFFFEAD1D),
+            fontSize: 22,
+            fontFamily: 'BentonSans Bold',
+            fontWeight: FontWeight.w400,
+          ),
+        ),     
 
-
+           Text(
+          '\$ ${price.toString()}',
+          style: const TextStyle(
+            color: Colors.greenAccent,
+            fontSize: 22,
+            fontFamily: 'BentonSans Bold',
+            fontWeight: FontWeight.w400,
+          ),
+        ),
         ],)
         
        
