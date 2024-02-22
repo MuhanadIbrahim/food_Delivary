@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:food_delivery_app/basket/basket_item.dart';
+import 'package:food_delivery_app/my_meals/meals.dart';
+import 'package:food_delivery_app/my_restaurant/restaurant.dart';
 import 'package:food_delivery_app/views/all_restaurant_page.dart';
+import 'package:food_delivery_app/widgets/content_card.dart';
+import 'package:food_delivery_app/widgets/meal_basket_card.dart';
 
 import '../bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
 
@@ -58,12 +63,33 @@ class RestaurantSearchWidget extends StatelessWidget {
                     child: ListView.builder(
                       itemCount: state.restaurants.length,
                       itemBuilder: (context, index) {
-                        return Padding(
-                          padding: const EdgeInsets.all(8.0),
-                          child: ListTile(
-                            title: Text(state.restaurants[index].name),
-                          ),
-                        );
+                        RestaurantMeal restaurantMeal = RestaurantMeal(
+                            restaurant: state.restaurants[index],
+                            meal: state.meals[index]);
+                        final item = state.restaurants[index];
+                        if (restaurantMeal.restaurant is MyRestaurant) {
+                          return ContentResturantCard(
+                            jpg: restaurantMeal.restaurant.picture!,
+                            title: restaurantMeal.restaurant.name,
+                            subtitle: restaurantMeal.restaurant.phoneNumber.toString(),
+                          ); // Replace with your restaurant display widget
+                        } else if (restaurantMeal.meal is MyMeals) {
+                          return MealBasketCard(
+                              jpg: restaurantMeal.meal.picture!,
+                              subtitle: restaurantMeal.meal.description,
+                              title: restaurantMeal.meal.name,
+                              price: double.parse(restaurantMeal.meal
+                                  .price)); // Replace with your meal display widget
+                        } else {
+                          return const Text(
+                              'Unexpected item type'); // Handle unexpected cases
+                        }
+                        // return Padding(
+                        //   padding: const EdgeInsets.all(8.0),
+                        //   child: ListTile(
+                        //     title: Text(state.restaurants[index].name),
+                        //   ),
+                        // );
                         //Text(state.restaurants[index].name);
                       },
                     ),

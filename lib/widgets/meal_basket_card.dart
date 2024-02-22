@@ -79,39 +79,3 @@ class MealBasketCard extends StatelessWidget {
     );
   }
 }
-
-
-// Text(
-//           title,
-//           style: const TextStyle(
-//             color: Color(0xFF09041B),
-//             fontSize: 15,
-//             fontFamily: 'BentonSans Medium',
-//             fontWeight: FontWeight.bold,
-//           ),
-//         ),
-
-
-//          Opacity(
-//           opacity: 0.30,
-//           child: Text(
-//             subtitle,
-//             style: const TextStyle(
-//               color: Color(0xFF3B3B3B),
-//               fontSize: 14,
-//               fontFamily: 'BentonSans Regular',
-//               fontWeight: FontWeight.w400,
-//               letterSpacing: 0.50,
-//             ),
-//           ),
-//         ),
-
-//          Text(
-//           '\$ ${price.toString()}',
-//           style: const TextStyle(
-//             color: Color(0xFFFEAD1D),
-//             fontSize: 22,
-//             fontFamily: 'BentonSans Bold',
-//             fontWeight: FontWeight.w400,
-//           ),
-//         ),

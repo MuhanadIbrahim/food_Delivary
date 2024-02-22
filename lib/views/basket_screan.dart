@@ -43,10 +43,6 @@ class _CartScreanState extends State<CartScrean> {
     });
     return context.read<BasketBloc>().cartItems.isEmpty
         ? Scaffold(
-            appBar: const PreferredSize(
-              preferredSize: Size.fromHeight(62),
-              child: CustomNavigationBar(),
-            ),
             body: Column(
               children: [
                 Container(
@@ -58,7 +54,7 @@ class _CartScreanState extends State<CartScrean> {
                       Container(
                         width: 120,
                         child: Image.asset(
-                            'assets/WhatsApp Image 2023-06-21 at 18.43.09.jpg'),
+                            'assets/images/kisspng-shopping-cart-3d-computer-graphics-pushing-a-shopping-cart-concept-villain-5a9850bd3616e4.1013427115199315812216.png'),
                       ),
                       SizedBox(
                         width: 10,
@@ -66,7 +62,7 @@ class _CartScreanState extends State<CartScrean> {
                       Column(
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
-                          Text('Your Amazon cart is empty'),
+                          Text('Your  cart is empty'),
                           SizedBox(
                             height: 10,
                           ),
@@ -114,18 +110,16 @@ class _CartScreanState extends State<CartScrean> {
                     )
                   ],
                 ),
-                const SizedBox(
-                  height: 339,
+                Expanded(
+                  // Expands to use available space based on flex factor
+                  flex: 1,
+                  child: SizedBox(),
                 ),
                 CustomNavigationBar(),
               ],
             ),
           )
         : Scaffold(
-            // appBar: const PreferredSize(
-            //   preferredSize: Size.fromHeight(62),
-            //   child: CustomNavigationBar(),
-            // ),
             body: Padding(
               padding: const EdgeInsets.all(8.0),
               child: SingleChildScrollView(
@@ -256,185 +250,6 @@ class _CartScreanState extends State<CartScrean> {
                           ),
                         ),
                       );
-                      //  Column(
-                      //   children: [
-                      //     Padding(
-                      //       padding: const EdgeInsets.symmetric(vertical: 8.0),
-                      //       child: Container(
-                      //         height: 230,
-                      //         width: 378,
-                      //         decoration: BoxDecoration(
-                      //           borderRadius: BorderRadius.circular(5),
-                      //           color: Colors.grey[100],
-                      //         ),
-                      //         child: Column(
-                      //           children: [
-                      //             Row(
-                      //               children: [
-                      //                 SizedBox(
-                      //                   width: 150,
-                      //                   height: 150,
-                      //                   child: Image.network(
-                      //                     product.picture,
-                      //                     fit: BoxFit.fill,
-                      //                   ),
-                      //                 ),
-                      //                 const SizedBox(
-                      //                   width: 5,
-                      //                 ),
-                      //                 Column(
-                      //                   crossAxisAlignment:
-                      //                       CrossAxisAlignment.start,
-                      //                   children: [
-                      //                     const SizedBox(
-                      //                       height: 8,
-                      //                     ),
-                      //                     ConstrainedBox(
-                      //                       constraints: const BoxConstraints(
-                      //                         maxHeight: 150,
-                      //                         maxWidth: 200,
-                      //                       ),
-                      //                       child: Text(
-                      //                         product.name,
-                      //                         maxLines: 2,
-                      //                         overflow: TextOverflow.ellipsis,
-                      //                         style: const TextStyle(
-                      //                           fontSize: 16,
-                      //                         ),
-                      //                       ),
-                      //                     ),
-                      //                     Padding(
-                      //                       padding: const EdgeInsets.only(
-                      //                           bottom: 8.0),
-                      //                       child: Row(
-                      //                         crossAxisAlignment:
-                      //                             CrossAxisAlignment.start,
-                      //                         children: [
-                      //                           Text(
-                      //                             'USD',
-                      //                             style: TextStyle(
-                      //                               color: Colors.red[900],
-                      //                             ),
-                      //                           ),
-                      //                           Text(
-                      //                             '${product.price}',
-                      //                             style: TextStyle(
-                      //                               fontSize: 35,
-                      //                               color: Colors.red[900],
-                      //                             ),
-                      //                           ),
-                      //                           Text(
-                      //                             '00',
-                      //                             style: TextStyle(
-                      //                               color: Colors.red[900],
-                      //                             ),
-                      //                           ),
-                      //                         ],
-                      //                       ),
-                      //                     ),
-                      //                     Row(
-                      //                       children: [
-                      //                         const Text(
-                      //                           'sold by:',
-                      //                           style:
-                      //                               TextStyle(color: Colors.grey),
-                      //                         ),
-                      //                         const SizedBox(
-                      //                           width: 3,
-                      //                         ),
-                      //                         Text(
-                      //                           restaurant.name,
-                      //                           style: const TextStyle(
-                      //                             color: Color(0xff287184),
-                      //                           ),
-                      //                         )
-                      //                       ],
-                      //                     ),
-                      //                   ],
-                      //                 ),
-                      //               ],
-                      //             ),
-                      //             Row(
-                      //               children: [
-                      //                 const SizedBox(width: 8),
-                      //                 Container(
-                      //                   decoration: BoxDecoration(
-                      //                     border: Border.all(
-                      //                       width: 1,
-                      //                       color: Colors.grey,
-                      //                     ),
-                      //                     borderRadius: BorderRadius.circular(5),
-                      //                   ),
-                      //                   child: Row(
-                      //                     children: [
-                      //                       IconButton(
-                      //                         icon: const Icon(Icons.remove),
-                      //                         onPressed: () {
-                      //                           setState(() {
-                      //                             if (cartItem.count > 1) {
-                      //                               cartItem.count--;
-                      //                             } else {
-                      //                               context
-                      //                                   .read<BasketBloc>()
-                      //                                   .cartItems
-                      //                                   .remove(cartItem);
-                      //                             }
-                      //                           });
-                      //                         },
-                      //                       ),
-                      //                       Text(
-                      //                           '${cartItem.count}'), // Display the count here
-                      //                       IconButton(
-                      //                         icon: const Icon(Icons.add),
-                      //                         onPressed: () {
-                      //                           setState(() {
-                      //                             cartItem.count++;
-                      //                           });
-                      //                         },
-                      //                       ),
-                      //                     ],
-                      //                   ),
-                      //                 ),
-                      //                 const SizedBox(width: 8),
-                      //                 ElevatedButton(
-                      //                   style: ElevatedButton.styleFrom(
-                      //                       backgroundColor: Colors.white),
-                      //                   onPressed: () {
-                      //                     // Implement the functionality for "Delete" button
-                      //                     // e.g., remove the item from the cart list
-                      //                     setState(() {
-                      //                       context
-                      //                           .read<BasketBloc>()
-                      //                           .cartItems
-                      //                           .remove(cartItem);
-                      //                     });
-                      //                   },
-                      //                   child: const Text(
-                      //                     'Delete',
-                      //                     style: TextStyle(color: Colors.black),
-                      //                   ),
-                      //                 ),
-                      //                 const SizedBox(width: 8),
-                      //                 ElevatedButton(
-                      //                   style: ElevatedButton.styleFrom(
-                      //                       backgroundColor: Colors.white),
-                      //                   onPressed: () {
-                      //                     // Implement the functionality for "Save for Later" button
-                      //                     // e.g., move the item to a "Saved for Later" list
-                      //                   },
-                      //                   child: const Text(
-                      //                     'Save for Later',
-                      //                     style: TextStyle(color: Colors.black),
-                      //                   ),
-                      //                 ),
-                      //               ],
-                      //             )
-                      //           ],
-                      //         ),
-                      //       ),
-                      //     ),
-                      //   ],
-                      // );
                     },
                   ),
                   SizedBox(
@@ -459,11 +274,11 @@ class _CartScreanState extends State<CartScrean> {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 1.0),
+                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
                       child: Column(
                         children: [
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Sub-Total',
@@ -471,9 +286,6 @@ class _CartScreanState extends State<CartScrean> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
-                              ),
-                              SizedBox(
-                                width: 20,
                               ),
                               Text(
                                 '${sumPrice} \$',
@@ -485,7 +297,7 @@ class _CartScreanState extends State<CartScrean> {
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Delivery Charge',
@@ -493,9 +305,6 @@ class _CartScreanState extends State<CartScrean> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
-                              ),
-                              SizedBox(
-                                width: 20,
                               ),
                               Text(
                                 '10 \$',
@@ -507,7 +316,7 @@ class _CartScreanState extends State<CartScrean> {
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Discount',
@@ -515,9 +324,6 @@ class _CartScreanState extends State<CartScrean> {
                                     fontSize: 20,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
-                              ),
-                              SizedBox(
-                                width: 20,
                               ),
                               Text(
                                 '20 \$',
@@ -529,7 +335,7 @@ class _CartScreanState extends State<CartScrean> {
                             ],
                           ),
                           Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceAround,
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Text(
                                 'Total',
@@ -537,9 +343,6 @@ class _CartScreanState extends State<CartScrean> {
                                     fontSize: 35,
                                     fontWeight: FontWeight.bold,
                                     color: Colors.white),
-                              ),
-                              SizedBox(
-                                width: 20,
                               ),
                               Text(
                                 '${sumPrice + 30} \$',

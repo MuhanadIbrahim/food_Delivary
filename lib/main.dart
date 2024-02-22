@@ -1,5 +1,5 @@
 import 'dart:io';
-
+import 'package:connectivity_plus/connectivity_plus.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
@@ -70,6 +70,14 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
+  @override
+  // void initState() {
+  //   Connectivity().onConnectivityChanged.listen;
+  //   ConnectivityService();
+  //   // TODO: implement initState
+  //   super.initState();
+  // }
+
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -122,25 +130,42 @@ class _MyAppState extends State<MyApp> {
                       const RestaurantSearchScreen(),
                   kAllRestaurantScrean: (context) => const AllRestaurantPage(),
                   kMealDetailScrean: (context) => const MealDetailScrean(),
-                  kBascketScrean:(context) => const CartScrean(),
+                  kBascketScrean: (context) => const CartScrean(),
                 },
-                home: BlocProvider(
-                  create: (context) => MyUserBloc(
-                      myUserRepository:
-                          context.read<AuthenticationBloc>().userRepository)
-                    ..add(GetMyUser(
-                        myUserId: context
-                            .read<AuthenticationBloc>()
-                            .state
-                            .user!
-                            .uid)),
-                  child: BlocProvider(
-                    create: (context) => UpdateUserInfoBloc(
-                        userRepository:
-                            context.read<AuthenticationBloc>().userRepository),
-                    child: const CustomSplashScreanWidget(),
-                  ),
-                ),
+                home: StreamBuilder<ConnectivityResult>(
+                    stream: Connectivity().onConnectivityChanged,
+                    builder: (context, snapshot) {
+                      
+                      if (snapshot.data == ConnectivityResult.wifi||
+                          snapshot.data == ConnectivityResult.mobile) {
+                        return BlocProvider(
+                          create: (context) => MyUserBloc(
+                              myUserRepository: context
+                                  .read<AuthenticationBloc>()
+                                  .userRepository)
+                            ..add(GetMyUser(
+                                myUserId: context
+                                    .read<AuthenticationBloc>()
+                                    .state
+                                    .user!
+                                    .uid)),
+                          child: BlocProvider(
+                            create: (context) => UpdateUserInfoBloc(
+                                userRepository: context
+                                    .read<AuthenticationBloc>()
+                                    .userRepository),
+                            child: const CustomSplashScreanWidget(),
+                          ),
+                        );
+                      } else {
+                        return Scaffold(
+                          body: Center(
+                            child: Image.asset(
+                                'assets/images/No_internet_connection_illustration_concept_vector003_generated.jpg'),
+                          ),
+                        );
+                      }
+                    }),
                 // Set the initial page
                 theme: ThemeData(fontFamily: 'Roboto'),
 

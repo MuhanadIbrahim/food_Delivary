@@ -1,10 +1,9 @@
 part of 'search_restaurant_bloc.dart';
 
-abstract class SearchRestaurantState extends Equatable {
+abstract class SearchRestaurantState  {
   const SearchRestaurantState();
 
-  @override
-  List<Object> get props => [];
+  
 }
 
 class SearchRestaurantInitial extends SearchRestaurantState {}
@@ -13,11 +12,11 @@ class SearchRestaurantLoading extends SearchRestaurantState {}
 
 class SearchRestaurantLoaded extends SearchRestaurantState {
   final List<MyRestaurant> restaurants;
+  final List<MyMeals> meals;
 
-  const SearchRestaurantLoaded({ required this.restaurants});
+  const SearchRestaurantLoaded({required this.meals, required this.restaurants});
 
-  @override
-  List<Object> get props => [restaurants];
+ 
 }
 
 // Optional:
@@ -26,6 +25,5 @@ class SearchRestaurantFailure extends SearchRestaurantState {
 
   const SearchRestaurantFailure(this.error);
 
-  @override
-  List<Object> get props => [error];
+ 
 }

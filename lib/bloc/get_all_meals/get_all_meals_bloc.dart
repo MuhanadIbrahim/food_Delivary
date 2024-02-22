@@ -42,6 +42,7 @@ class GetAllMealsBloc extends Bloc<GetMealsBlocEvent, GetAllMealsState> {
           final restaurants = querySnapshot.docs
               .map((doc) => MyRestaurant.fromMap(doc.data()))
               .toList();
+              
           final selectedRestaurant = restaurants[event.requiredRestaurants];
           print(
               '~~~~~~~~~~~~~~~~~~~~~selectedRestaurant~~~~${selectedRestaurant.id}');
