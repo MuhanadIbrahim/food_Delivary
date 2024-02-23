@@ -132,7 +132,11 @@ class _CartScreanState extends State<CartScrean> {
 
                   Text(
                     'Order details',
-                    style: TextStyle(fontWeight: FontWeight.bold, fontSize: 38),
+                    style: TextStyle(
+                        fontFamily: 'BentonSans Regular',
+                        fontWeight: FontWeight.w600,
+                        letterSpacing: 0.50,
+                        fontSize: 38),
                   ),
                   //  customListBuildercartscrean(sum, sumPrice),
                   ListView.builder(
