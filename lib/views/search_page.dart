@@ -6,6 +6,7 @@ import 'package:food_delivery_app/my_restaurant/restaurant.dart';
 import 'package:food_delivery_app/views/all_restaurant_page.dart';
 import 'package:food_delivery_app/widgets/content_card.dart';
 import 'package:food_delivery_app/widgets/meal_basket_card.dart';
+import 'package:food_delivery_app/widgets/serach_resulate.dart';
 
 import '../bloc/get_all_restaurant/get_all_restaurant_bloc.dart';
 
@@ -61,24 +62,26 @@ class RestaurantSearchWidget extends StatelessWidget {
                 if (state is SearchRestaurantLoaded) {
                   return Expanded(
                     child: ListView.builder(
-                      itemCount: state.restaurants.length,
+                      itemCount: state.combinData.length,
                       itemBuilder: (context, index) {
-                        RestaurantMeal restaurantMeal = RestaurantMeal(
-                            restaurant: state.restaurants[index],
-                            meal: state.meals[index]);
-                        final item = state.restaurants[index];
-                        if (restaurantMeal.restaurant is MyRestaurant) {
+                        // RestaurantMeal restaurantMeal = RestaurantMeal(
+                        //     restaurant: state.restaurants[index],
+                        //     meal: state.meals[index]);
+                        final item = state.combinData[index];
+                        if (item is RestaurantSearchResult) {
+                          var restaurant = item.restaurant;
                           return ContentResturantCard(
-                            jpg: restaurantMeal.restaurant.picture!,
-                            title: restaurantMeal.restaurant.name,
-                            subtitle: restaurantMeal.restaurant.phoneNumber.toString(),
+                            jpg: restaurant.picture!,
+                            title: restaurant.name,
+                            subtitle: restaurant.phoneNumber.toString(),
                           ); // Replace with your restaurant display widget
-                        } else if (restaurantMeal.meal is MyMeals) {
+                        } else if (item is MealSearchResault) {
+                          var meal = item.meal;
                           return MealBasketCard(
-                              jpg: restaurantMeal.meal.picture!,
-                              subtitle: restaurantMeal.meal.description,
-                              title: restaurantMeal.meal.name,
-                              price: double.parse(restaurantMeal.meal
+                              jpg: meal.picture,
+                              subtitle: meal.description,
+                              title: meal.name,
+                              price: double.parse(meal
                                   .price)); // Replace with your meal display widget
                         } else {
                           return const Text(

@@ -3,6 +3,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
 import 'package:food_delivery_app/basket/basket_item.dart';
 import 'package:food_delivery_app/my_meals/meals.dart';
+import 'package:food_delivery_app/widgets/serach_resulate.dart';
 
 import '../../my_restaurant/restaurant.dart';
 
@@ -36,10 +37,9 @@ class SearchRestaurantBloc
           .collection('meals')
           .get();
 
-           final mealsForRestaurant = mealsSnapshot.docs
-      .map((doc) => MyMeals.fromMap(doc.data()))
-      .toList();
-  meals.addAll(mealsForRestaurant); 
+      final mealsForRestaurant =
+          mealsSnapshot.docs.map((doc) => MyMeals.fromMap(doc.data())).toList();
+      meals.addAll(mealsForRestaurant);
       // meals =
       //     mealsSnapshot.docs.map((doc) => MyMeals.fromMap(doc.data())).toList();
     }
@@ -50,6 +50,7 @@ class SearchRestaurantBloc
         .where((restaurant) =>
             restaurant.name.toLowerCase().contains(query) ||
             restaurant.description.toLowerCase().contains(query))
+        .map((e) => RestaurantSearchResult(restaurant: e))
         .toList();
     restaurntMeal = [meals, initialRestaurants];
     final filteredmeal = meals
@@ -62,31 +63,13 @@ class SearchRestaurantBloc
 
           ,
         )
+        .map((e) => MealSearchResault(meal: e))
         .toList();
+    final List<SearchResult> combineData = [];
+    combineData.addAll(filteredmeal);
+    combineData.addAll(filteredRestaurants);
+    
 
-    final List<dynamic> combineData = [filteredmeal,filteredRestaurants];
-    // Filter based on query
-    // ignore: unused_local_variable
-    // final filteredResults = restaurntMeal.where((item) {
-    //   if (item is MyRestaurant) {
-    //     return item.name.toLowerCase().contains(query) ||
-    //         item.description.toLowerCase().contains(query);
-    //   } else if (item is MyMeals) {
-    //     return item.name.toLowerCase().contains(query) ||
-    //         item.description.toLowerCase().contains(query) ||
-    //         item.price.contains(query); // Search within restaurant name too
-    //   } else {
-    //     final restaurant = item as MyRestaurant?;
-    //     final meal = item as MyMeals?;
-    //     return restaurant?.name.toLowerCase().contains(query) ??
-    //         false || restaurant!.description!.toLowerCase().contains(query) ??
-    //         false || meal!.name.toLowerCase().contains(query) ??
-    //         false || meal!.description.toLowerCase().contains(query) ??
-    //         false || meal!.price.contains(query) ??
-    //         false;
-    //   }
-    // }).toList();
-
-    emit(SearchRestaurantLoaded(meals: filteredmeal,restaurants: filteredRestaurants));
+    emit(SearchRestaurantLoaded(combinData: combineData));
   }
 }
