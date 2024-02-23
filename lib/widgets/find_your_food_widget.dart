@@ -75,7 +75,6 @@ Widget findYourFood(BuildContext context) {
       GestureDetector(
         onTap: () {
           Navigator.pushNamed(context, kSearchPageScrean);
-          
         },
         child: Row(
           children: [
@@ -103,6 +102,9 @@ Widget findYourFood(BuildContext context) {
             ),
           ],
         ),
+      ),
+      SizedBox(
+        height: 12,
       )
     ],
   );

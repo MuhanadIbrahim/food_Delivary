@@ -274,7 +274,8 @@ class _CartScreanState extends State<CartScrean> {
                       ),
                     ),
                     child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 15.0),
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 18.0, vertical: 10),
                       child: Column(
                         children: [
                           Row(
@@ -283,15 +284,17 @@ class _CartScreanState extends State<CartScrean> {
                               Text(
                                 'Sub-Total',
                                 style: TextStyle(
+                                    fontFamily: 'BentonSans Bold',
                                     fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white),
                               ),
                               Text(
                                 '${sumPrice} \$',
                                 style: TextStyle(
+                                    fontFamily: 'BentonSans Bold',
                                     fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white),
                               )
                             ],
@@ -302,15 +305,17 @@ class _CartScreanState extends State<CartScrean> {
                               Text(
                                 'Delivery Charge',
                                 style: TextStyle(
+                                    fontFamily: 'BentonSans Bold',
                                     fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white),
                               ),
                               Text(
                                 '10 \$',
                                 style: TextStyle(
+                                    fontFamily: 'BentonSans Bold',
                                     fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white),
                               )
                             ],
@@ -321,15 +326,17 @@ class _CartScreanState extends State<CartScrean> {
                               Text(
                                 'Discount',
                                 style: TextStyle(
+                                    fontFamily: 'BentonSans Bold',
                                     fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white),
                               ),
                               Text(
                                 '20 \$',
                                 style: TextStyle(
+                                    fontFamily: 'BentonSans Bold',
                                     fontSize: 20,
-                                    fontWeight: FontWeight.bold,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white),
                               )
                             ],
@@ -340,15 +347,17 @@ class _CartScreanState extends State<CartScrean> {
                               Text(
                                 'Total',
                                 style: TextStyle(
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'BentonSans Bold',
+                                    fontSize: 22,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white),
                               ),
                               Text(
                                 '${sumPrice + 30} \$',
                                 style: TextStyle(
-                                    fontSize: 35,
-                                    fontWeight: FontWeight.bold,
+                                    fontFamily: 'BentonSans Bold',
+                                    fontSize: 29,
+                                    fontWeight: FontWeight.w600,
                                     color: Colors.white),
                               )
                             ],
@@ -361,14 +370,15 @@ class _CartScreanState extends State<CartScrean> {
                                 border: Border.all(
                                   color: const Color(0xffffffff),
                                 ),
-                                borderRadius: BorderRadius.circular(22),
+                                borderRadius: BorderRadius.circular(12),
                               ),
                               child: Center(
                                 child: Text(
                                   'Place My Order',
                                   style: TextStyle(
+                                      fontFamily: 'BentonSans Bold',
                                       fontWeight: FontWeight.bold,
-                                      fontSize: 22,
+                                      fontSize: 20,
                                       color: Colors.greenAccent),
                                 ),
                               ))
