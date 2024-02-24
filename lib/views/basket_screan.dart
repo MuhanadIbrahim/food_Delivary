@@ -1,8 +1,10 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/basket/basket_item.dart';
 import 'package:food_delivery_app/bloc/basket/basket_bloc.dart';
+import 'package:food_delivery_app/constans/constans.dart';
 import 'package:food_delivery_app/my_meals/meals.dart';
 import 'package:food_delivery_app/my_restaurant/restaurant.dart';
 import 'package:food_delivery_app/widgets/borderless_box_decoration.dart';
@@ -366,26 +368,32 @@ class _CartScreanState extends State<CartScrean> {
                               )
                             ],
                           ),
-                          Container(
-                              height: 50,
-                              width: MediaQuery.of(context).size.width * 0.9,
-                              decoration: BoxDecoration(
-                                color: const Color(0xffffffff),
-                                border: Border.all(
+                          GestureDetector(
+                            onTap: () {
+                              Navigator.pushReplacementNamed(
+                                  context, kSignUpSuccessNotification);
+                            },
+                            child: Container(
+                                height: 50,
+                                width: MediaQuery.of(context).size.width * 0.9,
+                                decoration: BoxDecoration(
                                   color: const Color(0xffffffff),
+                                  border: Border.all(
+                                    color: const Color(0xffffffff),
+                                  ),
+                                  borderRadius: BorderRadius.circular(12),
                                 ),
-                                borderRadius: BorderRadius.circular(12),
-                              ),
-                              child: Center(
-                                child: Text(
-                                  'Place My Order',
-                                  style: TextStyle(
-                                      fontFamily: 'BentonSans Bold',
-                                      fontWeight: FontWeight.bold,
-                                      fontSize: 20,
-                                      color: Colors.greenAccent),
-                                ),
-                              ))
+                                child: Center(
+                                  child: Text(
+                                    'Place My Order',
+                                    style: TextStyle(
+                                        fontFamily: 'BentonSans Bold',
+                                        fontWeight: FontWeight.bold,
+                                        fontSize: 20,
+                                        color: Colors.greenAccent),
+                                  ),
+                                )),
+                          )
                         ],
                       ),
                     ),

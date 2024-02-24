@@ -131,6 +131,7 @@ class _MyAppState extends State<MyApp> {
                   kAllRestaurantScrean: (context) => const AllRestaurantPage(),
                   kMealDetailScrean: (context) => const MealDetailScrean(),
                   kBascketScrean: (context) => const CartScrean(),
+                  
                 },
                 home: StreamBuilder<ConnectivityResult>(
                     stream: Connectivity().onConnectivityChanged,

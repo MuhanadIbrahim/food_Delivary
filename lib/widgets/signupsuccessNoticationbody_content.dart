@@ -25,16 +25,16 @@ class SignupSuccessNotificationBodyContent extends StatelessWidget {
             height: 10,
           ),
           const Text(
-            'Your Profile Is Ready To Use',
+            'Your Meals Is Ready To Go',
             style: TextStyle(fontWeight: FontWeight.bold, fontSize: 26),
           ),
           const Spacer(
             flex: 3,
           ),
           GestureDetector(
-            onTap: () => Navigator.pushNamed(context, kHomeScrean),
+            onTap: () => Navigator.pushReplacementNamed(context, kHomeScrean),
             child: const CustomButton(
-              title: 'Try Order',
+              title: 'Try Order Again',
             ),
           ),
           const Spacer(
