@@ -26,6 +26,17 @@ class _CustomNavigationBarState extends State<CustomNavigationBar>
   }
 
   @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    final indexFromArgs = ModalRoute.of(context)?.settings.arguments as int?;
+    if (indexFromArgs != null && _selectedIndex != indexFromArgs) {
+      setState(() {
+        _selectedIndex = indexFromArgs;
+      });
+    }
+  }
+
+  @override
   void dispose() {
     _animationController.dispose();
     super.dispose();
@@ -36,9 +47,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar>
       _selectedIndex = index;
       _animationController.forward(from: 0.0);
       if (_selectedIndex == 2) {
-        Navigator.pushNamed(context, kBascketScrean);
+        Navigator.pushNamed(context, kBascketScrean, arguments: 2);
       } else if (_selectedIndex == 0) {
-        Navigator.pushNamed(context, kHomeScrean);
+        Navigator.pushNamed(context, kHomeScrean, arguments: 0);
       }
     });
   }
@@ -54,16 +65,18 @@ class _CustomNavigationBarState extends State<CustomNavigationBar>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            _buildIcon(0, Icons.home, 'Home'),
-            _buildIcon(1, Icons.person, 'Profile'),
-            _buildIcon(2, Icons.shopping_cart, 'Cart'),
+            _buildIcon(0, 'Home', 'assets/images/wired-gradient-63-home.gif'),
+            _buildIcon(
+                1, 'Profile', 'assets/images/wired-gradient-21-avatar.gif'),
+            _buildIcon(
+                2, 'Cart', 'assets/images/wired-gradient-146-trolley.gif'),
           ],
         ),
       ),
     );
   }
 
-  Widget _buildIcon(int index, IconData icon, String text) {
+  Widget _buildIcon(int index, String text, String image) {
     return AnimatedContainer(
       duration: _animationController.duration!,
       curve: Curves.easeInOut,
@@ -78,9 +91,13 @@ class _CustomNavigationBarState extends State<CustomNavigationBar>
             ? LinearGradient(
                 begin: Alignment(0.99, -0.15),
                 end: Alignment(-0.99, 0.15),
-                colors: [Color(0xFFecfcf2), Color(0xFFe8f9f1)],
+                colors: [Colors.blue, Color(0xFFe8f9f1)],
               )
-            : null,
+            : LinearGradient(
+                begin: Alignment(0.99, -0.15),
+                end: Alignment(-0.99, 0.15),
+                colors: [Colors.black, Color(0xFFe8f9f1)],
+              ),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
@@ -90,15 +107,25 @@ class _CustomNavigationBarState extends State<CustomNavigationBar>
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
-            GradientIcon(
-              size: _selectedIndex == index ? 37 : 40,
-              icon: icon,
-              gradient: LinearGradient(
-                begin: Alignment.topLeft,
-                end: Alignment.bottomRight,
-                colors: [Color(0xff48dd89), Color(0xff1cc37a)],
-              ),
-            ),
+            _selectedIndex == index
+                ? Image(
+                    image: AssetImage(image), // Replace with your image path
+                    width: _selectedIndex == index
+                        ? 35
+                        : 40, // Adjust size as needed
+                    height: _selectedIndex == index
+                        ? 35
+                        : 40, // Adjust size as needed
+                  )
+                : Image(
+                    image: AssetImage(image), // Replace with your image path
+                    width: _selectedIndex == index
+                        ? 35
+                        : 40, // Adjust size as needed
+                    height: _selectedIndex == index
+                        ? 35
+                        : 40, // Adjust size as needed
+                  ),
             if (_selectedIndex == index)
               Flexible(
                 // Wrap text to avoid overflow
