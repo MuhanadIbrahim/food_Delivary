@@ -1,3 +1,4 @@
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_add_to_cart_button/flutter_add_to_cart_button.dart';
@@ -26,7 +27,7 @@ class _MealDetailScreanState extends State<MealDetailScrean> {
   MyRestaurant? restaurant;
   @override
   Widget build(BuildContext context) {
-   // final MyMeals meal = ModalRoute.of(context)!.settings.arguments as MyMeals;
+    // final MyMeals meal = ModalRoute.of(context)!.settings.arguments as MyMeals;
     final RestaurantMeal restaurantMeal =
         ModalRoute.of(context)!.settings.arguments as RestaurantMeal;
 
@@ -63,6 +64,16 @@ class _MealDetailScreanState extends State<MealDetailScrean> {
                     const SizedBox(
                       height: 25,
                     ),
+                    Center(
+                      child: CachedNetworkImage(
+                        imageUrl: restaurantMeal.meal.picture,
+                        progressIndicatorBuilder:
+                            (context, url, downloadProgress) =>
+                                CircularProgressIndicator(
+                                    value: downloadProgress.progress),
+                        errorWidget: (context, url, error) => Icon(Icons.error),
+                      ),
+                    ),
                     InfoForTheResturant(
                       titleResturant: restaurantMeal.meal.name,
                       bioOfResurant: restaurantMeal.meal.description,
@@ -75,26 +86,8 @@ class _MealDetailScreanState extends State<MealDetailScrean> {
                     const SizedBox(
                       height: 25,
                     ),
-                    const Text(
-                      'Testimonials',
-                      style: TextStyle(
-                        color: Color(0xFF09041B),
-                        fontSize: 18,
-                        fontFamily: 'BentonSans Bold',
-                        fontWeight: FontWeight.bold,
-                        height: 0.09,
-                      ),
-                    ),
                     const SizedBox(
                       height: 8,
-                    ),
-                    ListView.builder(
-                      physics: const ScrollPhysics(),
-                      shrinkWrap: true,
-                      itemCount: 5,
-                      itemBuilder: (BuildContext context, int index) {
-                        return const Testimonials();
-                      },
                     ),
                     Center(
                       child: Padding(
@@ -128,7 +121,8 @@ class _MealDetailScreanState extends State<MealDetailScrean> {
                           onPressed: (id) {
                             if (id == AddToCartButtonStateId.idle) {
                               context.read<BasketBloc>().add(BasketEventAdd(
-                                  meal: restaurantMeal.meal, restaurant: restaurantMeal.restaurant));
+                                  meal: restaurantMeal.meal,
+                                  restaurant: restaurantMeal.restaurant));
                               HapticFeedback.heavyImpact();
                               ScaffoldMessenger.of(context).showSnackBar(
                                 const SnackBar(

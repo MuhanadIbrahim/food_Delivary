@@ -1,5 +1,6 @@
 import 'dart:async';
 
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:food_delivery_app/bloc/meal_required_restaurant/meal_required_restaurant_bloc.dart';
@@ -55,6 +56,12 @@ class _MyCustomWidgetUsingFetchedDataState
               const SizedBox(
                 height: 25,
               ),
+              CachedNetworkImage(
+                imageUrl: widget.restaurant.picture.toString(),
+                progressIndicatorBuilder: (context, url, downloadProgress) =>
+                    CircularProgressIndicator(value: downloadProgress.progress),
+                errorWidget: (context, url, error) => Icon(Icons.error),
+              ),
               InfoForTheResturant(
                 titleResturant: widget.restaurant.name,
                 bioOfResurant: widget.restaurant.description,
@@ -75,27 +82,6 @@ class _MyCustomWidgetUsingFetchedDataState
               const SizedBox(
                 height: 25,
               ),
-              const Text(
-                'Testimonials',
-                style: TextStyle(
-                  color: Color(0xFF09041B),
-                  fontSize: 18,
-                  fontFamily: 'BentonSans Bold',
-                  fontWeight: FontWeight.bold,
-                  height: 0.09,
-                ),
-              ),
-              const SizedBox(
-                height: 8,
-              ),
-              ListView.builder(
-                physics: const ScrollPhysics(),
-                shrinkWrap: true,
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
-                  return const Testimonials();
-                },
-              )
             ],
           ),
         ),
