@@ -1,3 +1,4 @@
+import 'package:awesome_dialog/awesome_dialog.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/Flutter_bloc.dart';
@@ -32,8 +33,8 @@ Widget findYourFood(BuildContext context) {
             ),
             GestureDetector(
               onTap: () async {
-                context.read<SignInBloc>().add(const SignOutRequired());
-                Navigator.pushReplacementNamed(context, kLoginScrean);
+                // context.read<SignInBloc>().add(const SignOutRequired());
+                // Navigator.pushReplacementNamed(context, kLoginScrean);
               },
               child: Container(
                 width: 0.09 * MediaQuery.of(context).size.shortestSide,
@@ -61,6 +62,52 @@ Widget findYourFood(BuildContext context) {
                 ),
                 child: Icon(
                   Icons.notifications_none,
+                  size: 40.sp,
+                  color: const Color(0xff14be77),
+                ),
+              ),
+            ),
+            GestureDetector(
+              onTap: () async {
+                AwesomeDialog(
+                  context: context,
+                  dialogType: DialogType.info,
+                  animType: AnimType.rightSlide,
+                  title: 'Want to Exit',
+                  desc: 'press ok to exit',
+                  btnCancelOnPress: () {},
+                  btnOkOnPress: () {
+                    context.read<SignInBloc>().add(const SignOutRequired());
+                    Navigator.pushReplacementNamed(context, kLoginScrean);
+                  },
+                )..show();
+              },
+              child: Container(
+                width: 0.09 * MediaQuery.of(context).size.shortestSide,
+                height: 0.09 * MediaQuery.of(context).size.shortestSide,
+                decoration: ShapeDecoration(
+                  color: const Color(0xFFFAFDFF),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(15),
+                  ),
+                  shadows: [
+                    BoxShadow(
+                      color: Color(0x33134D5A),
+                      blurRadius: MediaQuery.of(context).size.width > 600
+                          ? 50
+                          : 25, // Adjust blur based on screen width
+                      offset: Offset(
+                          MediaQuery.of(context).size.width * 0.02,
+                          MediaQuery.of(context).size.height *
+                              0.05), // Scale offset proportionally
+                      spreadRadius: MediaQuery.of(context).size.width > 800
+                          ? 5
+                          : 0, // Optional spread adjustment
+                    )
+                  ],
+                ),
+                child: Icon(
+                  Icons.exit_to_app,
                   size: 40.sp,
                   color: const Color(0xff14be77),
                 ),
