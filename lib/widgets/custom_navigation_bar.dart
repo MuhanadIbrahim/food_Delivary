@@ -91,13 +91,9 @@ class _CustomNavigationBarState extends State<CustomNavigationBar>
             ? LinearGradient(
                 begin: Alignment(0.99, -0.15),
                 end: Alignment(-0.99, 0.15),
-                colors: [Colors.blue, Color(0xFFe8f9f1)],
+                colors: [Color(0xFF90EE90), Color(0xFFe8f9f1)],
               )
-            : LinearGradient(
-                begin: Alignment(0.99, -0.15),
-                end: Alignment(-0.99, 0.15),
-                colors: [Colors.black, Color(0xFFe8f9f1)],
-              ),
+            : null,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(12),
         ),
