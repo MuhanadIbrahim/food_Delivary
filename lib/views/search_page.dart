@@ -70,11 +70,17 @@ class RestaurantSearchWidget extends StatelessWidget {
                         final item = state.combinData[index];
                         if (item is RestaurantSearchResult) {
                           var restaurant = item.restaurant;
-                          return ContentResturantCard(
+                          return RestaurantBasketCard(
                             jpg: restaurant.picture!,
                             title: restaurant.name,
-                            subtitle: restaurant.phoneNumber.toString(),
-                          ); // Replace with your restaurant display widget
+                            phoneNumber: restaurant.phoneNumber.toString(),
+                            subtitle: restaurant.description,
+                          );
+                          // return ContentResturantCard(
+                          //   jpg: restaurant.picture!,
+                          //   title: restaurant.name,
+                          //   subtitle: restaurant.phoneNumber.toString(),
+                          // ); // Replace with your restaurant display widget
                         } else if (item is MealSearchResault) {
                           var meal = item.meal;
                           return MealBasketCard(
